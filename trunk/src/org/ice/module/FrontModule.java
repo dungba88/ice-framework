@@ -44,9 +44,16 @@ public class FrontModule {
 		}
 		
 		if (Config.errorHandler != null && exception != null)	{
-			Config.errorHandler.setException(exception);
-			httpResponse.clearContent();
-			dispatchModule(Config.errorHandler, httpResponse, "error");
+			Class<?> c = Config.errorHandler.getClass();
+			try {
+				IErrorHandler handler = (IErrorHandler) c.newInstance();
+				handler.setException(exception);
+				httpResponse.clearContent();
+				dispatchModule(handler, httpResponse, "error");
+			} catch (Exception ex)	{
+				httpResponse.setStatus(500);
+				httpResponse.setException(ex);
+			}
 		}
 		
 		httpResponse.sendResponse();
