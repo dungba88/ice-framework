@@ -4,12 +4,12 @@ import javax.servlet.ServletContext;
 
 import org.ice.db.AdapterFactory;
 import org.ice.logger.Logger;
-import org.ice.module.ErrorHandler;
+import org.ice.module.IErrorHandler;
 
 public class Config {
 	
 	public static boolean debugMode;
-	public static ErrorHandler errorHandler;
+	public static IErrorHandler errorHandler;
 	public static String version = "1.0";
 	
 	public static void load(ServletContext sc)	{
@@ -24,8 +24,8 @@ public class Config {
 			try {
 				Class<?> c = Class.forName(handler);
 				Object obj = c.newInstance();
-				if (obj instanceof ErrorHandler)	{
-					errorHandler = (ErrorHandler) obj;
+				if (obj instanceof IErrorHandler)	{
+					errorHandler = (IErrorHandler) obj;
 				} else {
 					Logger.getLogger().log("Invalid error handler: "+handler, Logger.LEVEL_WARNING);
 				}
