@@ -1,0 +1,61 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<web-app xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns="http://java.sun.com/xml/ns/javaee" xmlns:web="http://java.sun.com/xml/ns/javaee/web-app_2_5.xsd" xsi:schemaLocation="http://java.sun.com/xml/ns/javaee http://java.sun.com/xml/ns/javaee/web-app_3_0.xsd" id="WebApp_ID" version="3.0">
+  
+  <!-- Application-specific Configurations -->
+  
+  <display-name>ice-framework</display-name>
+  <!-- application environment -->
+  <context-param>
+  	<param-name>ice.app.env</param-name>
+  	<param-value>development</param-value>
+  </context-param>
+  <context-param>
+  	<param-name>ice.app.errorhandler</param-name>
+  	<param-value>org.ice.module.ErrorHandler</param-value>
+  </context-param>
+  <!-- database -->
+  <context-param>
+  	<param-name>ice.db.host</param-name>
+  	<param-value>localhost</param-value>
+  </context-param>
+  <context-param>
+  	<param-name>ice.db.port</param-name>
+  	<param-value>3306</param-value>
+  </context-param>
+  <context-param>
+  	<param-name>ice.db.name</param-name>
+  	<param-value>bkprofile</param-value>
+  </context-param>
+  <context-param>
+  	<param-name>ice.db.username</param-name>
+  	<param-value>bkprofile</param-value>
+  </context-param>
+  <context-param>
+  	<param-name>ice.db.password</param-name>
+  	<param-value>bk@2010</param-value>
+  </context-param>
+  <context-param>
+  	<param-name>ice.db.adapter</param-name>
+  	<param-value>org.ice.db.MySqlAdapter</param-value>
+  </context-param>
+  
+  <!-- Framework Recommended Configurations -->
+  <servlet>
+    <servlet-name>module</servlet-name>
+    <servlet-class>org.ice.ModuleServlet</servlet-class>
+  </servlet>
+  <servlet-mapping>
+    <servlet-name>module</servlet-name>
+    <url-pattern>/*</url-pattern>
+  </servlet-mapping>
+  <session-config>
+    <session-timeout>30</session-timeout>
+  </session-config>
+  <listener>
+	<listener-class>org.ice.listener.IceListener</listener-class>
+  </listener>
+  <mime-mapping>
+    <extension>ico</extension>
+    <mime-type>image/x-icon</mime-type>
+  </mime-mapping>
+</web-app>
