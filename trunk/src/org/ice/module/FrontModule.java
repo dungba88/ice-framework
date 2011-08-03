@@ -23,6 +23,11 @@ public class FrontModule {
 		router = new DefaultRouter();
 	}
 	
+	/**
+	 * Dispatch the request and send the response to client.
+	 * @param request
+	 * @param response
+	 */
 	public void dispatch(HttpServletRequest request, HttpServletResponse response)	{
 		this.request = requestParser.parseRequest(new HttpRequest(request));
 		HttpResponse httpResponse = new HttpResponse(response);
@@ -47,7 +52,14 @@ public class FrontModule {
 		httpResponse.sendResponse();
 		httpResponse = null;
 	}
-	
+
+	/**
+	 * Dispatch request to the specified module
+	 * @param module
+	 * @param httpResponse
+	 * @param task
+	 * @return
+	 */
 	private Exception dispatchModule(IModule module, HttpResponse httpResponse, String task) {
 		try {
 			module.setRequest(this.request);

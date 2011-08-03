@@ -13,4 +13,8 @@ public class Logger {
 			logger = new ConsoleLogger();
 		return logger;
 	}
+	
+	public static void setLogger(ILogger logger)	{
+		Logger.logger = logger;
+	}
 }
