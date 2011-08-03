@@ -5,6 +5,7 @@ import java.lang.reflect.Method;
 
 import javax.servlet.http.Cookie;
 
+import org.ice.Config;
 import org.ice.exception.IceException;
 import org.ice.http.HttpRequest;
 import org.ice.http.HttpResponse;
@@ -36,8 +37,8 @@ public abstract class HttpModule implements IModule {
 	@Override
 	public void dispatch(String task) throws IceException {
 		if (view != null)	{
-			view.setRequest(request.getUnderlyingRequest());
-			view.setResponse(response.getUnderlyingResponse());
+			view.setRequest(request);
+			view.setResponse(response);
 		}
 		
 		this.preDispatch ();
@@ -54,7 +55,8 @@ public abstract class HttpModule implements IModule {
 		this.postDispatch ();
 		
 		if (isUsingTemplate())	{
-			view.setTemplate(template);
+			setContentType("text/html");
+			view.setTemplate(getResourceUrl()+template);
 			view.render();
 		}
 	}
@@ -142,6 +144,10 @@ public abstract class HttpModule implements IModule {
 
 	public String getBaseUrl()	{
 		return request.getBaseUrl();
+	}
+	
+	public String getResourceUrl()	{
+		return Config.resourceUrl;
 	}
 	
 	public void echo(String s)	{

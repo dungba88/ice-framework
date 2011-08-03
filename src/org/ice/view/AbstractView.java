@@ -1,36 +1,40 @@
 package org.ice.view;
 
-import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletResponse;
+import java.util.HashMap;
+import java.util.Map;
+
+import org.ice.http.HttpRequest;
+import org.ice.http.HttpResponse;
 
 public abstract class AbstractView {
 
-	protected HttpServletRequest request;
-	protected HttpServletResponse response;
+	protected HttpRequest request;
+	protected HttpResponse response;
 	protected String template;
+	protected Map<String, Object> params;
 	
 	public AbstractView()	{
-		
+		params = new HashMap<String, Object>();
 	}
 	
-	public AbstractView(HttpServletRequest request, HttpServletResponse response)	{
+	public AbstractView(HttpRequest request, HttpResponse response)	{
 		this.request = request;
 		this.response = response;
 	}
 	
-	public HttpServletRequest getRequest() {
+	public HttpRequest getRequest() {
 		return request;
 	}
 
-	public void setRequest(HttpServletRequest request) {
+	public void setRequest(HttpRequest request) {
 		this.request = request;
 	}
 
-	public HttpServletResponse getResponse() {
+	public HttpResponse getResponse() {
 		return response;
 	}
 
-	public void setResponse(HttpServletResponse response) {
+	public void setResponse(HttpResponse response) {
 		this.response = response;
 	}
 	
@@ -38,8 +42,12 @@ public abstract class AbstractView {
 		this.template = template;
 	}
 	
-	public void setAttributes(String name, String value)	{
-		request.setAttribute(name, value);
+	public void setParam(String name, Object value)	{
+		params.put(name, value);
+	}
+	
+	public Object getParam(String name)	{
+		return params.get(name);
 	}
 	
 	public abstract void render();

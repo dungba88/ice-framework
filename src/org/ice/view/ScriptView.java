@@ -1,32 +1,47 @@
 package org.ice.view;
 
-import javax.servlet.RequestDispatcher;
-import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletResponse;
+import java.io.BufferedReader;
+import java.io.InputStream;
+import java.io.InputStreamReader;
+import java.util.Set;
 
-import org.ice.logger.Logger;
+import org.ice.Config;
+import org.ice.http.HttpRequest;
+import org.ice.http.HttpResponse;
 
 public class ScriptView extends AbstractView {
 	
 	public ScriptView()	{
-		
+		super();
 	}
 	
-	public ScriptView(HttpServletRequest request, HttpServletResponse response)	{
+	public ScriptView(HttpRequest request, HttpResponse response)	{
 		super(request, response);
 	}
 
 	@Override
 	public void render() {
-		RequestDispatcher dispatcher = request.getRequestDispatcher(template);
-		if (dispatcher != null)	{
-			try {
-				dispatcher.include(request, response);
-			} catch (Exception ex)	{
-				Logger.getLogger().log("Template throws Exception: "+ex.toString(), Logger.LEVEL_WARNING);
+		InputStream is = Config.servletContext.getResourceAsStream(template);
+		if (is == null)	{
+			response.appendBody("Template not found: "+template);
+			return;
+		}
+		try {
+			StringBuilder builder = new StringBuilder();
+			BufferedReader br = new BufferedReader(new InputStreamReader(is));
+			String text = "";
+			while((text = br.readLine())!=null)	{
+				builder.append(text);
 			}
-		} else {
-			Logger.getLogger().log("Template not found: "+template, Logger.LEVEL_WARNING);
+			text = builder.toString();
+			Set<String> keys = params.keySet();
+			for(String key: keys)	{
+				Object value = params.get(key);
+				text = text.replaceAll("\\{"+key+"\\}", value.toString());
+			}
+			response.appendBody(text);
+		} catch (Exception ex)	{
+			response.appendBody("Failed to read template: "+ex.toString());
 		}
 	}
 }
