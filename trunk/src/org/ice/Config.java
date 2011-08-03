@@ -11,8 +11,12 @@ public class Config {
 	public static boolean debugMode;
 	public static IErrorHandler errorHandler;
 	public static String version = "1.0";
+	public static String resourceUrl;
+	public static ServletContext servletContext;
 	
 	public static void load(ServletContext sc)	{
+		servletContext = sc;
+		
 		//Application environment
 		debugMode = false;
 		String appEnv = sc.getInitParameter("ice.app.env");
@@ -33,6 +37,11 @@ public class Config {
 				Logger.getLogger().log("Error handler not found: "+handler, Logger.LEVEL_WARNING);
 			}
 		}
+		
+		//path
+		resourceUrl = sc.getInitParameter("ice.path.resource");
+		if (resourceUrl == null)
+			resourceUrl = "resource";
 		
 		//Database
 		String host = sc.getInitParameter("ice.db.host");

@@ -7,6 +7,8 @@ import java.sql.ResultSetMetaData;
 import java.sql.SQLException;
 import java.util.ArrayList;
 
+import org.ice.Config;
+import org.ice.logger.Logger;
 import org.ice.utils.FieldUtils;
 
 public abstract class Adapter {
@@ -23,6 +25,9 @@ public abstract class Adapter {
 
 	public ResultSet executeSelect(String query, Object data) throws SQLException	{
 		ParsedQuery parsed = parseQuery(query);
+		if (Config.debugMode)
+			Logger.getLogger().log(parsed.query, Logger.LEVEL_NOTICE);
+		
 		PreparedStatement statement = connection.prepareStatement(parsed.query);
 		for(int i=0;i<parsed.params.size();i++)	{
 			statement.setObject(i+1, FieldUtils.getValue(data, parsed.params.get(i)));
