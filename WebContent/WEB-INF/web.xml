@@ -38,8 +38,16 @@
   	<param-name>ice.db.adapter</param-name>
   	<param-value>org.ice.db.MySqlAdapter</param-value>
   </context-param>
+  <context-param>
+  	<param-name>ice.path.resource</param-name>
+  	<param-value>/resource</param-value>
+  </context-param>
   
   <!-- Framework Recommended Configurations -->
+  <servlet-mapping>
+    <servlet-name>default</servlet-name>
+    <url-pattern>/resource/*</url-pattern>
+  </servlet-mapping>
   <servlet>
     <servlet-name>module</servlet-name>
     <servlet-class>org.ice.ModuleServlet</servlet-class>
