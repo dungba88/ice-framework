@@ -9,11 +9,19 @@ import org.ice.module.HttpModule;
 
 public class IndexModule extends HttpModule {
 	
+	public void init()	{
+		setContentType("text/html");
+	}
+	
 	public void indexTask() throws Exception	{
 		User user = new User();
-		user.id = 1;
+		user.id = 227;
 		user.load();
 		echo ("Hello "+user.username);
+	}
+	
+	public void exceptionTask() throws Exception	{
+		throw new Exception("Exception roi ku");
 	}
 	
 	public void getAdminsTask() throws Exception	{
@@ -45,6 +53,6 @@ public class IndexModule extends HttpModule {
 	}
 	
 	public void postDispatch()	{
-//		echo("<br />This string is appended in all tasks: <br />Base URL: "+getBaseUrl());
+		echo("<br />This string is appended in all tasks: <br />Base URL: "+getBaseUrl());
 	}
 }

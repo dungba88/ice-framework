@@ -39,8 +39,8 @@ public class FrontModule {
 		}
 		
 		if (Config.errorHandler != null && exception != null)	{
-			httpResponse.clearContent();
 			Config.errorHandler.setException(exception);
+			httpResponse.clearContent();
 			dispatchModule(Config.errorHandler, httpResponse, "error");
 		}
 		

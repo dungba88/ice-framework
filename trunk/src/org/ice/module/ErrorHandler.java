@@ -2,7 +2,7 @@ package org.ice.module;
 
 import org.ice.Config;
 
-public class ErrorHandler extends HttpModule {
+public class ErrorHandler extends HttpModule implements IErrorHandler {
 	
 	private Exception exception;
 	
