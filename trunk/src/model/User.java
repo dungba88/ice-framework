@@ -20,4 +20,10 @@ public class User extends Table {
 		role = "admin";
 		return this.select("role = ?role");
 	}
+	
+	public void edit() throws Exception {
+		role = "admin";
+		username = "hehe";
+		this.update("role,username");
+	}
 }

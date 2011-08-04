@@ -35,6 +35,18 @@ public abstract class Adapter {
 		return statement.executeQuery();
 	}
 	
+	public int executeUpdate(String query, Object data) throws SQLException {
+		ParsedQuery parsed = parseQuery(query);
+		if (Config.debugMode)
+			debugSql(parsed, data);
+		
+		PreparedStatement statement = connection.prepareStatement(parsed.query);
+		for(int i=0;i<parsed.params.size();i++)	{
+			statement.setObject(i+1, FieldUtils.getValue(data, parsed.params.get(i)));
+		}
+		return statement.executeUpdate();
+	}
+	
 	private void debugSql(ParsedQuery parsed, Object data) {
 		StringBuilder builder = new StringBuilder(parsed.query);
 		builder.append(" (");
@@ -61,10 +73,12 @@ public abstract class Adapter {
 	
 	public abstract String getDriverName();
 
-	public abstract boolean load(String table, String key, Object obj) throws Exception;
+	public abstract boolean load(Table obj) throws Exception;
 	
-	public abstract ArrayList select(String table, Object obj, String where, String choice, 
+	public abstract ArrayList select(Table obj, String where, String choice, 
 			String order, String group, int pageIndex, int pageSize) throws Exception;
+	
+	public abstract int update(Table obj, String fields, String where) throws Exception;
 	
 	public abstract String getConnectionString(String host, String port, String dbName);
 	

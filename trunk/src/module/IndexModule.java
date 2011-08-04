@@ -22,7 +22,7 @@ public class IndexModule extends HttpModule {
 	public void indexTask() throws Exception	{
 		User user = new User();
 		user.id = 227;
-		user.load();
+		user.edit();
 		echo ("Hello "+user.username);
 	}
 	
