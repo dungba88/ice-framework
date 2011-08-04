@@ -139,9 +139,9 @@ public abstract class HttpModule implements IModule {
 	}
 	
 	public void redirect(String url)	{
-		
+		response.redirect(url);
 	}
-
+	
 	public String getBaseUrl()	{
 		return request.getBaseUrl();
 	}

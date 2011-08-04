@@ -11,7 +11,7 @@
   </context-param>
   <context-param>
   	<param-name>ice.app.errorhandler</param-name>
-  	<param-value>org.ice.module.ErrorHandler</param-value>
+  	<param-value>module.AjaxErrorModule</param-value>
   </context-param>
   <!-- database -->
   <context-param>
