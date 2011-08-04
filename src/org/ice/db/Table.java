@@ -19,18 +19,26 @@ public class Table {
 	}
 	
 	public boolean load() throws Exception	{
-		return adapter.load(table, key, this);
+		return adapter.load(this);
 	}
 	
 	public ArrayList select(String where) throws Exception	{
-		return adapter.select(table, this, where, null, null, null, -1, -1);
+		return adapter.select(this, where, null, null, null, -1, -1);
 	}
 	
 	public ArrayList select(String where, String choice, String order, String group) throws Exception	{
-		return adapter.select(table, this, where, choice, order, group, -1, -1);
+		return adapter.select(this, where, choice, order, group, -1, -1);
 	}
 	
 	public ArrayList select(String where, String choice, String order, String group, int pageIndex, int pageSize) throws Exception	{
-		return adapter.select(table, this, where, choice, order, group, pageIndex, pageSize);
+		return adapter.select(this, where, choice, order, group, pageIndex, pageSize);
+	}
+	
+	public int update(String fields) throws Exception {
+		return adapter.update(this, fields, null);
+	}
+	
+	public int update(String fields, String where) throws Exception {
+		return adapter.update(this, fields, where);
 	}
 }

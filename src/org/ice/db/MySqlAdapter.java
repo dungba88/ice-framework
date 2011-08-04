@@ -11,8 +11,8 @@ public class MySqlAdapter extends Adapter {
 	}
 
 	@Override
-	public boolean load(String table, String key, Object obj) throws Exception {
-		String query = "SELECT * FROM `"+table+"` WHERE `"+key+"` = ?"+key;
+	public boolean load(Table obj) throws Exception {
+		String query = "SELECT * FROM `"+obj.table+"` WHERE `"+obj.key+"` = ?"+obj.key;
 		ResultSet rs = this.executeSelect(query, obj);
 		if (rs.first())	{
 			extendObject(rs, obj);
@@ -21,12 +21,32 @@ public class MySqlAdapter extends Adapter {
 		return false;
 	}
 	
-	public ArrayList select(String table, Object obj, String where, String choice, 
+	@Override
+	public int update(Table obj, String fields, String where) throws Exception {
+		String[] fieldArr = fields.split(",");
+		StringBuilder builder = new StringBuilder("UPDATE `"+obj.table+"` SET ");
+		for(int i=0;i<fieldArr.length;i++)	{
+			String f = fieldArr[i];
+			builder.append(f+" = ?"+f);
+			if (i<fieldArr.length-1)	{
+				builder.append(" , ");
+			}
+		}
+		
+		if (where == null || where.isEmpty())	{
+			where = obj.key + " = ?"+obj.key;
+		}
+		
+		builder.append(" WHERE "+where);
+		return this.executeUpdate(builder.toString(), obj);
+	}
+	
+	public ArrayList select(Table obj, String where, String choice, 
 			String order, String group, int pageIndex, int pageSize) throws Exception	{
 		ArrayList list = new ArrayList();
 		if (choice == null || choice.isEmpty()) 
 			choice = "*";
-		String query = "SELECT "+choice+" FROM `"+table+"`";
+		String query = "SELECT "+choice+" FROM `"+obj.table+"`";
 		if (where != null && !where.isEmpty())
 			query += " WHERE "+where;
 		if (order != null && !order.isEmpty())
