@@ -29,7 +29,7 @@ public interface IModule {
 	 * Dispatch the request
 	 * @throws IceException 
 	 */
-	public void dispatch(String task) throws IceException;
+	public void dispatch(String task) throws Exception;
 	
 	/**
 	 * Lifecycle callback method

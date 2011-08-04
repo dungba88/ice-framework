@@ -15,4 +15,9 @@ public class IceException extends Exception {
 		super(exception);
 		this.status = status;
 	}
+
+	public IceException(Throwable targetException, int status) {
+		super(targetException);
+		this.status = status;
+	}
 }

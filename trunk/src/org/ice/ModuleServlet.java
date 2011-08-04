@@ -6,6 +6,12 @@ import javax.servlet.http.HttpServletResponse;
 
 import org.ice.module.FrontModule;
 
+/**
+ * This is the entry-point servlet of every Ice applications
+ * It just forwards the request to the FrontModule
+ * @author Griever
+ *
+ */
 public class ModuleServlet extends HttpServlet {
 	
 	private static final long serialVersionUID = 1059690109835686359L;

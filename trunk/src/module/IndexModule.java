@@ -7,6 +7,8 @@ import model.User;
 
 import org.ice.module.HttpModule;
 
+import exception.AccessDeniedException;
+
 public class IndexModule extends HttpModule {
 	
 	public void init()	{
@@ -22,6 +24,10 @@ public class IndexModule extends HttpModule {
 		user.id = 227;
 		user.load();
 		echo ("Hello "+user.username);
+	}
+	
+	public void permissionTask() throws Exception	{
+		throw new AccessDeniedException("You are not allowed to take this action");
 	}
 	
 	/**

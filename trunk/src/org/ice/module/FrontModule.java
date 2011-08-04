@@ -11,6 +11,12 @@ import org.ice.http.HttpResponse;
 import org.ice.module.router.DefaultRouter;
 import org.ice.utils.StringUtils;
 
+/**
+ * The front module, which receives request from ModuleServlet,
+ * parse and dispatch the request to corresponding modules.
+ * @author Griever
+ *
+ */
 public class FrontModule {
 
 	protected boolean dispatched;
