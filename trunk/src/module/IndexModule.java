@@ -79,6 +79,7 @@ public class IndexModule extends HttpModule {
 	public void viewTask()	{
 		setTemplate("/index.htm");
 		view.setParam("title", "hello");
+		view.setParam("username", "griever");
 	}
 	
 	/**

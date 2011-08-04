@@ -26,7 +26,7 @@ public abstract class Adapter {
 	public ResultSet executeSelect(String query, Object data) throws SQLException	{
 		ParsedQuery parsed = parseQuery(query);
 		if (Config.debugMode)
-			Logger.getLogger().log(parsed.query, Logger.LEVEL_NOTICE);
+			debugSql(parsed, data);
 		
 		PreparedStatement statement = connection.prepareStatement(parsed.query);
 		for(int i=0;i<parsed.params.size();i++)	{
@@ -35,6 +35,17 @@ public abstract class Adapter {
 		return statement.executeQuery();
 	}
 	
+	private void debugSql(ParsedQuery parsed, Object data) {
+		StringBuilder builder = new StringBuilder(parsed.query);
+		builder.append(" (");
+		for(String p: parsed.params)	{
+			Object obj = FieldUtils.getValue(data, p);
+			builder.append("'"+obj+"',");
+		}
+		builder.append("END)");
+		Logger.getLogger().log(builder.toString(), Logger.LEVEL_NOTICE);
+	}
+
 	protected Object extendObject(ResultSet rs, Object obj) throws SQLException	{
 		ResultSetMetaData rsmd = rs.getMetaData();
 		int count = rsmd.getColumnCount();
