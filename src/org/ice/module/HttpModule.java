@@ -35,7 +35,7 @@ public abstract class HttpModule implements IModule {
 	}
 
 	@Override
-	public void dispatch(String task) throws IceException {
+	public void dispatch(String task) throws Exception {
 		if (view != null)	{
 			view.setRequest(request);
 			view.setResponse(response);
@@ -47,7 +47,10 @@ public abstract class HttpModule implements IModule {
 			Method method = this.getClass().getMethod(task+"Task", new Class<?>[0]);
 			method.invoke(this, new Object[0]);
 		} catch(InvocationTargetException ex) {
-			throw new IceException(ex.toString()+" caught with root cause: "+ex.getTargetException(), 500);
+			Throwable target = ex.getTargetException();
+			if (target instanceof Exception)
+				throw (Exception)target;
+			throw new IceException(ex.getTargetException(), 500);
 		} catch (Exception ex)	{
 			throw new IceException("Task ["+request.getTaskName()+"] not found for module ["+request.getModuleName()+"]", 404);
 		}

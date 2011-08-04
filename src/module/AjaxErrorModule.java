@@ -8,6 +8,8 @@ public class AjaxErrorModule extends BaseAjaxModule implements IErrorHandler {
 	private Exception exception;
 
 	public void errorTask()	{
+		if (exception instanceof exception.AccessDeniedException)	{
+		}
 		result = new Result(false, exception.getMessage(), exception.getClass().getCanonicalName());
 	}
 
