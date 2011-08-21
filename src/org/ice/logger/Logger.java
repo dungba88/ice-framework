@@ -1,6 +1,7 @@
 package org.ice.logger;
 
 public class Logger {
+	public static final int LEVEL_DEBUG = 0;
 	public static final int LEVEL_NOTICE = 1;
 	public static final int LEVEL_WARNING = 2;
 	public static final int LEVEL_ERROR = 3;

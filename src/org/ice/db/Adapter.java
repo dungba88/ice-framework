@@ -54,8 +54,10 @@ public abstract class Adapter {
 			Object obj = FieldUtils.getValue(data, p);
 			builder.append("'"+obj+"',");
 		}
-		builder.append("END)");
-		Logger.getLogger().log(builder.toString(), Logger.LEVEL_NOTICE);
+		if (builder.charAt(builder.length()-1) == ',')	{
+			builder.setCharAt(builder.length()-1, ')');
+		}
+		Logger.getLogger().log(builder.toString(), Logger.LEVEL_DEBUG);
 	}
 
 	protected Object extendObject(ResultSet rs, Object obj) throws SQLException	{

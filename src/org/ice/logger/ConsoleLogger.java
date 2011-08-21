@@ -5,6 +5,9 @@ public class ConsoleLogger extends AbstractLogger {
 	@Override
 	protected void doLog(String msg, int level) {
 		switch(level)	{
+		case Logger.LEVEL_DEBUG: 
+			System.out.println("[DEBUG] "+msg);
+			break;
 		case Logger.LEVEL_NOTICE: 
 			System.out.println("[NOTICE] "+msg);
 			break;
