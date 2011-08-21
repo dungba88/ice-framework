@@ -7,6 +7,7 @@ import javax.servlet.http.Cookie;
 
 import org.ice.Config;
 import org.ice.exception.IceException;
+import org.ice.exception.NotFoundException;
 import org.ice.http.HttpRequest;
 import org.ice.http.HttpResponse;
 import org.ice.view.AbstractView;
@@ -52,7 +53,7 @@ public abstract class HttpModule implements IModule {
 				throw (Exception)target;
 			throw new IceException(ex.getTargetException(), 500);
 		} catch (Exception ex)	{
-			throw new IceException("Task ["+request.getTaskName()+"] not found for module ["+request.getModuleName()+"]", 404);
+			throw new NotFoundException("Task ["+request.getTaskName()+"] not found for module ["+request.getModuleName()+"]");
 		}
 		
 		this.postDispatch ();

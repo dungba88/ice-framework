@@ -1,6 +1,5 @@
-package exception;
+package org.ice.exception;
 
-import org.ice.exception.IceException;
 
 public class AccessDeniedException extends IceException {
 

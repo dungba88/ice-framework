@@ -5,9 +5,9 @@ import java.util.Date;
 
 import model.User;
 
+import org.ice.exception.AccessDeniedException;
 import org.ice.module.HttpModule;
 
-import exception.AccessDeniedException;
 
 public class IndexModule extends HttpModule {
 	
@@ -35,7 +35,7 @@ public class IndexModule extends HttpModule {
 	 * @throws Exception
 	 */
 	public void exceptionTask() throws Exception	{
-		throw new Exception("Exception roi ku");
+		throw new AccessDeniedException("You are allowed to take this action");
 	}
 	
 	/**

@@ -16,6 +16,7 @@ public class User extends Table {
 		this.key = "id";
 	}
 	
+	@SuppressWarnings("unchecked")
 	public ArrayList<User> getAdmins() throws Exception	{
 		role = "admin";
 		return this.select("role = ?role");
