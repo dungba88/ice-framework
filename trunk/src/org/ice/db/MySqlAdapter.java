@@ -49,11 +49,11 @@ public class MySqlAdapter extends Adapter {
 		String query = "SELECT "+choice+" FROM `"+obj.table+"`";
 		if (where != null && !where.isEmpty())
 			query += " WHERE "+where;
-		if (order != null && !order.isEmpty())
-			query += " ORDER BY "+order;
 		if (group != null && !group.isEmpty())
 			query += " GROUP BY "+group;
-		if (pageIndex > 0 && pageSize > 0)
+		if (order != null && !order.isEmpty())
+			query += " ORDER BY "+order;
+		if (pageIndex >= 0 && pageSize > 0)
 			query += " LIMIT "+pageIndex*pageSize+","+pageSize;
 		
 		ResultSet rs = this.executeSelect(query, obj);
