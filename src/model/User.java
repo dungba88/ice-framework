@@ -2,17 +2,17 @@ package model;
 
 import java.util.ArrayList;
 
-import org.ice.db.Table;
-
-public class User extends Table {
+public class User extends Base {
 	
 	public long id;
 	public String username;
 	public String role;
+	public String expertField;
+	public String name;
 
 	public User()	{
 		super();
-		this.table = "bk_users";
+		this.table = "users";
 		this.key = "id";
 	}
 	
@@ -30,5 +30,10 @@ public class User extends Table {
 
 	public Object getInfo() {
 		return this.view("username, id");
+	}
+
+	public Object getExperts() throws Exception {
+		ArrayList<User> user = this.select("isExpert = 1", "id, name, expertField, avatar", "score DESC", null);
+		return this.view(user, "id, name, expertField, avatar");
 	}
 }
