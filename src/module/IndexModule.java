@@ -21,8 +21,8 @@ public class IndexModule extends HttpModule {
 	 */
 	public void indexTask() throws Exception	{
 		User user = new User();
-		user.id = 227;
-		user.edit();
+		user.id = 45;
+		user.load();
 		echo ("Hello "+user.username);
 	}
 	
