@@ -49,13 +49,16 @@ public abstract class Adapter {
 	
 	private void debugSql(ParsedQuery parsed, Object data) {
 		StringBuilder builder = new StringBuilder(parsed.query);
-		builder.append(" (");
-		for(String p: parsed.params)	{
-			Object obj = FieldUtils.getValue(data, p);
-			builder.append("'"+obj+"',");
-		}
-		if (builder.charAt(builder.length()-1) == ',')	{
-			builder.setCharAt(builder.length()-1, ')');
+		
+		if (!parsed.params.isEmpty())	{
+			builder.append(" (");
+			for(String p: parsed.params)	{
+				Object obj = FieldUtils.getValue(data, p);
+				builder.append("'"+obj+"',");
+			}
+			if (builder.charAt(builder.length()-1) == ',')	{
+				builder.setCharAt(builder.length()-1, ')');
+			}
 		}
 		Logger.getLogger().log(builder.toString(), Logger.LEVEL_DEBUG);
 	}
@@ -63,7 +66,7 @@ public abstract class Adapter {
 	protected Object extendObject(ResultSet rs, Object obj) throws SQLException	{
 		ResultSetMetaData rsmd = rs.getMetaData();
 		int count = rsmd.getColumnCount();
-		for(int i=0; i<count; i++)	{
+		for(int i=1; i<=count; i++)	{
 			try {
 				String columnName = rsmd.getColumnName(i);
 				FieldUtils.setValue(obj, columnName, rs.getObject(columnName));
