@@ -9,6 +9,7 @@ import org.ice.http.HttpRequest;
 import org.ice.http.HttpRequestParser;
 import org.ice.http.HttpResponse;
 import org.ice.module.router.DefaultRouter;
+import org.ice.module.router.IRouter;
 import org.ice.utils.StringUtils;
 
 /**
@@ -22,7 +23,7 @@ public class FrontModule {
 	protected boolean dispatched;
 	protected HttpRequest request;
 	protected HttpRequestParser requestParser;
-	protected DefaultRouter router;
+	protected IRouter router;
 	
 	public FrontModule()	{
 		requestParser = new HttpRequestParser();
@@ -50,7 +51,7 @@ public class FrontModule {
 		}
 		
 		if (Config.errorHandler != null && exception != null)	{
-			Class<?> c = Config.errorHandler.getClass();
+			Class<? extends IErrorHandler> c = Config.errorHandler.getClass();
 			try {
 				IErrorHandler handler = (IErrorHandler) c.newInstance();
 				handler.setException(exception);
