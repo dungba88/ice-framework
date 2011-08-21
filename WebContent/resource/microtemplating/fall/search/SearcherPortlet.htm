@@ -1,0 +1,22 @@
+<div class='portlet-data'>
+	<div id='SearcherPortlet-RootData'>
+    	<script type="text/html" id="SearcherPortletView">
+    		<div class="hint">
+				<input onkeyup="generateEvent('SearchInputKeyup', event)" id="SearcherPortlet-Input" type="text" name="search" />
+				<a onclick="generateEvent('SearchButtonClick')"><img src="static/css/fall/images/home/find.png" /></a>
+			</div>
+			<div id="top_select">
+    			<select id="SearcherPortlet-Select" onchange="generateEvent('SearcherTypeChange')" name="sl_search">
+			   		<option value="0">Tri thức</option>
+		            <option value="1">Thành viên</option>
+			    </select>
+			    <span class="customStyleSelectBox" style="display: inline-block; ">
+			    	<span class="customStyleSelectBoxInner" style="">Tri thức</span>
+			    </span>
+		    </div>
+			<div class="find" style="float:left;">
+				<a onclick="generateEvent('MakeNewQuestion', {})" class="form_button">Đặt câu hỏi</a>
+			</div>
+    	</script>
+	</div>
+</div>

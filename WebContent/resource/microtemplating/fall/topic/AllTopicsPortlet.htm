@@ -1,0 +1,18 @@
+<div class='portlet-data'>
+	<div id='AllTopicsPortlet-RootData'>
+		<script type="text/html" id='AllTopicsPortletView'>
+        	<div id="AllTopicsPortlet-ContentPlaceholder" class="box_all topic_all">
+        		<% var maxCol = 5; var rows = Math.ceil(catchwords.length/maxCol); %>
+        		<% for(var i=0; i<catchwords.length/rows; i++) { %>
+					<ul>
+						<% for(var j=0; j<rows; j++) { %>
+							<% if (catchwords[i*rows+j] != undefined) { %>
+								<li><a tid="<%=catchwords[i*rows+j].id%>" href="#!page/Topic/id/<%=catchwords[i*rows+j].id%>"><%=catchwords[i*rows+j].catchWord%></a></li>
+							<% } %>
+						<% } %>
+					</ul>
+				<% } %>
+        	</div>
+		</script>
+	</div>
+</div>

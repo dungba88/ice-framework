@@ -1,0 +1,671 @@
+<div class='portlet-data'>
+	<div id='SearchResultPortlet-RootData'>
+		<div id="SearchResultPortlet-SearchResultPortlet">
+			<!-- View chính của toàn bộ cả trang -->
+			<script type="text/html" id="SearchResultPortletView">
+				<div class="extension-point" extensionName="SearchResultTitle"></div>
+				<div class="extension-point" extensionName="SearchResultHeader"></div>
+				<div class="question-outer">
+					<div class="search_result_list">
+						<% for(var i=0; i< children.length; i++){ %>
+							<%=$(children[i]).html()%>
+						<% } %>
+					</div>
+				</div>
+				<div class="extension-point" extensionName="PostResultList"></div>
+				
+				<div class="search_result_nav">
+					<center class="extension-point" extensionName="NavigatorUI"></center>
+				</div>
+			</script>
+			
+			<!-- Config những gì được hiển thị -->
+			<script type="text/html" id="SearchResultPortlet-ItemConfigKnowledge">
+				{
+					uifields: 
+							[
+								{content: "content-template"},
+								{detail: "detail-template"}, 
+								{quser: "quser-template"},
+								{qvote: "qvote-template"},
+								{vote: "vote-template"},
+								{answer: "answer-template"},
+								{catch_word: "catch_word-template"},
+								{answerDate: "answerDate-template"}  ,
+								{src: "img-template"},
+								{uid: "uid-template"} 
+							]
+							,
+					template: "Notification",
+					"content-template":	
+							{ 
+								data : 
+									{ 
+										content : { field : "content", type : "single"},
+										qid : { field : "question_id", type : "single"}
+									} 
+							},
+					"qvote-template":	
+							{ 
+								data : 
+									{ 
+										vote : { field : "vote" }
+									} 
+							},
+					"detail-template":		
+							{ 
+								data : 
+									{ 
+										detail : { field : "explanation"}
+									} 
+							},
+					"quser-template":		
+							{ 
+								data : 
+									{ 
+										user_name : { field : "user_name"},
+										user_id : { field : "user_id"},
+										date : { field : "date"}
+									} 
+							},
+					"vote-template":		
+							{ 
+								data : 
+									{ 
+										vote	: { field : "vote", type : "single" } 
+									} 
+							},
+					"answer-template":		
+							{ 
+								data : 
+									{ 	
+										answer_id : { field: "answers_max_vote_id"},
+										answer_content : { field: "answers_max_vote_answer"},
+										answer_vote : { field: "answers_max_vote_vote"},
+										answer_user_name : { field: "answers_max_vote_user_name"},
+										answer_user_avatar : { field: "answers_max_vote_user_avatar"},
+										answer_user_id : { field: "answers_max_vote_user_id"},
+										question_content : { field : "content", type : "single"},
+										question_id : { field : "question_id", type : "single"},
+										answer_maxvote_latest: {field: "answers_max_vote_time"},
+										answer_count: {field: "answers_count"}
+									}
+							},
+					"catch_word-template":	
+							{
+								data : 
+									{ 
+										catch_word : { field: "catch_words", type : "multiple", template: "catch_word-item-template"}
+									}
+							},
+					"catch_word-item-template":	
+							{
+								data : 
+									{ 
+										catch_word 	: { field: "catch_words"},
+										cid			: { field: "catch_words_id"}
+									}
+							},
+					"answerDate-template":
+							{
+								data :
+									{
+										answer_count: {field: "answers_count"},
+										answer_username: {field: "answers_latest_user_name"},
+										answer_userid: {field: "answers_latest_user_id"},
+										answerDatePlhld 	: { field: "answers_date_final"}
+									}
+							},
+					"img-template":
+							{
+								data : 
+									{
+										user_id 	: { field: "user_id"},
+										img 	: { field: "user_avatar_url"}
+									}
+							},
+					"uid-template":
+							{
+								data : 
+									{
+										uid 	: { field: "user_id"}
+									}
+							}
+				}
+			</script>
+			
+			<!-- Phần này của Person -->
+			<script type="text/html" id="SearchResultPortlet-ItemPerson-Main">
+				<div type="plhld">
+					<div style="border-bottom: 1px solid #DDD; padding: 5px 0px;">
+					<div style="display: inline-block; vertical-align:top; margin-right: 10px; margin-top:5px">
+						<a style="border:none" href="#!page/Profile/id/<%=uid%>"><img class="bkp_pic_profile" height="25px" width="25px" src="avatar/<%=avatar%>"></img></a>
+					</div>
+					<div class="search_result" style="display:inline-block; margin: 0px; max-width: 500px">
+						<div class="search_result_brief">
+							<b><%=fullname%></b>
+						</div>
+						<div></div>
+						<div style="margin: 3px 0px;" class="extension-point" extensionName="CheckTopicsAvai"><%=expertise%></div>
+						<div style="color: #777777">
+							<%=topics%> • <%=answers%> • <%=followers%>
+						</div>
+					</div>
+					</div>
+				</div>
+			</script>
+			
+			<!-- View của format single của answer profile -->				
+			<script type="text/html" id="SearchResultPortlet-ItemPerson-fullname-template">
+					<a href="#!page/Profile/id/<%=id%>"><%=content%></a>
+			</script>
+			
+			<!-- View của format single của answer profile -->				
+			<script type="text/html" id="SearchResultPortlet-ItemPerson-uid-template"><%=uid%></script>
+			
+			<!-- View của format single của answer profile -->				
+			<script type="text/html" id="SearchResultPortlet-ItemPerson-avatar-template"><%=content%></script>
+			
+			<!-- View của format single của answer profile -->				
+			<script type="text/html" id="SearchResultPortlet-ItemPerson-topics-template">
+					Số câu hỏi: <%=content?content:0%>
+			</script>
+			
+			<!-- View của format single của answer profile -->				
+			<script type="text/html" id="SearchResultPortlet-ItemPerson-answers-template">
+					Số câu trả lời: <%=content?content:0%>
+			</script>
+			
+			<!-- View của format single của answer profile -->				
+			<script type="text/html" id="SearchResultPortlet-ItemPerson-followers-template">
+					Số bình chọn: <%=content?content:0%>
+			</script>
+			
+			<!-- View của format single của answer profile -->				
+			<script type="text/html" id="SearchResultPortlet-ItemPerson-expertise-template">
+					<%=content%>
+			</script>
+			
+			<!-- View của format single của answer profile -->				
+			<script type="text/html" id="SearchResultPortlet-ItemPerson-expertise-item-template">
+					<a href="#!page/Search/query/<%=content%>/type/catchword-filter" title="<%=explanation%>" alt="<%=explanation%>" class="bkp_question_topic"><span><%=content%></span></a>
+			</script>
+			
+			<!-- Config những gì được hiển thị -->
+			<script type="text/html" id="SearchResultPortlet-ItemConfigPerson">
+				{
+					template: "Person",
+					uifields: 
+							[
+								{fullname: "fullname-template"},
+								{uid: "uid-template"},
+								{avatar: "avatar-template"}, 
+								{topics: "topics-template"},
+								{answers: "answers-template"},
+								{followers: "followers-template"},
+								{expertise: "expertise-template"}
+							]
+							,
+					"fullname-template":		
+							{ 
+								data : 
+									{ 
+										content : { field : "full_name" },
+										id : { field : "profile_id" }
+									} 
+							},
+					"uid-template":		
+							{ 
+								data : 
+									{ 
+										uid : { field : "profile_id" }
+									} 
+							},
+					"avatar-template":		
+							{ 
+								data : 
+									{ 
+										content : { field : "avatar" }
+									} 
+							},
+					"topics-template":		
+							{ 
+								data : 
+									{ 
+										content	: { field : "expertise_total_ques_count" } 
+									} 
+							},
+					"answers-template":		
+							{ 
+								data : 
+									{ 	
+										content : { field: "expertise_total_ans_count" }
+									}
+							},
+					"followers-template":		
+							{ 
+								data : 
+									{ 	
+										content : { field: "expertise_total_vote" }
+									}
+							},
+					"expertise-template":		
+							{ 
+								data : 
+									{ 	
+										content : { field: "expertise", type: "advanced", template: "expertise-item-template" }
+									}
+							},
+					"expertise-item-template":		
+							{ 
+								data : 
+									{ 	
+										content : 		{ field: "expertise"},
+										id : 			{ field: "expertise_id"},
+										description : 	{ field: "expertise_description"},
+										explanation : 	{ field: "expertise_explanation"}
+									}
+							}
+				}
+			</script>
+			
+			<!-- Phần này của Notification -->
+			<script type="text/html" id="SearchResultPortlet-ItemNotification-Main">
+				<div type="plhld">
+					<div class="listview">
+						<div class="left">
+							<%=src%>
+						</div>
+						<div class="right">
+							<%=content%><br />
+							<%=detail%>
+							<%=quser%>
+						</div>
+                    </div>
+				</div>
+			</script>
+			
+			<!-- View của format single của answer profile -->				
+			<script type="text/html" id="SearchResultPortlet-ItemNotification-content-template">
+				<a href="#!page/Question/qid/<%=qid%>/s/<%=$.slugify(content)%>"><%=content%></a>
+			</script>
+			
+			<!-- View của format single của answer profile -->				
+			<script type="text/html" id="SearchResultPortlet-ItemNotification-detail-template">
+				<% if (detail != undefined && $.trim(detail) != "") { %>
+					<%=detail+"<br />"%>
+				<% } %>
+			</script>
+			
+			<!-- View của format single của answer profile -->				
+			<script type="text/html" id="SearchResultPortlet-ItemNotification-quser-template">
+				<span class="note">
+					<%=date != null? $.timeFormatSolr(date):""%>, bởi <a href="#!page/Profile/id/<%=user_id%>" class="small-user"><%=user_name%></a>,
+					<% if (answer_count > 0) { %>
+						<%=answer_count%> trả lời, <span class="count_vote">+<%=answer_vote%></span> trả lời của 
+						<a href="#!page/Profile/id/<%=answer_user_id%>"><%=answer_user_name%></a>
+					<% } else { %>
+						chưa được trả lời
+					<% } %>
+				</span>
+			</script>
+			
+			<!-- View của format single của answer profile -->				
+			<script type="text/html" id="SearchResultPortlet-ItemNotification-vote-template">
+					<%=vote%>
+			</script>
+			
+			<!-- View của format single của answer profile -->				
+			<script type="text/html" id="SearchResultPortlet-ItemNotification-uid-template"><%=uid%></script>
+			
+			<!-- View của format single của answer profile -->				
+			<script type="text/html" id="SearchResultPortlet-ItemNotification-catch_word-template">
+				<div style="display: inline-block" class="extension-point" extensionName="CheckTopicsAvai">
+					<%=catch_word%>
+				</div>
+			</script>
+			
+			<!-- View của format single của answer profile -->				
+			<script type="text/html" id="SearchResultPortlet-ItemNotification-catch_word-item-template">
+				<a class="tag-label" href="#!page/Topic/id/<%=cid%>" class="bkp_question_topic"><%=catch_word%></a>
+			</script>
+			
+			<!-- View của format single của answer profile -->				
+			<script type="text/html" id="SearchResultPortlet-ItemNotification-img-template">
+				<a href="#!page/Profile/id/<%=user_id%>"><img class="bkp_pic_profile avatar32" src="avatar/<%=img%>" alt="avatar"></a>
+			</script>
+			
+			<!-- View của format highlight trong một item của profile -->
+			<script type="text/html" id="SearchResultPortlet-ItemNotification-Highlight">
+				<div class="divSearchResult">
+					<b><%=header%></b>
+					<span>: 
+						<%=content%>
+					</span>
+				</div>
+			</script>
+
+			<!-- View của format highlight trong một item của profile -->
+			<script type="text/html" id="SearchResultPortlet-SearchResultNumber">
+				<div>Có 
+					<span style="color:blue; font-weight:bold;"><%=numDocs%></span>
+					 kết quả phù hợp với truy vấn của bạn
+					</span>
+				</div>
+			</script>
+
+			<!-- Config những gì được hiển thị -->
+			<script type="text/html" id="SearchResultPortlet-ItemConfigNotification">
+				{
+					uifields: 
+							[
+								{content: "content-template"},
+								{detail: "detail-template"},
+								{quser: "quser-template"},
+								{src: "img-template"},
+								{uid: "uid-template"}
+							]
+							,
+					template: "Notification",
+					showNavigator: false,
+					showSearchResult: false,
+					notShowNoResult: true,
+					"content-template":		
+							{ 
+								data : 
+									{ 
+										content : { field : "content", type : "single"},
+										qid : { field : "question_id", type : "single"}
+									} 
+							},
+					"detail-template":		
+							{ 
+								data : 
+									{ 
+										detail : { field : "explanation"}
+									} 
+							},
+					"quser-template":		
+							{ 
+								data : 
+									{ 
+										user_name : { field : "user_name"},
+										user_id : { field : "user_id"},
+										date : { field : "date"},
+										answer_count: {field: "answers_count"},
+										answer_vote : { field: "answers_max_vote_vote"},
+										answer_user_name : { field: "answers_max_vote_user_name"},
+										answer_user_id : { field: "answers_max_vote_user_id"},
+										vote : { field : "vote", type : "single" }
+									}
+							},
+					"img-template":
+							{
+								data : 
+									{
+										user_id 	: { field: "user_id"},
+										img 	: { field: "user_avatar_url"}
+									}
+							},
+					"uid-template":
+							{
+								data : 
+									{
+										uid 	: { field: "user_id"}
+									}
+							}
+				}
+			</script>
+			
+			
+			<!-- Phần này của KnowledgeFlagged -->
+			<script type="text/html" id="SearchResultPortlet-ItemKnowledgeFlagged-Main">
+				<div type="plhld">
+					<div class="question-item">
+                    	<div class="q-left">
+                        	<img class="img" src="static/css/beta/images/icon/question.new.png" alt="question icon">
+                            <%=qvote%>
+                        </div><!-- q-left -->
+                        <div class="q-middle">
+                        	<div class="row">
+                            	<%=catch_word%>
+                            </div>
+                        	<div class="row">
+                            	<%=content%> 
+                            </div>
+                            <div class="row"><%=detail%></div>
+                            <div class="row">
+                            	<%=quser%>
+                                <div class="vote-outer">
+                                </div><!-- vote-outer -->
+                            </div>
+                            <div class="rowright">
+                            	
+                            </div>
+                            <%=reports%>
+                        </div><!-- q-middle -->
+                        <div class="q-right">
+                        	
+                        </div><!-- q-right -->
+                    </div>
+				</div>
+			</script>
+			
+			<!-- View của format single của answer profile -->				
+			<script type="text/html" id="SearchResultPortlet-ItemKnowledgeFlagged-content-template">
+					<a href="#!page/Question/qid/<%=qid%>/s/<%=$.slugify(content)%>"><%=content%></a>
+			
+			</script>
+			
+			<script type="text/html" id="SearchResultPortlet-ItemKnowledgeFlagged-qvote-template">
+				<span class="count_vote"><%=vote%></span>
+			</script>
+			
+			<!-- View của format single của answer profile -->				
+			<script type="text/html" id="SearchResultPortlet-ItemKnowledgeFlagged-detail-template">
+					<%=detail?detail:""%>
+			</script>
+			
+			<!-- View của format single của answer profile -->				
+			<script type="text/html" id="SearchResultPortlet-ItemKnowledgeFlagged-quser-template">
+				<span>Bởi</span><a href="#!page/Profile/id/<%=user_id%>" class="small-user"><%=user_name%></a><span><%=date != null? $.timeFormatSolr(date):""%></span>
+			</script>
+			
+			<!-- View của format single của answer profile -->				
+			<script type="text/html" id="SearchResultPortlet-ItemKnowledgeFlagged-vote-template">
+					<%=vote%>
+			</script>
+			
+			<!-- View của format single của answer profile -->				
+			<script type="text/html" id="SearchResultPortlet-ItemKnowledgeFlagged-uid-template"><%=uid%></script>
+			
+			<!-- View của format single của answer profile -->				
+			<script type="text/html" id="SearchResultPortlet-ItemKnowledgeFlagged-reports-template">
+                    <div class="row">
+                    	<div class="listview">
+                    	<%=reports%>	
+        				</div><!-- listview -->
+                    </div>
+			</script>
+			
+			<!-- View của format single của answer profile -->				
+			<script type="text/html" id="SearchResultPortlet-ItemKnowledgeFlagged-report-item-template">
+				<div class="row">
+                	<% if(reports_id == 1 ) { %>
+                		<span class="flaggedDescription">Không trực tiếp vào vấn đề, quá dài dòng</span>
+                	<span class="flaggedDescriptionReport"><%=flaggedDescription_1 %> báo cáo</span>
+                	<% } else if (reports_id == 2) { %>
+                		<span class="flaggedDescription">Chưa có nhãn đầy đủ</span>
+                	<span class="flaggedDescriptionReport"><%=flaggedDescription_2 %> báo cáo</span>
+                	<% } else if (reports_id == 3) { %>
+                		<span class="flaggedDescription">Thiếu thông tin giải thích</span>
+                	<span class="flaggedDescriptionReport"><%=flaggedDescription_3 %> báo cáo</span>
+                	<% } else if (reports_id == 4) { %>
+                		<span class="flaggedDescription">Không nhắm đến tri thức</span>
+                	<span class="flaggedDescriptionReport"><%=flaggedDescription_4 %> báo cáo</span>
+                	<% } %>
+                </div>
+			</script>
+			
+			<!-- View của format single của answer profile -->				
+			<script type="text/html" id="SearchResultPortlet-ItemKnowledgeFlagged-catch_word-template">
+				<div style="display: inline-block" class="extension-point" extensionName="CheckTopicsAvai">
+					<%=catch_word%>
+				</div>
+			</script>
+			
+			<!-- View của format single của answer profile -->				
+			<script type="text/html" id="SearchResultPortlet-ItemKnowledgeFlagged-catch_word-item-template">
+				<a class="tag-label" href="#!page/Topic/id/<%=cid%>" class="bkp_question_topic"><%=catch_word%></a>
+			</script>
+			
+			<!-- View của format single của answer profile -->				
+			<script type="text/html" id="SearchResultPortlet-ItemKnowledgeFlagged-answerDate-template">
+				<% if (answer_count > 0) { %>
+					<span><%=answer_count%> trả lời, trả lời cuối cùng <%=$.timeFormatSolr(answerDatePlhld)%> bởi</span><a href="#!page/Profile/id/<%=answer_userid%>" class="small-user"><%=answer_username%></a>
+				<% } %>
+			</script>
+			
+			<!-- View của format single của answer profile -->				
+			<script type="text/html" id="SearchResultPortlet-ItemKnowledgeFlagged-img-template">
+				<a href="#!page/Profile/id/<%=user_id%>"><img class="bkp_pic_profile avatar" src="avatar/<%=img%>" alt="avatar"></a>
+			</script>
+			
+			<!-- View của format highlight trong một item của profile -->
+			<script type="text/html" id="SearchResultPortlet-ItemKnowledgeFlagged-Highlight">
+				<div class="divSearchResult">
+					<b><%=header%></b>
+					<span>: 
+						<%=content%>
+					</span>
+				</div>
+			</script>
+
+			<!-- View của format highlight trong một item của profile -->
+			<script type="text/html" id="SearchResultPortlet-SearchResultNumber">
+				<div>Có 
+					<span style="color:blue; font-weight:bold;"><%=numDocs%></span>
+					 	kết quả phù hợp với truy vấn của bạn
+					</span>
+				</div>
+			</script>
+
+			<!-- Config những gì được hiển thị -->
+			<script type="text/html" id="SearchResultPortlet-ItemConfigKnowledgeFlagged">
+				{
+					uifields: 
+							[
+								{content: "content-template"},
+								{detail: "detail-template"},
+								{qvote: "qvote-template"}, 
+								{quser: "quser-template"},
+								{vote: "vote-template"},
+								{catch_word: "catch_word-template"},
+								{reports: "reports-template"}
+							]
+							,
+					template: "KnowledgeFlagged",
+					showNavigator: false,
+					showSearchResult: false,
+					notShowNoResult: true,
+					"content-template":		
+							{ 
+								data : 
+									{ 
+										content : { field : "flaggedContent", type : "single"},
+										qid : { field : "question_id", type : "single"}
+									} 
+							},
+					"qvote-template":		
+							{ 
+								data : 
+									{ 
+										vote : { field : "vote"}
+									} 
+							},
+					"detail-template":		
+							{ 
+								data : 
+									{ 
+										detail : { field : "explanation"}
+									} 
+							},
+					"quser-template":		
+							{ 
+								data : 
+									{ 
+										user_name : { field : "user_name"},
+										user_id : { field : "user_id"},
+										date : { field : "date"}
+									} 
+							},
+					"vote-template":		
+							{ 
+								data : 
+									{ 
+										vote	: { field : "vote", type : "single" } 
+									} 
+							},
+					"reports-template":		
+							{ 
+								data : 
+									{ 	
+										reports : { field: "flaggedDescription", type: "multiple", template: "report-item-template"}
+									}
+							},
+					"report-item-template":		
+							{ 
+								data : 
+									{ 	
+										reports_id : { field: "flaggedDescription"},
+										flaggedDescription_1: {field: "flaggedDescription_1"},
+										flaggedDescription_2: {field: "flaggedDescription_2"},
+										flaggedDescription_3: {field: "flaggedDescription_3"},
+										flaggedDescription_4: {field: "flaggedDescription_4"}
+									}
+							},
+					"catch_word-template":	
+							{
+								data : 
+									{ 
+										catch_word : { field: "catch_words", type : "multiple", template: "catch_word-item-template"}
+									}
+							},
+					"catch_word-item-template":	
+							{
+								data : 
+									{ 
+										catch_word 	: { field: "catch_words"},
+										cid			: { field: "catch_words_id"}
+									}
+							},
+					"answerDate-template":
+							{
+								data :
+									{
+										answer_count: {field: "answers_count"},
+										answer_username: {field: "answers_latest_user_name"},
+										answer_userid: {field: "answers_latest_user_id"},
+										answerDatePlhld 	: { field: "answers_date_final"}
+									}
+							},
+					"img-template":
+							{
+								data : 
+									{
+										user_id 	: { field: "user_id"},
+										img 	: { field: "user_avatar_url"}
+									}
+							},
+					"uid-template":
+							{
+								data : 
+									{
+										uid 	: { field: "user_id"}
+									}
+							}
+				}
+			</script>
+		</div>
+	</div>
+</div>

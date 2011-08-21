@@ -60,7 +60,7 @@ public abstract class HttpModule implements IModule {
 		
 		if (isUsingTemplate())	{
 			setContentType("text/html");
-			view.setTemplate(getResourceUrl()+template);
+			view.setTemplate(Config.resourceUrl+template);
 			view.render();
 		}
 	}
@@ -151,7 +151,7 @@ public abstract class HttpModule implements IModule {
 	}
 	
 	public String getResourceUrl()	{
-		return Config.resourceUrl;
+		return this.getBaseUrl()+Config.resourceUrl;
 	}
 	
 	public void echo(String s)	{

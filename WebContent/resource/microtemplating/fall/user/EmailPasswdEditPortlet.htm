@@ -1,0 +1,76 @@
+<div class='portlet-data'>
+	<div id="EmailPasswdEditPortlet-RootData">
+		<script type="text/html" id="EmailPasswdEditPortlet-ErrorView">
+			<ul>
+             	<% for ( var i = 0; i < errors.length; i ++ ) { %>
+             		<li><%=errors[i] %></li>
+             	<% } %>
+           	</ul>
+		</script>
+		<script type="text/html" id="EmailPasswdEditPortletView">
+			<div class="grey_title uppercase" style="padding:0 0 0 70px">
+				Sửa thông tin tài khoản
+			</div>
+			<div class="reg-wrapper">
+				<div class="usercpIndent reg-outer" style="margin:0 0 0 50px;">
+					<div class="row">
+						<label>Nhập vào mật khẩu hiện tại của bạn để tiếp tục:</label>
+					</div><br />
+					<div class="row">
+						<input type="password" id="EmailPasswdEditPortlet-CurrentPasswd" name="currentPasswd" class="currentPasswd text" />
+					</div><br />
+					<div class="row">
+						<label>Nhập vào mật khẩu mới:</label>
+					</div><br />
+					<div class="row">
+						<input type="password" id="EmailPasswdEditPortlet-Passwd" name="passwd" class="currentPasswd text" />
+					</div><br />
+					<div class="row">
+						<label>Nhập lại mật khẩu mới:</label>
+					</div><br />
+					<div class="row">
+						<input type="password" id="EmailPasswdEditPortlet-ConfirmPasswd" name="confirmPassword" class="currentPasswd text" />
+					</div><br />
+					<div class="row">
+						<label>Nhập vào email mới nếu cần thay đổi:</label>
+					</div><br />
+					<div class="row">
+						<input type="text" id="EmailPasswdEditPortlet-Email" name="email" class="currentPasswd text" />
+					</div><br />
+
+					<div class="row" >
+				   		<div class="left"><label>Bạn là :</label></div>
+						<div class="right">	
+							<select onchange="generateEvent('WhoIsSelectChanged')" id="EmailPasswdEditPortlet-WhoIs">
+								<option value="1">Sinh viên</option>
+								<option value="2">Giảng viên</option>
+								<option value="3">Doanh nghiệp</option>
+								<option value="4">Đối tượng khác</option>
+							</select>
+						</div>
+				   	</div>
+					
+					<div id="RegisterPortlet-OptionalArea">
+						<div id="EmailPasswdEditPortlet-OptionalArea" class="row">
+					   		<h4>Mục dành riêng cho sinh viên K51 :</h4>
+					   	</div>
+					
+						<div class="row" id="EmailPasswdEditPortlet-CompoundStudentID">
+					   		<div class="left"><label>Mã số sinh viên :</label></div>
+							<div class="right">
+								<input name="sid" id="EmailPasswdEditPortlet-StudentID" type="text" />
+								<span id="EmailPasswdEditPortlet-StudentIDError" class="error"></span>
+							</div>
+					   	</div>
+					</div>
+					<div class="row">
+						<a class="button" onclick="generateEvent('UserCPButtonClick')">Cập nhật</a>
+					</div><br />
+					<div class="row">
+						<span class="error" id="EmailPasswdEditPortlet-Error"></span>
+					</div>
+				</div><!-- reg-outer -->
+			</div><!-- box4-content reg-wrapper -->
+		</script>
+	</div>
+</div>

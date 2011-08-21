@@ -1,0 +1,115 @@
+<div class='portlet-data'>
+    <div id='InvitationPortlet-RootData'>
+        <script type="text/html" id="InvitationPortletView">
+        	<div class="box4">
+            	<div class="box4-title">
+					<img class="bigicon" src="static/css/beta/images/logo/big.logo.png" alt="logo">
+					<label>Mời bạn bè tham gia Asking</label>
+				</div>
+				<div class="box4-content">
+                	<div id="InvitationPortlet-AuthStep">
+					</div>
+					<div class="invite-outer">
+						<div class="row">
+		                	<div class="left invite-image">
+								<img class="invite-img" src="static/css/beta/images/icon/invite.jpg">
+							</div>
+		                	<div class="right invite-header">
+		                		<span class="title">Mời bạn bè tham gia Asking? Thật tuyệt và đơn giản!</span>
+								<div><i>Lưu ý: Hệ thống tạm thời chỉ hỗ trợ Gmail</i></div>
+								<div style="margin-top: 15px"></div>
+								<div class="invite-button">
+									<img src="static/images/gmail.jpg" alt="gmail" /><br />
+									<a class="button2" id="InvitationPortlet-FeedMe" onclick="generateEvent('InviteButtonClicked')">Tìm các bạn của tôi!</a>
+								</div>
+		                	</div>
+		                </div><!-- end row -->
+	                </div><!-- end invite outer -->
+					<div id="InvitationPortlet-ExistingContactsFeed">
+					</div>
+					<div id="InvitationPortlet-PendingContactsFeed">
+					</div>
+					<div id="InvitationPortlet-ContactsFeed">
+					</div>
+					<div id="InvitationPortlet-MoreFeed" class="doNotDisplay">
+						<div class="more-feed">
+							<a onclick="generateEvent('FeedMoreContacts')">Chưa tìm thấy người bạn cần mời? Click vào đây</a>
+						</div>
+					</div>
+				</div><!-- end box4 content-->
+			</div><!-- end box4-->
+        </script>
+		
+		<script type="text/html" id="InvitationPortlet-Authenticate">
+			<div class="form-message welcome-msg">
+				Để có thể sử dụng tính năng này, trước hết bạn cần đồng ý cho phép Asking xem danh sách liên lạc của bạn với Google.  
+				<a class="button2" id="InvitationPortlet-AuthenButton" onclick="generateEvent('AuthSubAuthenticateButtonClick')">Cho phép Asking.vn!</a>
+			</div>
+			<div class="form-message welcome-msg"><strong>Sau bước trên bạn có thể bấm vào nút phía dưới để tiếp tục.</strong></div>
+		</script>
+		
+		<script type="text/html" id="InvitationPortlet-PendingContacts">
+			<% if (contacts.length > 0) { %>
+				<div class="welcome-msg _bold">Những email đã được gửi lời mời tham gia Asking</div>
+				<div class="gcontacts-common">
+					<div class="invite-outer gcontacts gcontacts-existing">
+						<% for (var i=0;i<contacts.length;i++) { %>
+							<div class="row">
+								<div class="gentry-info">
+									<div class="invite-username">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<strong><%=contacts[i].name%></strong></div>
+									<div class="invite-email">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<%=contacts[i].email%></div>
+								</div>
+							</div>
+						<% } %>
+					</div>
+				</div>
+			<% } %>
+		</script>
+		
+		<script type="text/html" id="InvitationPortlet-ExistingContacts">
+			<div class="welcome-msg _bold">Những tài khoản đã tồn tại trên Asking:</div>
+			<div class="invite-outer gcontacts gcontacts-existing extension-point" extensionName="ProfileImageCheck">
+				<% for (var i=0;i<contacts.length;i++) { %>
+					<div class="row2 gentry">
+						<div class="left">
+							<img onerror="this.src='static/images/unknown.png'" src="avatar/<%=contacts[i].avatar%>" alt="<%=contacts[i].name%>" />
+		            	</div>
+						<div class="middle gentry-info">
+							<div class="invite-username"><%=contacts[i].name%></div>
+							<div class="invite-email"><%=contacts[i].email%></div>
+						</div>
+						<div class="right">&nbsp;
+						</div>
+					</div>
+				<% } %>
+			</div>
+		</script>
+		
+		<script type="text/html" id="InvitationPortlet-Contacts">
+			<div class="gcontacts-common">
+				<div class="welcome-msg _bold">Bạn có thể mời các bạn sau vào Asking
+				</div>
+				<div class="invite-outer gcontacts">
+					<div class="row">
+						<input id="InvitationPortlet-EmailFilter" type="text" class="text invite-email-search" value="" />
+					</div>
+					<% for (var i=0;i<contacts.length;i++) { %>
+						<div class="row2 gentry" contactID="<%=i%>">
+							<div class="left">
+								<img onerror="this.src='static/images/unknown.png'" src="<%=contacts[i].photo%>" alt="<%=contacts[i].name%>" />
+		            		</div>
+							<div class="middle gentry-info">
+								<div class="invite-username"><%=contacts[i].name%></div>
+								<div class="invite-email"><%=contacts[i].email%></div>
+							</div>
+							<div class="right">
+								<a onclick="generateEvent('SendInviteButtonClick', {'email': '<%=contacts[i].email%>', 'origin': event})" class="invite-button button2">Mời bạn này</a>
+							</div>
+						</div>
+					<% } %>
+				</div>
+				<!--<button class="right">Mời ngay</button>-->
+			</div>
+		</script>
+	</div>
+</div>

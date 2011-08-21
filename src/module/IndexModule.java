@@ -20,10 +20,9 @@ public class IndexModule extends HttpModule {
 	 * @throws Exception
 	 */
 	public void indexTask() throws Exception	{
-		User user = new User();
-		user.id = 45;
-		user.load();
-		echo ("Hello "+user.username);
+		this.view.setParam("baseUrl", this.getBaseUrl());
+		this.view.setParam("resourceUrl", this.getResourceUrl());
+		setTemplate("/index.fall.copy.html");
 	}
 	
 	public void permissionTask() throws Exception	{
@@ -92,6 +91,6 @@ public class IndexModule extends HttpModule {
 	 * Test post dispatch
 	 */
 	public void postDispatch()	{
-		echo("<br />This string is appended in all tasks: <br />Base URL: "+getBaseUrl());
+//		echo("<br />This string is appended in all tasks: <br />Base URL: "+getBaseUrl());
 	}
 }

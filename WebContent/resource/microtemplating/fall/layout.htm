@@ -1,0 +1,981 @@
+<div id="Portlets-Layout">
+	<script type="text/html" id="portlets-LayoutPage">
+		{
+        plugins: 
+        [
+        { plugin: 'TopMenuNavPlugin', delay:false },
+		{ plugin: 'PopupPlugin', delay:false },
+		{ plugin: 'LiveNotificationPlugin', delay:false },
+		{ plugin: 'AjaxLoadingPlugin', delay:false },
+		{ plugin: 'FocusDetectorPlugin', delay:false },
+		{ plugin: 'AutocompletePlugin', delay:false },
+		{ plugin: 'TextAreaAutoExpandPlugin', delay: false },
+		{ plugin: 'UserControlBoxPlugin', delay: false },
+		{ plugin: 'KeepAlivePlugin', delay: false },
+		{ plugin: 'GlobalNotificationPlugin', delay: false },
+		{ plugin: 'NavigateRoutePlugin', delay: false },
+		{ plugin: 'BrowserTogglePlugin', delay: false },
+		{ plugin: 'AutocompleteSearcherPlugin', delay: false },
+		{ plugin: 'PaginationPlugin', delay: false },
+        { plugin: 'ProfileImageCheckPlugin', delay: false }
+        ]
+        ,
+        portlets: 
+        [ 
+		{ portlet: 'SearcherPortlet', position: 'menu_right' },
+		{ portlet: 'NavMenuPortlet', position: 'main_top', active: false },
+		{ portlet: 'PartnerLinkPortlet', position: 'left', active: false },
+		{ portlet: 'CatchWordBrowserPortlet', position: 'top_left' },
+		{ portlet: 'UserBrowserPortlet', position: 'top_left' },
+		{ portlet: 'ArticleBrowserPortlet', position: 'top_left' },
+		{ portlet: 'FeaturedProfilesPortlet', position: 'top_right', order: 'AA' },
+		{ portlet: 'InviteLinkPortlet', position: 'left' ,order: 'F'},
+		{ portlet: 'ContactPortlet', position: 'left', active: false },
+		{ portlet: 'TopicCreatePortletStandalone', position: 'content_left', active: false },
+		{ portlet: 'LoginPortlet', position: 'content_left', active: false },
+		{ portlet: 'StatsPortlet', position: 'top_right', order: 'Z' },
+		{ portlet: 'NotificationListPortlet', position: 'right', order: 'B' },
+		{ portlet: 'ProfileFinishPortlet', position: 'right', order: 'C' },
+        { portlet: 'AskNonTargetQuestionPortlet', position: 'right', order: 'F' },
+		{ portlet: 'RecommendAnswerPortlet', position: 'right', order: 'F' },
+		{ portlet: 'AskSimilarQuestionPortlet', position: 'right' },
+        { portlet: 'FooterPortlet', position: 'other' }
+        ]
+        }
+	</script>
+	<script type="text/html" id="portlets-Invite">
+		{
+        plugins: 
+        [ 
+			{ plugin: 'UserCheckLoginPlugin', delay: false }
+        ]
+        ,
+        portlets: 
+        [ 
+			{ portlet: 'InvitationPortlet', position: 'content_left' }
+        ]
+		,
+		parent: 'LayoutPage'
+        }
+	</script>
+	<script type="text/html" id="portlets-Home">
+        {
+        plugins: 
+        [ 
+		{ plugin: 'QuestionTabPlugin', delay: 'false' },
+		{ plugin: 'SearchMorePlugin', delay: 'false' },
+		{ plugin: 'SearchResHelperPlugin', delay: true },
+		{ plugin: 'MoreContentPlugin', delay: false },
+		{ plugin: 'NavigatorPlugin', delay: 'false' }
+        ]
+        ,
+        portlets: 
+        [ 
+        { portlet: 'AnnouncementPortlet', position: 'content_top' },
+		{ portlet: 'SearchResultDynamicPortlet', position: 'content_left', order: 'AB', params:{rows:20} },
+		{ portlet: 'ExpertsPortlet', position: 'content_right', order: 'A1' },
+		{ portlet: 'LatestArticlesPortlet', position: 'content_right', order: 'A2' },
+		{ portlet: 'FeaturedNewsPortlet', position: 'content_right', order: 'A3' },
+		{ portlet: 'LinksPortlet', position: 'content_right' ,order: 'F'}
+        ]
+		,
+		parent: 'LayoutPage'
+        }
+    </script>
+    <script type="text/html" id="portlets-AllTopics">
+        {
+        plugins: 
+        [ 
+        ]
+        ,
+        portlets: 
+        [ 
+        { portlet: 'AllTopicsPortlet', position: 'content_left', order: 'A' }
+        ]
+		,
+		parent: 'LayoutPage'
+        }
+    </script>
+    <script type="text/html" id="portlets-AllUsers">
+        {
+        plugins: 
+        [ 
+        ]
+        ,
+        portlets: 
+        [ 
+        { portlet: 'AllUsersPortlet', position: 'content_left', order: 'A' }
+        ]
+		,
+		parent: 'LayoutPage'
+        }
+    </script>
+	<script type="text/html" id="portlets-ArticleDetail">
+        {
+        plugins: 
+        [
+		{ plugin: "ImproveAnswerPlugin", delay: false },
+		{ plugin: "ImproveQuestionPlugin", delay: false },
+		{ plugin: "QuestionFollowPlugin", delay: false }, 
+		{ plugin: "PostPlugin", delay: false },
+		{ plugin: "AnswerExtensionHiddenPlugin", delay: false },
+    	{ plugin: "AnswerEditPlugin", delay: false },
+		{ plugin: "CleanStylePlugin", delay: false },
+		{ plugin: "CommentPlugin", delay: false },
+        { plugin: "NavigateRoutePlugin", delay: false },
+	    { plugin: "AnswerShowBioPlugin", delay: false },
+	    { plugin: "AnswerEditBioPlugin", delay: false },
+	    { plugin: "HungPDDeleteArticleCommentPlugin", delay: false },
+	    { plugin: "HungPDArticleVotePlugin", delay: false },
+        { plugin: "BKPTextEditorPlugin", delay: false }
+        ]
+        ,
+        portlets:
+        [
+        {  portlet: 'HungPDArticleCommentPortlet', position: 'content_left' },
+        {  portlet: 'UserAboutPortlet', position: 'content_right', order: 'A' },
+        {  portlet: 'ArticleSummaryPortlet', position: 'content_right', order: 'B' }
+        ]
+		,
+		parent: 'LayoutPage'
+        }
+	</script>
+	<script type="text/html" id="portlets-Article">
+        {
+        plugins: 
+        [ 
+		{ plugin: 'SearchMorePlugin', delay: 'false' },
+		{ plugin: 'SearchResHelperPlugin', delay: true },
+		{ plugin: 'MoreContentPlugin', delay: false },
+		{ plugin: 'NavigatorPlugin', delay: 'false' }
+        ]
+        ,
+        portlets: 
+        [ 
+		{ portlet: 'HungPDArticleSearchResultDynamicPortlet', position: 'content_left', order: 'AB' },
+		{ portlet: 'FeaturedArticlesPortlet', position: 'content_right', order: 'A' },
+		{ portlet: 'LatestArticlesPortlet', position: 'content_right', order: 'B' },
+        ]
+		,
+		parent: 'LayoutPage'
+        }
+    </script>
+	<script type="text/html" id="portlets-InsertArticle">
+        {
+        plugins: 
+        [ 
+		{ plugin: "BKPTextEditorPlugin", delay: false }
+		]
+        ,
+        portlets: 
+        [ 
+		{ portlet: 'HungPDInsertArticleCatchwordBoxPortlet',position: 'right', order: 'F' ,active: false },				
+		{ portlet: 'HungPDInsertArticlePortlet',position:'content_left',order:'A'},
+        ]
+		,
+		parent: 'LayoutPage'
+        }
+    </script>
+	<script type="text/html" id="portlets-Feedback">
+        {
+        plugins: 
+        [ 
+        ]
+        ,
+        portlets: 
+        [
+        { portlet: 'FeedbackListPortlet', position: 'content_right', order: 'E' },
+		{ portlet: 'FeedbackPortlet', position: 'content_left'}
+        ]
+		,
+		parent: 'LayoutPage'
+        }
+    </script>
+	<script type="text/html" id="portlets-Logout">
+        {
+        plugins: 
+        [ 
+		{ plugin: 'UserLogoutPlugin', delay: false }
+        ]
+        ,
+        portlets: 
+        [ 
+        ]
+		,
+		parent: 'LayoutPage'
+        }
+    </script>
+	<script type="text/html" id="portlets-RecoverError">
+        {
+        plugins:
+        [
+        ]
+        ,
+        portlets:
+        [
+		{ portlet: 'StaticContentPortlet', position: 'content_left' }
+        ]
+		,
+		parent: 'LayoutPage'
+		}
+    </script>
+	<script type="text/html" id="portlets-AboutUs">
+        {
+        plugins:
+        [
+        ]
+        ,
+        portlets:
+        [
+		{ portlet: 'StaticContentPortlet', position: 'content_left' }
+        ]
+		,
+		parent: 'LayoutPage'
+		}
+    </script>
+    <script type="text/html" id="portlets-History">
+        {
+        plugins:
+        [
+        ]
+        ,
+        portlets:
+        [
+		{ portlet: 'StaticContentPortlet', position: 'content_left' }
+        ]
+		,
+		parent: 'LayoutPage'
+		}
+    </script>
+    <script type="text/html" id="portlets-Partners">
+        {
+        plugins:
+        [
+        ]
+        ,
+        portlets:
+        [
+		{ portlet: 'PartnersPortlet', position: 'content_left'}
+        ]
+		,
+		parent: 'LayoutPage'
+		}
+    </script>
+    <script type="text/html" id="portlets-ArticleIntroduce">
+        {
+        plugins: 
+        [ 
+        ]
+        ,
+        portlets: 
+        [
+		{ portlet: 'StaticContentPortlet', position: 'content_left' }
+		]
+		,
+		parent: 'LayoutPage'
+		}
+    </script>
+	<script type="text/html" id="portlets-GoodAnswer">
+        {
+        plugins: 
+        [ 
+        ]
+        ,
+        portlets: 
+        [
+		{ portlet: 'StaticContentPortlet', position: 'content_left' }
+		]
+		,
+		parent: 'LayoutPage'
+		}
+    </script>
+    <script type="text/html" id="portlets-NewRelease">
+        {
+        plugins: 
+        [ 
+        ]
+        ,
+        portlets: 
+        [
+		{ portlet: 'StaticContentPortlet', position: 'content_left' }
+		]
+		,
+		parent: 'LayoutPage'
+		}
+    </script>
+	<script type="text/html" id="portlets-Tutorial">
+        {
+        plugins: 
+        [ 
+        ]
+        ,
+        portlets: 
+        [
+		{ portlet: 'StaticContentPortlet', position: 'content_left' }
+        ]
+		,
+		parent: 'LayoutPage'
+		}
+    </script>
+	<script type="text/html" id="portlets-Privacy">
+        {
+        plugins: 
+        [ 
+        ]
+        ,
+        portlets: 
+        [
+		{ portlet: 'StaticContentPortlet', position: 'content_left' }
+        ]
+		,
+		parent: 'LayoutPage'
+		}
+    </script>
+	<script type="text/html" id="portlets-TermOfUse">
+        {
+        plugins: 
+        [ 
+        ]
+        ,
+        portlets: 
+        [
+		{ portlet: 'StaticContentPortlet', position: 'content_left' }
+        ]
+		,
+		parent: 'LayoutPage'
+		}
+    </script>
+    <script type="text/html" id="portlets-ErrorPage">
+        {
+        portlets:
+        [
+        { portlet: 'ErrorPortlet', position: 'content_left' }
+        ]
+        ,
+        plugins:
+        [
+        ]
+		,
+		parent: 'LayoutPage'
+        }
+    </script>
+    <script type="text/html" id="portlets-Login">
+        {
+        portlets:
+        [
+        { portlet: 'LoginPortlet', position: 'content_left' }
+        ]
+        ,
+        plugins:
+        [
+        { plugin: 'LoginSuccessRedirectPlugin', delay: false }
+        ]
+		,
+		parent: 'LayoutPage'
+        }
+    </script>
+	<script type="text/html" id="portlets-ResetPassword">
+		{
+        portlets:
+        [
+        { portlet: 'PasswordResetPortlet', position: 'content_left' }
+        ]
+        ,
+        plugins:
+        [
+        ]
+		,
+		parent: 'LayoutPage'
+        }
+	</script>
+	<script type="text/html" id="portlets-RecoverPassword">
+		{
+        portlets:
+        [
+        { portlet: 'EmailRecoverPortlet', position: 'content_left' }
+        ]
+        ,
+        plugins:
+        [
+        ]
+		,
+		parent: 'LayoutPage'
+        }
+	</script>
+	<script type="text/html" id="portlets-UserCPEdit">
+		{
+        portlets:
+        [
+        { portlet: 'EmailPasswdEditPortlet', position: 'content_left' }
+        ]
+        ,
+        plugins:
+        [
+        ]
+		,
+		parent: 'LayoutPage'
+        }
+	</script>
+	<script type="text/html" id="portlets-UserExpertiseEdit">
+		{
+        portlets:
+        [
+		{ portlet: 'ExpertiseAdderPortlet', position: 'content_left' },
+		{ portlet: 'ExpertiseEditPortlet', position: 'content_left' }
+        ]
+        ,
+        plugins:
+        [
+		{ plugin: 'UserCheckLoginPlugin', delay: false },
+		{ plugin: 'UserEditMenuGeneratorPlugin', delay: false },
+		{ plugin: 'FormatterPlugin', delay: false },
+		{ plugin: 'ExpertiseEditorPlugin', delay: false },
+		{ plugin: 'ExpertiseEditPlugin', delay: false },
+		{ plugin: 'ExpertiseDeletePlugin', delay: false }
+        ]
+		,
+		parent: 'LayoutPage'
+        }
+	</script>
+	<script type="text/html" id="portlets-UserInterestEdit">
+		{
+        portlets:
+        [
+		{ portlet: 'InterestAdderPortlet', position: 'content_left' },
+		{ portlet: 'InterestedAreaEditPortlet', position: 'content_left' }
+        ]
+        ,
+        plugins:
+        [
+		{ plugin: 'UserCheckLoginPlugin', delay: false },
+		{ plugin: 'UserEditMenuGeneratorPlugin', delay: false },
+		{ plugin: 'InterestEditorPlugin', delay: false },
+		{ plugin: 'FormatterPlugin', delay: false },
+		{ plugin: 'InterestDeletePlugin', delay: false }
+        ]
+		,
+		parent: 'LayoutPage'
+        }
+	</script>
+	<script type="text/html" id="portlets-UserBasicEdit">
+		{
+        portlets:
+        [
+        { portlet: 'ProfileEditPortlet', position: 'content_left' }
+        ]
+        ,
+        plugins:
+        [
+		{ plugin: 'UserCheckLoginPlugin', delay: false },
+		{ plugin: 'UserEditMenuGeneratorPlugin', delay: false },
+		{ plugin: 'ProfileTemplatePlugin', delay: false },
+        { plugin: 'ProfileEditPlugin', delay: false },
+        { plugin: 'FormatterPlugin', delay: false }
+        ]
+		,
+		parent: 'LayoutPage'
+        }
+	</script>
+	<script type="text/html" id="portlets-UserAvatarEdit">
+		{
+        portlets:
+        [
+        { portlet: 'BriefInfoEditPortlet', position: 'content_left' }
+        ]
+        ,
+        plugins:
+        [
+		{ plugin: 'UserCheckLoginPlugin', delay: false },
+		{ plugin: 'UserEditMenuGeneratorPlugin', delay: false },
+		{ plugin: 'ProfileNameEditPlugin', delay: false },
+		{ plugin: 'AvatarEditPlugin', delay: false }
+        ]
+		,
+		parent: 'LayoutPage'
+        }
+	</script>
+	<script type="text/html" id="portlets-UserBased">
+		{
+        plugins: 
+        [
+		{ plugin: 'UserCheckLoginPlugin', delay: false },
+		{ plugin: 'UserTabGeneratorPlugin', delay: false }
+        ]
+        ,
+        portlets: 
+        [ 
+        { portlet: 'PrivilegePortlet', position: 'content_right', order: 'A' },
+        { portlet: 'ListFollowersPortlet', position: 'content_right', order: 'B'  },
+        { portlet: 'ListFollowingPortlet', position: 'content_right', order: 'C'  }
+        ]
+		,
+		parent: 'LayoutPage'
+        }
+	</script>
+    <script type="text/html" id="portlets-User">
+        {
+        plugins: 
+        [
+		{ plugin: 'ExpertRankPlugin', delay: false }
+        ]
+        ,
+        portlets: 
+        [ 
+		{ portlet: 'BriefInfoPortlet', position: 'content_left' },
+        { portlet: 'ExpertisePortlet', position: 'content_left' },
+		{ portlet: 'InterestedAreaPortlet', position: 'content_left' },
+		{ portlet: 'ProfileEduViewPortlet', position: 'content_left' },
+		{ portlet: 'ProfileProjViewPortlet', position: 'content_left' },
+		{ portlet: 'ProfileViewPortlet', position: 'content_left' }
+        ]
+		,
+		parent: 'UserBased'
+        }
+  	</script>
+	<script type="text/html" id="portlets-UserQuestion">
+        {
+        plugins: 
+        [ 
+		{ plugin: 'SearchMorePlugin', delay: 'false' },
+		{ plugin: 'EditPendingQuestionsPlugin', delay: false }
+        ]
+        ,
+        portlets: 
+        [
+		{ portlet: 'BriefInfoPortlet', position: 'content_left' },
+		{ portlet: 'SearchResultDynamicPortlet', position: 'content_left', params:{type:'question-asking',showSearchResult:false,showNavigator:false }}
+        ]
+		,
+		parent: 'UserBased'
+        }
+    </script>
+	<script type="text/html" id="portlets-UserTarget">
+          {
+        plugins: 
+        [ 
+		{ plugin: 'SearchMorePlugin', delay: 'false' }
+        ]
+        ,
+        portlets: 
+        [ 
+		{ portlet: 'BriefInfoPortlet', position: 'content_left' },
+        { portlet: 'SearchResultDynamicPortlet', position: 'content_left', params:{type:'question-asked',showSearchResult:false,showNavigator:false }}
+        ]
+		,
+		parent: 'UserBased'
+        }
+    </script>
+    <script type="text/html" id="portlets-UserAnswer">
+        {
+        plugins: 
+        [ 
+		{ plugin: 'SearchMorePlugin', delay: 'false' }
+        ]
+        ,
+        portlets: 
+        [ 
+		{ portlet: 'BriefInfoPortlet', position: 'content_left' },
+        { portlet: 'SearchResultDynamicPortlet', position: 'content_left', params:{type:'answer',showSearchResult:false,showNavigator:false }}
+        ]
+		,
+		parent: 'UserBased'
+        }
+    </script>
+    <script type="text/html" id="portlets-UserReportedQuestions">
+        {
+        plugins: 
+        [ 
+		{ plugin: 'SearchMorePlugin', delay: 'false' }
+        ]
+        ,
+        portlets: 
+        [ 
+		{ portlet: 'BriefInfoPortlet', position: 'content_left' },
+        { portlet: 'SearchResultDynamicPortlet', position: 'content_left', params:{type:'question-flagged',showSearchResult:false,showNavigator:false }}
+        ]
+		,
+		parent: 'UserBased'
+        }
+    </script>
+    <script type="text/html" id="portlets-UserActivation">
+		{
+        portlets:
+        [
+        { portlet: 'UserActivationPortlet', position: 'content_left' }
+        ]
+        ,
+        plugins:
+        [
+        
+        ]
+		,
+		parent: 'LayoutPage'
+        }
+	</script>
+	<script type="text/html" id="portlets-ProfileBased">
+        {
+        plugins: 
+        [ 
+		{ plugin: 'AskUserPlugin', delay: false },
+		{ plugin: 'FollowUserPlugin', delay: false },
+		{ plugin: 'ProfileTabGeneratorPlugin', delay: false }
+        ]
+        ,
+        portlets: 
+        [
+        { portlet: 'ListFollowersPortlet', position: 'content_right', order: 'B'  },
+        { portlet: 'ListFollowingPortlet', position: 'content_right', order: 'C'  }
+        ]
+		,
+		parent: 'LayoutPage'
+        }
+   	</script>
+   	<script type="text/html" id="portlets-Profile">
+        {
+        plugins: 
+        [
+		{ plugin: 'ExpertRankPlugin', delay: false },
+        { plugin: 'ProfileTemplatePlugin', delay: false },
+        { plugin: 'FormatterPlugin', delay: false }
+        ]
+        ,
+        portlets: 
+        [
+		{ portlet: 'BriefInfoPortlet', position: 'content_left' }, 
+        { portlet: 'ExpertisePortlet', position: 'content_left' },
+		{ portlet: 'InterestedAreaPortlet', position: 'content_left' },
+		{ portlet: 'ProfileInformationPortlet', position: 'content_left' }
+        ]
+		,
+		parent: 'ProfileBased'
+        }
+    </script>
+	<script type="text/html" id="portlets-PartnerProfile">
+        {
+        plugins: 
+        [
+		{ plugin: 'PartnerProfileTabGeneratorPlugin', delay: false }
+        ]
+        ,
+        portlets: 
+        [
+		{ portlet: 'PartnerMockupProfilePortlet', position: 'content_left' },
+		{ portlet: 'PartnerBasicInfoPortlet', position: 'content_left' }
+        ]
+		,
+		parent: 'LayoutPage'
+        }
+    </script>
+	<script type="text/html" id="portlets-PartnerProfileNews">
+        {
+        plugins: 
+        [
+		{ plugin: 'PartnerProfileTabGeneratorPlugin', delay: false }
+        ]
+        ,
+        portlets: 
+        [
+		{ portlet: 'PartnerProfilePortlet', position: 'content_left' },
+		{ portlet: 'NewsInsertPortlet', position: 'content_left' }
+        ]
+		,
+		parent: 'LayoutPage'
+        }
+     </script>
+	<script type="text/html" id="portlets-PartnerProfileTarget">
+        {
+        plugins: 
+        [
+		{ plugin: 'PartnerProfileTabGeneratorPlugin', delay: false }
+        ]
+        ,
+        portlets: 
+        [
+		{ portlet: 'PartnerProfilePortlet', position: 'content_left' },
+		{ portlet: 'SearchResultDynamicPortlet', position: 'content_left', params:{type:'question-asked',showSearchResult:false,showNavigator:false }}
+        ]
+		,
+		parent: 'LayoutPage'
+        }
+     </script>
+ 	<script type="text/html" id="portlets-PartnerProfileAnswer">
+        {
+        plugins: 
+        [
+		{ plugin: 'PartnerProfileTabGeneratorPlugin', delay: false }
+        ]
+        ,
+        portlets: 
+        [
+		{ portlet: 'PartnerProfilePortlet', position: 'content_left' },
+		{ portlet: 'SearchResultDynamicPortlet', position: 'content_left', params:{type:'question-asking',showSearchResult:false,showNavigator:false }}
+        ]
+		,
+		parent: 'LayoutPage'
+        }
+     </script>
+    <script type="text/html" id="portlets-ProfileQuestion">
+        {
+        plugins: 
+        [ 
+		{ plugin: 'SearchMorePlugin', delay: 'false' },
+        ]
+        ,
+        portlets: 
+        [ 
+		{ portlet: 'BriefInfoPortlet', position: 'content_left' },
+        { portlet: 'SearchResultDynamicPortlet', position: 'content_left', params:{type:'question-asking',showSearchResult:false,showNavigator:false }}
+        ]
+		,
+		parent: 'ProfileBased'
+        }
+    </script>
+	<script type="text/html" id="portlets-ProfileTarget">
+        {
+        plugins: 
+        [ 
+		{ plugin: 'SearchMorePlugin', delay: 'false' }
+        ]
+        ,
+        portlets: 
+        [ 
+		{ portlet: 'BriefInfoPortlet', position: 'content_left' },
+        { portlet: 'SearchResultDynamicPortlet', position: 'content_left', params:{type:'question-asked',showSearchResult:false,showNavigator:false }}
+        ]
+		,
+		parent: 'ProfileBased'
+        }
+    </script>
+	<script type="text/html" id="portlets-ProfileAnswer">
+        {
+        plugins: 
+        [ 
+		{ plugin: 'SearchMorePlugin', delay: 'false' }
+        ]
+        ,
+        portlets: 
+        [ 
+		{ portlet: 'BriefInfoPortlet', position: 'content_left' },
+        { portlet: 'SearchResultDynamicPortlet', position: 'content_left', params:{type:'answer',showSearchResult:false,showNavigator:false }}
+        ]
+		,
+		parent: 'ProfileBased'
+        }
+    </script>
+    <script type="text/html" id="portlets-ProfileReportedQuestions">
+        {
+        plugins: 
+        [ 
+		{ plugin: 'SearchMorePlugin', delay: 'false' }
+        ]
+        ,
+        portlets: 
+        [ 
+		{ portlet: 'BriefInfoPortlet', position: 'content_left' },
+        { portlet: 'SearchResultDynamicPortlet', position: 'content_left', params:{type:'question-flagged',showSearchResult:false,showNavigator:false }}
+        ]
+		,
+		parent: 'ProfileBased'
+        }
+    </script>
+	<script type="text/html" id="portlets-ProfileAnswerStandalone">
+        {
+        plugins: 
+        [ 
+		{ plugin: 'QuestionClickPlugin', delay: false },
+        ]
+        ,
+        portlets: 
+        [ 
+        { portlet: 'OwnAnswerPortlet', position: 'content_left' }
+        ]
+        }
+    </script>
+    <script type="text/html" id="portlets-Register">
+        {
+        portlets:
+        [
+        { portlet: 'RegisterPortlet', position: 'content_left' }
+        ]
+        ,
+        plugins:
+        [
+        { plugin: 'ExpertiseEditorPlugin', delay: false },
+		{ plugin: 'InterestEditorPlugin', delay: false },
+		{ plugin: 'ProfileTemplatePlugin', delay: false },
+        { plugin: 'ProfileEditPlugin', delay: false },
+        { plugin: 'FormatterPlugin', delay: false }
+        ]
+		,
+		parent: 'LayoutPage'
+        }
+    </script>
+    <script type="text/html" id="portlets-Search">
+        {
+        plugins: 
+        [ 
+        { plugin:"MoreContentPlugin", delay: false },
+        { plugin:"SearchResHelperPlugin", delay: false },
+        { plugin:"NavigateRoutePlugin", delay: false },
+		{ plugin:"NavigatorPlugin", delay: false }
+        ]
+        ,
+        portlets:
+        [
+        { portlet: 'SearchResultDynamicPortlet', position: 'content_left' }
+        ]
+		,
+		parent: 'LayoutPage'
+        }
+    </script>
+    <script type="text/html" id="portlets-Question">
+        {
+        plugins: 
+        [
+		{ plugin: "ImproveAnswerPlugin", delay: false },
+		{ plugin: "ImproveQuestionPlugin", delay: false },
+		{ plugin: "QuestionFollowPlugin", delay: false }, 
+		{ plugin: "PostPlugin", delay: false },
+		{ plugin: "AnswerExtensionHiddenPlugin", delay: false },
+        { plugin: "AnswerEditPlugin", delay: false },
+		{ plugin: "CleanStylePlugin", delay: false },
+		{ plugin: "CommentPlugin", delay: false },
+        { plugin: "NavigateRoutePlugin", delay: false },
+		{ plugin: "AnswerShowBioPlugin", delay: false },
+		{ plugin: "AnswerEditBioPlugin", delay: false },
+        { plugin: "BKPTextEditorPlugin", delay: false }
+        ]
+        ,
+        portlets:
+        [
+        { 	portlet: 'AnswerPortlet', position: 'content_left' },
+		{ 	portlet: 'SimilarQuestionsPortlet', position: 'content_right', order: 'A1' },
+        { 	portlet: 'FeaturedNewsPortlet', position: 'content_right', order: 'A2' },
+        { 	portlet: 'QuestionFollowersPortlet', position: 'content_right', order: 'A3' },
+        { 	portlet: 'RecommendAnswerPortlet', position: 'content_right', order: 'A4' },
+        ]
+		,
+		parent: 'LayoutPage'
+        }
+	</script>
+    <script type="text/html" id="portlets-Topic">
+		{
+        plugins: 
+        [ 
+		{ plugin: 'TopicInterestAdderPlugin', delay: 'false' },
+		{ plugin: 'ProfileSearchHeaderPlugin', delay: 'false' },
+		{ plugin: 'SearchMorePlugin', delay: false }
+        ]
+        ,
+        portlets:
+        [
+        { 	portlet: 'TopicMainPortlet', position: 'content_left', order: 'A' },
+		{ 	portlet: 'SearchResultDynamicPortlet', position: 'content_left', params:{type:'catchword-filter', showSearchResult:false, showNavigator:false }, order: 'C' },
+		{  	portlet: 'BestProfilesPortlet', position: 'content_right', order: 'A0' },
+		{ 	portlet: 'FeaturedNewsPortlet', position: 'content_right', order: 'A1' }
+        ]
+		,
+		parent: 'LayoutPage'
+        }
+	</script>
+    <script type="text/html" id="portlets-TopicCreatePage">
+        {
+        plugins: 
+        [ 
+        { plugin:"UserCheckLoginPlugin", delay: false },
+        { plugin:"NavigateRoutePlugin", delay: false },
+        { plugin:"BKPTextEditorPlugin", delay: false }
+        ]
+        ,
+        portlets:
+        [
+        { portlet: 'TopicCreatePortlet', position: 'content_left' }
+        ]
+		,
+		parent: 'LayoutPage'
+        }
+    </script>
+    <script type="text/html" id="portlets-UserEdit">
+        {
+        portlets:
+        [
+        { portlet: 'ProfileEditPortlet', position: 'content_left' }
+        ]
+        ,
+        plugins:
+        [
+        { plugin: 'ProfileTemplatePlugin', delay: false },
+		{ plugin: 'ProfileEditPlugin', delay: false },
+		{ plugin: 'ProfileEditTabPlugin', delay: false },
+        { plugin: 'FormatterPlugin', delay: false }
+        ]
+		,
+		parent: 'LayoutPage'
+        }
+    </script>
+    <script type="text/html" id="portlets-MockupProfileNews">
+        {
+        plugins: 
+        [
+		{ plugin: 'MockupProfileTabGeneratorPlugin', delay: false }
+        ]
+        ,
+        portlets: 
+        [
+		{ portlet: 'MockupProfilePortlet', position: 'main' },
+		{ portlet: 'MockupNewsPortlet', position: 'main' }
+        ]
+		,
+		parent: 'LayoutPage'
+        }
+    </script>
+	<script type="text/html" id="portlets-MockupProfileTarget">
+        {
+        plugins: 
+        [
+		{ plugin: 'MockupProfileTabGeneratorPlugin', delay: false }
+        ]
+        ,
+        portlets: 
+        [
+		{ portlet: 'MockupProfilePortlet', position: 'main' },
+		{ portlet: 'SearchResultDynamicPortlet', position: 'main', params:{type:'question-asked',showSearchResult:false,showNavigator:false }}
+        ]
+		,
+		parent: 'LayoutPage'
+        }
+    </script>
+	<script type="text/html" id="portlets-MockupProfileAnswer">
+        {
+        plugins: 
+        [
+		{ plugin: 'MockupProfileTabGeneratorPlugin', delay: false }
+        ]
+        ,
+        portlets: 
+        [
+		{ portlet: 'MockupProfilePortlet', position: 'main' },
+		{ portlet: 'SearchResultDynamicPortlet', position: 'main', params:{type:'question-asking',showSearchResult:false,showNavigator:false }}
+        ]
+		,
+		parent: 'LayoutPage'
+        }
+   	</script>
+    <script type="text/html" id="portlets-PartnerProfileEdit">
+		{
+        portlets:
+        [
+		{ portlet: 'PartnerProfileEditPortlet', position: 'content_left' }
+        ]
+        ,
+        plugins:
+        [
+		{ plugin: 'UserCheckLoginPlugin', delay: false },
+		{ plugin: 'UserEditMenuGeneratorPlugin', delay: false }
+        ]
+		,
+		parent: 'LayoutPage'
+        }
+	</script>
+    
+</div>

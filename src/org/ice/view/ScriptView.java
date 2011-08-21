@@ -28,7 +28,7 @@ public class ScriptView extends AbstractView {
 		}
 		try {
 			StringBuilder builder = new StringBuilder();
-			BufferedReader br = new BufferedReader(new InputStreamReader(is));
+			BufferedReader br = new BufferedReader(new InputStreamReader(is, "UTF-8"));
 			String text = "";
 			while((text = br.readLine())!=null)	{
 				builder.append(text);
