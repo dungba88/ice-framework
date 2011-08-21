@@ -22,6 +22,14 @@ public class Table {
 		return new Viewer(this, fields);
 	}
 	
+	public ArrayList<Object> view(ArrayList<Object> list, String fields)	{
+		ArrayList<Object> result = new ArrayList<Object>();
+		for(Object obj: list)	{
+			result.add(new Viewer(obj, fields).serialize());
+		}
+		return result;
+	}
+	
 	public boolean load() throws Exception	{
 		return adapter.load(this);
 	}
