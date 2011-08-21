@@ -6,7 +6,7 @@ import org.ice.http.HttpRequest;
 import org.ice.module.IModule;
 import org.ice.utils.StringUtils;
 
-public class DefaultRouter {
+public class DefaultRouter implements IRouter {
 
 	public IModule route(HttpRequest request) throws IceException	{
 		String moduleName = request.getModuleName();
