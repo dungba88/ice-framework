@@ -1,0 +1,22 @@
+<div class='portlet-data'>
+	<div id='ExpertsPortlet-RootData'>
+		<script type="text/html" id='ExpertsPortletView'>
+			<div class="box">
+				<div class="box_header">Các chuyên gia</div>
+				<div class="box_wrapper">
+					<div class="box_outer">
+						<% for (var i=0;i<users.length;i++) { %>
+							<div class="box_user">
+								<a href="#!page/Profile/id/<%=users[i].id%>">
+									<img class="avatar60 bkp_pic_profile" src="avatar/<%=users[i].avatar%>" alt="avatar" />
+								</a>
+								<br />
+								<a href="#!page/Profile/id/<%=users[i].id%>"><%=users[i].name%>, <%=users[i].expertField%></a>
+							</div>
+						<% } %>
+					</div><!-- end box outer-->
+				</div><!-- end box wrapper-->
+			</div><!-- end box -->
+		</script>
+	</div>
+</div>

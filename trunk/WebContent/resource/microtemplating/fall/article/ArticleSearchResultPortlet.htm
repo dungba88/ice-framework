@@ -1,0 +1,131 @@
+<div class='portlet-data'>
+	<div id='ArticleSearchResultPortlet-RootData'>
+		<div id="ArticleSearchResultPortlet-SearchResultDynamicPortlet">
+			<!-- View chính của toàn bộ cả trang -->
+			<script type="text/html" id="ArticleSearchResultPortlet-ItemNotification-Main">
+				<div type="plhld">
+					<div class="article_listview">
+						<div class="topic_list"><%=catch_word%></div>
+						<div class="lv_title"><%=title%></div>
+						<div class="lv_summary"><%=summary%></div>
+						<div class="lv_note"><%=quser%></div>
+                    </div>
+				</div>
+			</script>
+			<script type="text/html" id="ArticleSearchResultPortlet-ItemNotification-quser-template">
+				<span class="note">
+					<%=date != null? $.timeFormatSolr(date):""%>, bởi <a href="#!page/Profile/id/<%=user_id%>" class="small-user"><%=user_name%></a>,
+					<span class="count_vote">+<%=total_vote%></span>
+				</span>
+			</script>
+			<script type="text/html" id="ArticleSearchResultPortlet-ItemNotification-src-template">
+				<a href="#!page/Profile/id/<%=user_id%>"><img class="bkp_pic_profile avatar32" src="avatar/<%=img%>" alt="avatar"></a>
+			</script>
+			<script type="text/html" id="ArticleSearchResultPortlet-ItemNotification-title-template">
+				<a href="#!page/ArticleDetail/aid/<%=aid%>/s/<%=$.slugify(title)%>"><%=title%></a>
+			</script>
+			<script type="text/html" id="ArticleSearchResultPortlet-ItemNotification-summary-template">
+				<% if (summary != undefined && $.trim(summary) != "") { %>
+					<%=summary+"<br />"%>
+				<% } %>
+			</script>
+			<script type="text/html" id="ArticleSearchResultPortlet-ItemNotification-catch_word-template">
+				<div style="display: inline-block" class="extension-point" extensionName="CheckTopicsAvai">
+					<%=catch_word%>
+				</div>
+			</script>
+			<script type="text/html" id="ArticleSearchResultPortlet-ItemNotification-catch_word-item-template">
+				<a class="lv_tag" href="#!page/Topic/id/<%=cid%>" class="bkp_question_topic"><%=catch_word%></a>
+			</script>
+			<script type="text/html" id="ArticleSearchResultPortletView">
+				<div class="extension-point" extensionName="ArticleSearchResultTitle"></div>
+				<span class="extension-point" extensionName="ArticleSearchResultPostTitle"></span>
+				<div class="marker blue_gradient_mark big_mark _right clear no_margin">Các bài viết chọn lọc</div>
+				<div class="welcome_text clear">"Bài viết" là một chức năng của hệ thống asking.vn cho phép 
+					người dùng có thể viết những bài viết chia sẻ về kinh nghiệm của cá nhân mình, giới thiệu 
+					các bài báo khoa học, cũng như các bài phỏng vấn chuyên gia, các câu hỏi và trả lời tiêu biểu 
+					lên hệ thống để chia sẻ với mọi người.<br />
+					Để hiểu rõ hơn về Article các bạn có thể xem <a href="#!page/ArticleIntroduce">tại đây</a>.
+				</div>
+				<div class="article_list">
+					<% for(var i=0; i< children.length; i++){ %>										
+						<%=$(children[i]).html()%>
+					<% } %>
+					<div class="extension-point" extensionName="PostResultList"></div>
+				</div>
+				<div class="search_result_nav">
+					<center class="extension-point" extensionName="NavigatorUI">
+					</center>
+				</div>
+			</script>
+			<script type="text/html" id="ArticleSearchResultPortlet-ItemConfigNotification">
+				{
+				uifields:
+					[
+						{title: "title-template"},
+						{summary: "summary-template"},
+						{src: "src-template"},
+						{quser: "quser-template"},
+						{catch_word: "catch_word-template"},
+					]	
+					,
+				template: "Notification",
+				showNavigator: false,
+				showSearchResult: false,
+				notShowNoResult: true,
+				"title-template":		
+					{ 
+						data : 
+							{ 
+								title : { field : "title", type : "single"},
+								aid : { field : "articleID", type : "single"},
+								uid : { field : "userID", type : "single"}
+							} 
+					},
+				"quser-template":		
+					{ 
+						data : 
+							{ 
+								date : { field : "createdDate", type : "single"},
+								total_vote : { field : "totalVote", type : "single"},
+								user_id : { field : "userID", type : "single"},
+								user_name : { field : "username", type : "single"}
+							} 
+					},
+				"summary-template":		
+					{ 
+						data : 
+							{ 
+								summary : { field : "summary", type : "single"},
+								aid : { field : "articleID", type : "single"},
+								uid : { field : "userID", type : "single"}
+							} 
+					},
+				"src-template":	
+					{ 
+						data : 
+							{ 
+								img : { field : "avatar", type : "single"},
+								user_id : { field : "userID", type : "single"}
+							} 
+					},
+				"catch_word-template":	
+					{
+						data : 
+							{ 
+								catch_word : { field: "catchWords", type : "multiple", template: "catch_word-item-template"}
+							}
+					},
+				"catch_word-item-template":	
+					{
+						data : 
+							{ 
+								catch_word 	: { field: "catchWords"},
+								cid			: { field: "catchWordsID"}
+							}
+					},
+				}
+			</script>
+		</div>
+	</div>
+</div>

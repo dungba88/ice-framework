@@ -45,6 +45,7 @@ public class HttpResponse  {
 	}
 	
 	public void sendResponse()	{
+		response.setContentType("text/html;charset=UTF-8");
 		if (showException && exception != null)	{
 			PrintWriter writer = null;
 			try {

@@ -1,0 +1,600 @@
+<div class='portlet-data'>
+	<div id='PartnerProfileEditPortlet-RootData'>
+		<script type="text/html" id="PartnerProfileEditPortletView">
+			<div id="PartnerProfileEditPortlet-Profile" class = "edit-profile">
+				<div profileExtension="profile" class="reg-wrapper">
+				</div> 
+			</div>
+		</script>
+		<script type="text/html" id="PartnerProfileEditPortlet-PartnerTmpl">
+			<div profileExtension = "partner" tbl="partner" class="reg-wrapper">
+                <div class="reg-outer" id="PartnerProfileEditPortlet-FormMain">
+					<div class="row">
+						<span class="profile-name">
+							<div class="left">
+								<div class="dynamic-label">
+									Tên: 
+								</div>
+							</div>
+							<div class="right">
+								<div class="dynamic-edit-content">
+									<span class="dynamic-edit-content-value"><%=partner.name.val%></span>
+									<a class="dynamic-edit-content-button-fix dynamic-edit-editable"> Sửa </a>
+									<br/>
+								</div>
+								<div class="dynamic-edit-form" style="display:none">
+									<input isRequired="true" class="text dynamic-edit-form-value" name="name" tid="<%=partner.name.id%>" tbl="<%=partner.name.tbl%>" type="text" />
+									<a class="dynamic-edit-content-button-save" onclick="generateEvent('DynamicEditSaveButtonClick',event)"> Lưu </a>
+									<a class="dynamic-edit-content-button-cancel"> Hủy </a>
+								</div>
+							</div>
+						</span>
+					</div>
+
+					<div class="row">
+						<span class="profile-slogan">
+							<div class="left">
+								<div class="dynamic-label">
+									Khẩu hiệu: 
+								</div>
+							</div>
+							<div class="right">
+								<div class="dynamic-edit-content">
+									<span class="dynamic-edit-content-value"><%=partner.slogan.val%></span>
+									<a class="dynamic-edit-content-button-fix dynamic-edit-editable"> Sửa </a>
+									<br/>
+								</div>
+								<div class="dynamic-edit-form" style="display:none">
+									<input isRequired="true" class="text dynamic-edit-form-value" name="slogan" tid="<%=partner.slogan.id%>" tbl="<%=partner.slogan.tbl%>" type="text" />
+									<a class="dynamic-edit-content-button-save" onclick="generateEvent('DynamicEditSaveButtonClick',event)"> Lưu </a>
+									<a class="dynamic-edit-content-button-cancel"> Hủy </a>
+								</div>
+							</div>
+						</span>
+					</div>
+
+					<div class="row">
+						<span class="profile-addressCity">
+							<div class="left">
+								<div class="dynamic-label">
+									Thành phố: 
+								</div>
+							</div>
+							<div class="right">
+								<div class="dynamic-edit-content">
+									<span class="dynamic-edit-content-value"><%=partner.addressCity.val%></span>
+									<a class="dynamic-edit-content-button-fix dynamic-edit-editable"> Sửa </a>
+									<br/>
+								</div>
+								<div class="dynamic-edit-form" style="display:none">
+									<input isRequired="true" class="text dynamic-edit-form-value" name="addressCity" tid="<%=partner.addressCity.id%>" tbl="<%=partner.slogan.tbl%>" type="text" />
+									<a class="dynamic-edit-content-button-save" onclick="generateEvent('DynamicEditSaveButtonClick',event)"> Lưu </a>
+									<a class="dynamic-edit-content-button-cancel"> Hủy </a>
+								</div>
+							</div>
+						</span>
+					</div>
+
+					<div class="row">
+						<span class="profile-addressStreet">
+							<div class="left">
+								<div class="dynamic-label">
+									Địa chỉ
+								</div>
+							</div>
+							<div class="right">
+								<div class="dynamic-edit-content">
+									<span class="dynamic-edit-content-value"><%=partner.addressStreet.val%></span>
+									<a class="dynamic-edit-content-button-fix dynamic-edit-editable"> Sửa </a>
+									<br/>
+								</div>
+								<div class="dynamic-edit-form" style="display:none">
+									<input isRequired="true" class="text dynamic-edit-form-value" name="addressStreet" tid="<%=partner.addressStreet.id%>" tbl="<%=partner.addressStreet.tbl%>" type="text" />
+									<a class="dynamic-edit-content-button-save" onclick="generateEvent('DynamicEditSaveButtonClick',event)"> Lưu </a>
+									<a class="dynamic-edit-content-button-cancel"> Hủy </a>
+								</div>
+							</div>
+						</span>
+					</div>
+
+					<div class="row">
+						<span class="profile-phone">
+							<div class="left">
+								<div class="dynamic-label">
+									Điện thoại: 
+								</div>
+							</div>
+							<div class="right">
+								<div class="dynamic-edit-content">
+									<span class="dynamic-edit-content-value"><%=partner.phone.val%></span>
+									<a class="dynamic-edit-content-button-fix dynamic-edit-editable"> Sửa </a>
+									<br/>
+								</div>
+								<div class="dynamic-edit-form" style="display:none">
+									<input isRequired="true" class="text dynamic-edit-form-value" name="phone" tid="<%=partner.phone.id%>" tbl="<%=partner.phone.tbl%>" type="text" />
+									<a class="dynamic-edit-content-button-save" onclick="generateEvent('DynamicEditSaveButtonClick',event)"> Lưu </a>
+									<a class="dynamic-edit-content-button-cancel"> Hủy </a>
+								</div>
+							</div>
+						</span>
+					</div>
+
+					<div class="row">
+						<span class="profile-fax">
+							<div class="left">
+								<div class="dynamic-label">
+									Fax: 
+								</div>
+							</div>
+							<div class="right">
+								<div class="dynamic-edit-content">
+									<span class="dynamic-edit-content-value"><%=partner.fax.val%></span>
+									<a class="dynamic-edit-content-button-fix dynamic-edit-editable"> Sửa </a>
+									<br/>
+								</div>
+								<div class="dynamic-edit-form" style="display:none">
+									<input isRequired="true" class="text dynamic-edit-form-value" name="fax" tid="<%=partner.fax.id%>" tbl="<%=partner.fax.tbl%>" type="text" />
+									<a class="dynamic-edit-content-button-save" onclick="generateEvent('DynamicEditSaveButtonClick',event)"> Lưu </a>
+									<a class="dynamic-edit-content-button-cancel"> Hủy </a>
+								</div>
+							</div>
+						</span>
+					</div>
+
+					<div class="row">
+						<span class="profile-website">
+							<div class="left">
+								<div class="dynamic-label">
+									Trang web: 
+								</div>
+							</div>
+							<div class="right">
+								<div class="dynamic-edit-content">
+									<span class="dynamic-edit-content-value"><%=partner.website.val%></span>
+									<a class="dynamic-edit-content-button-fix dynamic-edit-editable"> Sửa </a>
+									<br/>
+								</div>
+								<div class="dynamic-edit-form" style="display:none">
+									<input isRequired="true" class="text dynamic-edit-form-value" name="website" tid="<%=partner.website.id%>" tbl="<%=partner.website.tbl%>" type="text" />
+									<a class="dynamic-edit-content-button-save" onclick="generateEvent('DynamicEditSaveButtonClick',event)"> Lưu </a>
+									<a class="dynamic-edit-content-button-cancel"> Hủy </a>
+								</div>
+							</div>
+						</span>
+					</div>
+
+					<div class="row">
+						<span class="profile-otherLink">
+							<div class="left">
+								<div class="dynamic-label">
+									Đường dẫn khác: 
+								</div>
+							</div>
+							<div class="right">
+								<div class="dynamic-edit-content">
+									<span class="dynamic-edit-content-value"><%=partner.otherLink.val%></span>
+									<a class="dynamic-edit-content-button-fix dynamic-edit-editable"> Sửa </a>
+									<br/>
+								</div>
+								<div class="dynamic-edit-form" style="display:none">
+									<input isRequired="true" class="text dynamic-edit-form-value" name="otherLink" tid="<%=partner.otherLink.id%>" tbl="<%=partner.otherLink.tbl%>" type="text" />
+									<a class="dynamic-edit-content-button-save" onclick="generateEvent('DynamicEditSaveButtonClick',event)"> Lưu </a>
+									<a class="dynamic-edit-content-button-cancel"> Hủy </a>
+								</div>
+							</div>
+						</span>
+					</div>
+
+                </div> <!-- reg-outer -->
+            </div> <!-- profile extension -->
+        </script>
+
+		<script type="text/html" id="PartnerProfileEditPortlet-ProfileUserTmpl">
+			<div profileExtension = "person" tbl="person" class="reg-wrapper expand_wrapper">
+                <div class="reg-outer dynamic-edit-main" id="PartnerProfileEditPortlet-FormMain" tbl="person">
+					<div class="row profile-birthday">
+						<div class="left">
+							<div class="dynamic-label">
+								Ngày sinh: 
+							</div>
+						</div>
+						<div class="right">
+							<div class="dynamic-edit-content">
+								<span class="dynamic-edit-content-value"><%=partner.birthday.val%></span>
+								<a class="dynamic-edit-content-button-fix dynamic-edit-editable"> Sửa </a>
+								<br/>
+							</div>
+							<div class="dynamic-edit-form"  style="display:none">
+								<input isRequired="true" class="date_picker text dynamic-edit-form-value" name="birthday" tid="<%=partner.birthday.id%>" tbl="<%=partner.birthday.tbl%>" type="text" />
+								<a class="dynamic-edit-content-button-save" onclick="generateEvent('DynamicEditSaveButtonClick',event)"> Lưu </a>
+								<a class="dynamic-edit-content-button-cancel"> Hủy </a>
+							</div>
+						</div>
+					</div>
+                    
+					<div class="row profile-fatherLand"">
+							<div class="left">
+								<span class="dynamic-label">
+									Quê quán: 
+								</span>
+							</div>
+							<div class="right">
+								<div class="dynamic-edit-content">
+									<span class="dynamic-edit-content-value"><%=partner.fatherLand.val%></span>
+									<a class="dynamic-edit-content-button-fix dynamic-edit-editable"> Sửa </a>
+								</div>
+								<div class="dynamic-edit-form"  style="display:none">
+									<input isRequired="true" class="text dynamic-edit-form-value" name="fatherLand" tid="<%=partner.fatherLand.id%>" tbl="<%=partner.fatherLand.tbl%>" type="text" />
+									<a class="dynamic-edit-content-button-save" onclick="generateEvent('DynamicEditSaveButtonClick',event)"> Lưu </a>
+									<a class="dynamic-edit-content-button-cancel"> Hủy </a>
+								</div>
+							</div>
+					</div>
+
+					<div class="row profile-address">
+						<div class="left">
+							<div class="dynamic-label">
+								Địa chỉ: 
+							</div>
+						</div>
+						<div class="right">
+							<div class="dynamic-edit-content">
+								<span class="dynamic-edit-content-value"><%=partner.address.val%></span>
+								<a class="dynamic-edit-content-button-fix dynamic-edit-editable"> Sửa </a>
+							</div>
+							<div class="dynamic-edit-form"  style="display:none">
+								<input isRequired="true" class="text dynamic-edit-form-value" name="address" tid="<%=partner.address.id%>" tbl="<%=partner.address.tbl%>" type="text" />
+								<a class="dynamic-edit-content-button-save" onclick="generateEvent('DynamicEditSaveButtonClick',event)"> Lưu </a>
+								<a class="dynamic-edit-content-button-cancel"> Hủy </a>
+							</div>
+						</div>
+					</div>    
+
+					<div class="row profile-phone">
+							<div class="left">
+								<div class="dynamic-label">
+									Điện thoại: 
+								</div>
+							</div>
+							<div class="right">
+								<div class="dynamic-edit-content">
+									<span class="dynamic-edit-content-value"><%=partner.phone.val%></span>
+									<a class="dynamic-edit-content-button-fix dynamic-edit-editable"> Sửa </a>
+								</div>
+								<div class="dynamic-edit-form"  style="display:none">
+									<input isRequired="true" class="text dynamic-edit-form-value" name="phone" tid="<%=partner.phone.id%>" tbl="<%=partner.phone.tbl%>" type="text" />
+									<a class="dynamic-edit-content-button-save" onclick="generateEvent('DynamicEditSaveButtonClick',event)"> Lưu </a>
+									<a class="dynamic-edit-content-button-cancel"> Hủy </a>
+								</div>
+							</div>
+					</div>
+
+					<div class="row profile-email">
+							<div class="left">
+								<div class="dynamic-label">
+									Thư điện tử: 
+								</div>
+							</div>
+							<div class="right">
+								<div class="dynamic-edit-content">
+									<span class="dynamic-edit-content-value"><%=partner.email.val%></span>
+									<a class="dynamic-edit-content-button-fix dynamic-edit-editable"> Sửa </a>
+								</div>
+								<div class="dynamic-edit-form" style="display:none">
+									<input isRequired="true" class="text dynamic-edit-form-value" name="email" tid="<%=partner.email.id%>" tbl="<%=partner.email.tbl%>" type="text" />
+									<a class="dynamic-edit-content-button-save" onclick="generateEvent('DynamicEditSaveButtonClick',event)"> Lưu </a>
+									<a class="dynamic-edit-content-button-cancel"> Hủy </a>
+								</div>
+							</div>
+					</div>
+
+					<div class="row profile-website">
+							<div class="left">
+								<div class="dynamic-label">
+									Trang web: 
+								</div>
+							</div>
+							<div class="right">
+								<div class="dynamic-edit-content">
+									<span class="dynamic-edit-content-value"><%=partner.website.val%></span>
+									<a class="dynamic-edit-content-button-fix dynamic-edit-editable"> Sửa </a>
+								</div>
+								<div class="dynamic-edit-form" style="display:none">
+									<input isRequired="true" class="text dynamic-edit-form-value" name="website" tid="<%=partner.website.id%>" tbl="<%=partner.website.tbl%>" type="text" />
+									<a class="dynamic-edit-content-button-save" onclick="generateEvent('DynamicEditSaveButtonClick',event)"> Lưu </a>
+									<a class="dynamic-edit-content-button-cancel"> Hủy </a>
+								</div>
+							</div>
+					</div>
+
+					<div class="row profile-motto">
+							<div class="left">
+								<div class="dynamic-label">
+									Phương châm: 
+								</div>
+							</div>
+							<div class="right">
+								<div class="dynamic-edit-content">
+									<span class="dynamic-edit-content-value"><%=partner.motto.val%></span>
+									<a class="dynamic-edit-content-button-fix dynamic-edit-editable"> Sửa </a>
+									<br/>
+								</div>
+								<div class="dynamic-edit-form" style="display:none">
+									<input isRequired="true" class="text dynamic-edit-form-value" name="motto" tid="<%=partner.motto.id%>" tbl="<%=partner.motto.tbl%>" fatherID="<%=partner.motto.fatherID%>"type="text" />
+									<a class="dynamic-edit-content-button-save" onclick="generateEvent('DynamicEditSaveButtonClick',event)"> Lưu </a>
+									<a class="dynamic-edit-content-button-cancel"> Hủy </a>
+								</div>
+							</div>
+					</div>
+
+					<div class="row profile-introduction">
+							<div class="left">
+								<div class="dynamic-label">
+									Giới thiệu bản thân: 
+								</div>
+							</div>
+							<div class="right">
+								<div class="dynamic-edit-content">
+									<span class="dynamic-edit-content-value"><%=partner.introduction.val%></span>
+									<a class="dynamic-edit-content-button-fix dynamic-edit-editable"> Sửa </a>
+									<br/>
+								</div>
+								<div class="dynamic-edit-form" style="display:none">
+									<input isRequired="true" class="text dynamic-edit-form-value" name="introduction" tid="<%=partner.introduction.id%>" tbl="<%=partner.introduction.tbl%>" type="text" />
+									<a class="dynamic-edit-content-button-save" onclick="generateEvent('DynamicEditSaveButtonClick',event)"> Lưu </a>
+									<a class="dynamic-edit-content-button-cancel"> Hủy </a>
+								</div>
+							</div>
+					</div>
+
+					<div profileExtension = "school" tbl="profileDetailedSchool" fatherID="<%=partner.id.val%>" tmpl="SchoolTmpl" level=1 class="reg-wrapper">
+						<span class="profile-extension-label"> Trường: </span> 
+						<input class="text dynamic-edit-form-add-item" name="name" tid="" type="text" onkeypress="generateEvent('AddNewItem',event)" />
+					</div>
+					
+					<div profileExtension = "project" tbl="profileDetailedProject" fatherID="<%=partner.id.val%>" tmpl="ProjectTmpl" level=1 class="reg-wrapper">
+						<span class="profile-extension-label"> Công ty: </span> 
+						<input class="text dynamic-edit-form-add-item" name="name" tid="" type="text" onkeypress="generateEvent('AddNewItem',event)" />
+					</div>
+					
+                </div> <!-- reg-outer -->
+        	</div> <!-- profile extension -->
+        </script>
+
+		<script type="text/html" id="PartnerProfileEditPortlet-SchoolTmpl">
+			<div class="dynamic-edit-main reg-outer" level=<%=partner.level.val%> id=<%=partner.id.val%> tbl="<%=partner.tbl.val%>" >
+				<div class="row dynamic-edit-head-item">
+					<span class="profile-school-name">
+						<div class="left">
+							<div class="dynamic-label">
+							</div>
+						</div>
+						<div class="right">
+							<div class="dynamic-edit-content">
+								<span class="dynamic-edit-content-value"><%=partner.name.val%></span>
+								<a class="dynamic-edit-content-button-fix dynamic-edit-editable"> Sửa </a>
+								<a class="dynamic-edit-header-button-delete" onclick="generateEvent('DyanmicEditDeleteButtonClick',event)">Xóa</a>
+							</div>
+							<div class="dynamic-edit-form" style="display:none">
+								<input isRequired="true" class="text dynamic-edit-form-value" name="name" tid="<%=partner.name.id%>" tbl="<%=partner.name.tbl%>" type="text" />
+								<a class="dynamic-edit-content-button-save" onclick="generateEvent('DynamicEditSaveButtonClick',event)"> Lưu </a>
+								<a class="dynamic-edit-content-button-cancel"> Hủy </a>
+							</div>
+						</div>
+					</span>
+				</div>
+
+				<div class="row">
+					<span class="profile-school-department">
+						<div class="left">
+							<div class="dynamic-label">
+								Khoa: 
+							</div>
+						</div>
+						<div class="right">
+							<div class="dynamic-edit-content">
+								<span class="dynamic-edit-content-value"><%=partner.isNew.val?"":partner.department.val%></span>
+								<a class="dynamic-edit-content-button-fix dynamic-edit-editable"> Sửa </a>
+							</div>
+							<div class="dynamic-edit-form" style="display:none">
+								<input isRequired="true" class="text dynamic-edit-form-value" name="department" tid="<%=partner.name.id%>" type="text" />
+								<a class="dynamic-edit-content-button-save" onclick="generateEvent('DynamicEditSaveButtonClick',event)"> Lưu </a>
+								<a class="dynamic-edit-content-button-cancel"> Hủy </a>
+							</div>
+						</div>
+					</span>
+				</div>
+
+				<div class="row">
+					<span class="profile-school-course">
+						<div class="left">
+							<div class="dynamic-label">
+								Khóa: 
+							</div>
+						</div>
+						<div class="right">
+							<div class="dynamic-edit-content">
+								<span class="dynamic-edit-content-value"><%=partner.isNew.val?"":partner.course.val%></span>
+								<a class="dynamic-edit-content-button-fix dynamic-edit-editable"> Sửa </a>
+								<br/>
+							</div>
+							<div class="dynamic-edit-form" style="display:none">
+								<input isRequired="true" class="text dynamic-edit-form-value" name="course" tid="<%=partner.name.id%>" tbl="<%=partner.tbl.val%>" type="text" />
+								<a class="dynamic-edit-content-button-save" onclick="generateEvent('DynamicEditSaveButtonClick',event)"> Lưu </a>
+								<a class="dynamic-edit-content-button-cancel"> Hủy </a>
+							</div>
+						</div>
+					</span>
+				</div>
+				
+				<div profileExtension = "class" tbl="profileDetailedClass" fatherID="<%=partner.id.val%>" tmpl="ClassTmpl" level=0 class="reg-wrapper">
+					<span class="profile-extension-label"> Lớp: </span> 
+					<input class="text dynamic-edit-form-add-item" name="name" tid="" type="text" onkeypress="generateEvent('AddNewItem',event)"/>
+				</div>
+			</div>	
+		</script>
+		
+		<script type="text/html" id="PartnerProfileEditPortlet-ProjectTmpl">
+			<div class="dynamic-edit-main reg-outer" level=<%=partner.level.val%> id=<%=partner.id.val%> tbl="<%=partner.tbl.val%>" >
+				<div class="row dynamic-edit-head-item">
+					<span class="profile-project-name">
+						<div class="left">
+							<div class="dynamic-label">
+							</div>
+						</div>
+						<div class="right">
+							<div class="dynamic-edit-content">
+								<span class="dynamic-edit-content-value"><%=partner.name.val%></span>
+								<a class="dynamic-edit-content-button-fix dynamic-edit-editable"> Sửa </a>
+								<a class="dynamic-edit-header-button-delete" onclick="generateEvent('DyanmicEditDeleteButtonClick',event)">Xóa</a>
+							</div>
+							<div class="dynamic-edit-form" style="display:none">
+								<input isRequired="true" class="text dynamic-edit-form-value" name="name" tid="<%=partner.name.id%>" tbl="<%=partner.name.tbl%>" type="text" />
+								<a class="dynamic-edit-content-button-save" onclick="generateEvent('DynamicEditSaveButtonClick',event)"> Lưu </a>
+								<a class="dynamic-edit-content-button-cancel"> Hủy </a>
+							</div>
+						</div>
+					</span>
+				</div>
+				
+				<div class="row">
+					<span class="profile-project-position">
+						<div class="left">
+							<div class="dynamic-label">
+								Vị trí: 
+							</div>
+						</div>
+						<div class="right">
+							<div class="dynamic-edit-content">
+								<span class="dynamic-edit-content-value"><%=partner.isNew.val?"":partner.position.val%></span>
+								<a class="dynamic-edit-content-button-fix dynamic-edit-editable"> Sửa </a>
+							</div>
+							<div class="dynamic-edit-form" style="display:none">
+								<input isRequired="true" class="text dynamic-edit-form-value" name="position" tid="<%=partner.name.id%>" type="text" />
+								<a class="dynamic-edit-content-button-save" onclick="generateEvent('DynamicEditSaveButtonClick',event)"> Lưu </a>
+								<a class="dynamic-edit-content-button-cancel"> Hủy </a>
+							</div>
+						</div>
+					</span>
+				</div>
+
+				<div class="row">
+					<span class="profile-project-from">
+						<div class="left">
+							<div class="dynamic-label">
+								Thời gian bắt đầu: 
+							</div>
+						</div>
+						<div class="right">
+							<div class="dynamic-edit-content">
+								<span class="dynamic-edit-content-value"><%=partner.isNew.val?"":partner.from.val%></span>
+								<a class="dynamic-edit-content-button-fix dynamic-edit-editable"> Sửa </a>
+							</div>
+							<div class="dynamic-edit-form" style="display:none">
+								<input isRequired="true" class="date_picker text dynamic-edit-form-value" name="from" tid="<%=partner.name.id%>" type="text" />
+								<a class="dynamic-edit-content-button-save" onclick="generateEvent('DynamicEditSaveButtonClick',event)"> Lưu </a>
+								<a class="dynamic-edit-content-button-cancel"> Hủy </a>
+							</div>
+						</div>
+					</span>
+				</div>
+
+				<div class="row">
+					<span class="profile-project-to">
+						<div class="left">
+							<div class="dynamic-label">
+								Thời gian kết thúc: 
+							</div>
+						</div>
+						<div class="right">
+							<div class="dynamic-edit-content">
+								<span class="dynamic-edit-content-value"><%=partner.isNew.val?"":partner.to.val%></span>
+								<a class="dynamic-edit-content-button-fix dynamic-edit-editable"> Sửa </a>
+								<br/>
+							</div>
+							<div class="dynamic-edit-form" style="display:none">
+								<input isRequired="true" class="date_picker text dynamic-edit-form-value" name="to" tid="<%=partner.name.id%>" tbl="<%=partner.tbl.val%>" type="text" />
+								<a class="dynamic-edit-content-button-save" onclick="generateEvent('DynamicEditSaveButtonClick',event)"> Lưu </a>
+								<a class="dynamic-edit-content-button-cancel"> Hủy </a>
+							</div>
+						</div>
+					</span>
+				</div>
+				
+				<div class="row">
+					<span class="profile-project-place">
+						<div class="left">
+							<div class="dynamic-label">
+								Tỉnh/thành phố: 
+							</div>
+						</div>
+						<div class="right">
+							<div class="dynamic-edit-content">
+								<span class="dynamic-edit-content-value"><%=partner.isNew.val?"":partner.place.val%></span>
+								<a class="dynamic-edit-content-button-fix dynamic-edit-editable"> Sửa </a>
+								<br/>
+							</div>
+							<div class="dynamic-edit-form" style="display:none">
+								<input isRequired="true" class="text dynamic-edit-form-value" name="place" tid="<%=partner.name.id%>" tbl="<%=partner.tbl.val%>" type="text" />
+								<a class="dynamic-edit-content-button-save" onclick="generateEvent('DynamicEditSaveButtonClick',event)"> Lưu </a>
+								<a class="dynamic-edit-content-button-cancel"> Hủy </a>
+							</div>
+						</div>
+					</span>
+				</div>
+				
+				<div class="row">
+					<span class="profile-project-description">
+						<div class="left">
+							<div class="dynamic-label">
+								Mô tả: 
+							</div>
+						</div>
+						<div class="right">
+							<div class="dynamic-edit-content">
+								<span class="dynamic-edit-content-value"><%=partner.isNew.val?"":partner.description.val%></span>
+								<a class="dynamic-edit-content-button-fix dynamic-edit-editable"> Sửa </a>
+								<br/>
+							</div>
+							<div class="dynamic-edit-form" style="display:none">
+								<input isRequired="true" class="text dynamic-edit-form-value" name="description" tid="<%=partner.name.id%>" tbl="<%=partner.tbl.val%>" type="text" />
+								<a class="dynamic-edit-content-button-save" onclick="generateEvent('DynamicEditSaveButtonClick',event)"> Lưu </a>
+								<a class="dynamic-edit-content-button-cancel"> Hủy </a>
+							</div>
+						</div>
+					</span>
+				</div>
+			</div>	
+		</script>
+		
+		<script type="text/html" id="PartnerProfileEditPortlet-LongTmpl">
+			<span class="dynamic-edit-content-value"><%=partner.isNew.val?'':partner.course.val%></span>
+		</script>
+			
+		<script type="text/html" id="PartnerProfileEditPortlet-ClassTmpl">
+			<div class="dynamic-edit-main reg-outer" level="<%=partner.level.val%>" level=<%=partner.level.val%> id=<%=partner.id.val%> tbl="<%=partner.tbl.val%>">
+				<div class="row dynamic-edit-head-item" >
+					<span class="profile-school-class-name">
+						<div class="left">
+							<div class="dynamic-label">
+							</div>
+						</div>
+						<div class="right" >
+							<div class="dynamic-edit-content">
+								<span class="dynamic-edit-content-value"><%=partner.name.val%></span>
+								<a class="dynamic-edit-content-button-fix dynamic-edit-editable"> Sửa </a>
+								<br/>
+							</div>
+							<div class="dynamic-edit-form" style="display:none">
+								<input isRequired="true" class="text dynamic-edit-form-value" name="name" tid="<%=partner.name.id%>" tbl="<%=partner.tbl.val%>" fatherID="<%=partner.fatherID.val%>" type="text" />
+								<a class="dynamic-edit-content-button-save" onclick="generateEvent('DynamicEditSaveButtonClick',event)"> Lưu </a>
+								<a class="dynamic-edit-content-button-cancel"> Hủy </a>
+							</div>
+						</div>
+					</span>
+				</div>
+			</div>
+		</script>
+
+	</div>
+</div> <!-- portlet data -->
