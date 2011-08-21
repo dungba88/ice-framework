@@ -18,6 +18,10 @@ public class Table {
 		adapter = AdapterFactory.getAdapter();
 	}
 	
+	public Object view(String fields)	{
+		return new Viewer(this, fields);
+	}
+	
 	public boolean load() throws Exception	{
 		return adapter.load(this);
 	}

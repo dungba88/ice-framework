@@ -27,4 +27,8 @@ public class User extends Table {
 		username = "hehe";
 		this.update("role,username");
 	}
+
+	public Object getInfo() {
+		return this.view("username, id");
+	}
 }

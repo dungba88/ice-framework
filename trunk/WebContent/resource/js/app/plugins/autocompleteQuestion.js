@@ -136,7 +136,7 @@ QuestionAutocomplete = Class.extend({
 			makeQuestion(friend);
 		} else {
 			try {
-				tmp = $("a[question='"+escape(friend)+"']");
+				var tmp = $("a[question='"+escape(friend)+"']");
 				moveToAQuestion(tmp.attr("question_id"));
 			} catch (e) {
 			}
