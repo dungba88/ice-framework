@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="WINDOWS-1252" standalone="no"?>
+<jardesc>
+    <jar path="C:/Users/Griever/Desktop/ice.jar"/>
+    <options buildIfNeeded="true" compress="true" descriptionLocation="/ice/ice.jardesc" exportErrors="true" exportWarnings="true" includeDirectoryEntries="false" overwrite="true" saveDescription="true" storeRefactorings="false" useSourceFolders="false"/>
+    <storedRefactorings deprecationInfo="true" structuralOnly="false"/>
+    <selectedProjects/>
+    <manifest generateManifest="false" manifestLocation="/ice/build.mf" manifestVersion="1.0" reuseManifest="true" saveManifest="true" usesManifest="true">
+        <sealing sealJar="false">
+            <packagesToSeal/>
+            <packagesToUnSeal/>
+        </sealing>
+    </manifest>
+    <selectedElements exportClassFiles="true" exportJavaFiles="false" exportOutputFolder="false">
+        <javaElement handleIdentifier="=ice/src&lt;org.ice.listener"/>
+        <javaElement handleIdentifier="=ice/src&lt;org.ice.module"/>
+        <javaElement handleIdentifier="=ice/src&lt;org.ice.exception"/>
+        <javaElement handleIdentifier="=ice/src&lt;org.ice.logger"/>
+        <javaElement handleIdentifier="=ice/src&lt;org.ice"/>
+        <javaElement handleIdentifier="=ice/src&lt;org.ice.http"/>
+        <javaElement handleIdentifier="=ice/src&lt;org.ice.module.router"/>
+        <javaElement handleIdentifier="=ice/src&lt;org.ice.db"/>
+        <javaElement handleIdentifier="=ice/src&lt;org.ice.utils"/>
+        <javaElement handleIdentifier="=ice/src&lt;org.ice.view"/>
+    </selectedElements>
+</jardesc>
