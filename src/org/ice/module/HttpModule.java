@@ -26,48 +26,16 @@ public abstract class HttpModule implements IModule {
 		view = new ScriptView();
 	}
 	
-	@Override
-	public void init() {
+	public String getParam(String param) {
+		return request.getParam(param);
 	}
-
-	@Override
-	public void preDispatch() {
-		
+	
+	public String getParam(int index) {
+		return request.getParam(index);
 	}
-
-	@Override
-	public void dispatch(String task) throws Exception {
-		if (view != null)	{
-			view.setRequest(request);
-			view.setResponse(response);
-		}
-		
-		this.preDispatch ();
-
-		try {
-			Method method = this.getClass().getMethod(task+"Task", new Class<?>[0]);
-			method.invoke(this, new Object[0]);
-		} catch(InvocationTargetException ex) {
-			Throwable target = ex.getTargetException();
-			if (target instanceof Exception)
-				throw (Exception)target;
-			throw new IceException(ex.getTargetException(), 500);
-		} catch (Exception ex)	{
-			throw new NotFoundException("Task ["+request.getTaskName()+"] not found for module ["+request.getModuleName()+"]");
-		}
-		
-		this.postDispatch ();
-		
-		if (isUsingTemplate())	{
-			setContentType("text/html");
-			view.setTemplate(Config.resourceUrl+template);
-			view.render();
-		}
-	}
-
-	@Override
-	public void postDispatch() {
-		
+	
+	public String getParam(String param, String defaultValue) {
+		return request.getParam(param, defaultValue);
 	}
 	
 	public void setTemplate(String template)	{
@@ -78,32 +46,6 @@ public abstract class HttpModule implements IModule {
 		return (template != null);
 	}
 
-	@Override
-	public String getResponse() {
-		return content;
-	}
-
-	@Override
-	public void destroy() {
-		
-	}
-	
-	@Override
-	public void setResponse(HttpResponse response) {
-		this.response = response;
-		this.content = response.getBody();
-	}
-	
-	@Override
-	public void setRequest(HttpRequest request) {
-		this.request = request;
-	}
-
-	@Override
-	public HttpRequest getRequest() {
-		return request;
-	}
-	
 	public void setSession(String name, String value)	{
 		request.setSession(name, value);
 	}
@@ -156,5 +98,75 @@ public abstract class HttpModule implements IModule {
 	
 	public void echo(String s)	{
 		content += s;
+	}
+	
+	@Override
+	public void init() {
+	}
+
+	@Override
+	public void preDispatch() {
+		
+	}
+
+	@Override
+	public void dispatch(String task) throws Exception {
+		if (view != null)	{
+			view.setRequest(request);
+			view.setResponse(response);
+		}
+		
+		this.preDispatch ();
+
+		try {
+			Method method = this.getClass().getMethod(task+"Task", new Class<?>[0]);
+			method.invoke(this, new Object[0]);
+		} catch(InvocationTargetException ex) {
+			Throwable target = ex.getTargetException();
+			if (target instanceof Exception)
+				throw (Exception)target;
+			throw new IceException(ex.getTargetException(), 500);
+		} catch (Exception ex)	{
+			throw new NotFoundException("Task ["+request.getTaskName()+"] not found for module ["+request.getModuleName()+"]");
+		}
+		
+		this.postDispatch ();
+		
+		if (isUsingTemplate())	{
+			setContentType("text/html");
+			view.setTemplate(Config.resourceUrl+template);
+			view.render();
+		}
+	}
+
+	@Override
+	public void postDispatch() {
+		
+	}
+	
+	@Override
+	public void destroy() {
+		
+	}
+	
+	@Override
+	public String getResponse() {
+		return content;
+	}
+
+	@Override
+	public void setResponse(HttpResponse response) {
+		this.response = response;
+		this.content = response.getBody();
+	}
+	
+	@Override
+	public void setRequest(HttpRequest request) {
+		this.request = request;
+	}
+
+	@Override
+	public HttpRequest getRequest() {
+		return request;
 	}
 }
