@@ -3,8 +3,6 @@ package org.ice.module;
 import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
 
-import javax.servlet.http.Cookie;
-
 import org.ice.Config;
 import org.ice.exception.IceException;
 import org.ice.exception.NotFoundException;
@@ -45,41 +43,15 @@ public abstract class HttpModule implements IModule {
 	public boolean isUsingTemplate()	{
 		return (template != null);
 	}
-
-	public void setSession(String name, String value)	{
-		request.setSession(name, value);
-	}
 	
-	public Object getSession(String name)	{
-		return request.getSession(name);
-	}
-	
-	public void destroySession()	{
-		request.destroySession();
-	}
-	
-	public void clearSession(String name)	{
-		request.clearSession(name);
-	}
-	
-	public void addCookie(Cookie cookie)	{
-		response.addCookie(cookie);
-	}
-	
-	public Cookie[] getCookies()	{
-		return request.getCookies();
-	}
-
-	@Override
 	public void setHeader(String headerName, String value) {
 		response.setHeader(headerName, value);
 	}
-
-	@Override
+	
 	public String getHeader(String headerName) {
 		return response.getHeader(headerName);
 	}
-	
+
 	public void setContentType(String contentType)	{
 		response.setContentType(contentType);
 	}

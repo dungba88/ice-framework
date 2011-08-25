@@ -53,10 +53,10 @@ public class TutorialModule extends HttpModule {
 	 * Test session - set/get
 	 */
 	public void sessionTask()	{
-		String time = (String)getSession("time");
+		String time = (String)getRequest().getSession("time");
 		if (time == null)	{
 			time = new Date().getTime() + "";
-			setSession("time", time);
+			getRequest().setSession("time", time);
 			echo("The last timestamp is unspecified");
 		} else {
 			echo("The last timestamp is "+time);
@@ -67,7 +67,7 @@ public class TutorialModule extends HttpModule {
 	 * Test session - destroy
 	 */
 	public void logoutTask()	{
-		destroySession();
+		getRequest().destroySession();
 		echo("Session destroyed");
 	}
 

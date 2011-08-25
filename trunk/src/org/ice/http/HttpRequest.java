@@ -1,11 +1,16 @@
 package org.ice.http;
 
 import java.util.Enumeration;
+import java.util.List;
 
 import javax.servlet.RequestDispatcher;
 import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
+
+import org.apache.tomcat.util.http.fileupload.FileItem;
+import org.apache.tomcat.util.http.fileupload.disk.DiskFileItemFactory;
+import org.apache.tomcat.util.http.fileupload.servlet.ServletFileUpload;
 
 public class HttpRequest  {
 
@@ -133,6 +138,21 @@ public class HttpRequest  {
 	
 	public Cookie[] getCookies()	{
 		return request.getCookies();
+	}
+	
+	public boolean isMultipart() {
+		return ServletFileUpload.isMultipartContent(request);
+	}
+	
+	public FileItem getUploadFile(String file) throws Exception {
+		ServletFileUpload fileUpload = new ServletFileUpload(new DiskFileItemFactory());
+		List<FileItem> list = fileUpload.parseRequest(request);
+		for(FileItem fileItem: list) {
+			if (fileItem.getFieldName().equals(file)) {
+				return fileItem;
+			}
+		}
+		return null;
 	}
 
 	public RequestDispatcher getRequestDispatcher(String template) {

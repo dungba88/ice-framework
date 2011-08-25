@@ -12,7 +12,7 @@ public abstract class BaseAjaxModule extends HttpModule {
 	protected User viewer;
 	
 	public void init()	{
-		viewer = (User) this.getSession("viewer");
+		viewer = (User) this.getRequest().getSession("viewer");
 		if (viewer == null)	{
 			viewer = new User();
 			viewer.id = -1;
