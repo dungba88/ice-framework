@@ -8,23 +8,23 @@ import model.User;
 import org.ice.exception.AccessDeniedException;
 import org.ice.module.HttpModule;
 
-
-public class IndexModule extends HttpModule {
+public class TutorialModule extends HttpModule {
 	
-	public void init()	{
-		setContentType("text/html");
+	/**
+	 * Test db
+	 * @throws Exception
+	 */
+	public void getUserTask() throws Exception {
+		User user = new User();
+		user.id = 45;
+		user.load();
+		echo("Hello "+user.username);
 	}
 	
 	/**
-	 * Test database - load a row using primary key
+	 * Test access control
 	 * @throws Exception
 	 */
-	public void indexTask() throws Exception	{
-		this.view.setParam("baseUrl", this.getBaseUrl());
-		this.view.setParam("resourceUrl", this.getResourceUrl());
-		setTemplate("/index.fall.copy.html");
-	}
-	
 	public void permissionTask() throws Exception	{
 		throw new AccessDeniedException("You are not allowed to take this action");
 	}
@@ -34,7 +34,7 @@ public class IndexModule extends HttpModule {
 	 * @throws Exception
 	 */
 	public void exceptionTask() throws Exception	{
-		throw new AccessDeniedException("You are allowed to take this action");
+		throw new Exception("Exception rồi này");
 	}
 	
 	/**
