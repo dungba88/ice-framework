@@ -10,6 +10,9 @@ public class Viewer {
 	protected Map<String, Object> map;
 	protected Object obj;
 	protected String fields;
+	
+	public Viewer() {
+	}
 
 	public Viewer(Object obj, String fields)	{
 		this.obj = obj;
