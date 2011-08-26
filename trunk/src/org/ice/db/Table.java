@@ -19,7 +19,7 @@ public class Table {
 	}
 	
 	public Object view(String fields)	{
-		return new Viewer(this, fields);
+		return new Viewer(this, fields).serialize();
 	}
 	
 	public ArrayList<Object> view(ArrayList<? extends Table> list, String fields)	{
