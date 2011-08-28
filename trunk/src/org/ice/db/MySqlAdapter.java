@@ -150,7 +150,7 @@ public class MySqlAdapter extends Adapter {
 		if (primaryChoice == null) {
 			primaryChoice = primaryObj.table + ".*";
 		}
-		else{
+		else if(!primaryChoice.isEmpty()) {
 			String[] option = primaryChoice.split(",");
 			primaryChoice = "";
 	        for(int i = 0; i < option.length; i++){
@@ -163,7 +163,7 @@ public class MySqlAdapter extends Adapter {
 		}
 		if (foreignChoice == null) {
 			foreignChoice = foreignObj.table + ".*";
-		} else{
+		} else if(!foreignChoice.isEmpty()) {
 			String[] option = foreignChoice.split(",");
 			foreignChoice = "";
 	        for(int i = 0; i < option.length; i++){
