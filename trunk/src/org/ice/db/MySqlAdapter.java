@@ -175,6 +175,7 @@ public class MySqlAdapter extends Adapter {
 	        }
 		}
 		String query = "SELECT "+primaryChoice + "," + foreignChoice+" FROM `"+ primaryObj.table+"`, `" + foreignObj.table + "` ";
+		query += "WHERE " + primaryObj.table + "." + primaryObj.key + " = " + foreignObj.table + "." + foreignKey;
 		ArrayList<Object> param = new ArrayList<Object>();
 		if (where != null && !where.isEmpty())	{
 			if(where.indexOf("?") != -1){
@@ -197,8 +198,9 @@ public class MySqlAdapter extends Adapter {
 	                }
 	            }
 	        }
-			query += " WHERE (" + where + ") AND " + primaryObj.table + "." + primaryObj.key + " = " + foreignObj.table + "." + foreignKey;
-		}	
+			query += " AND (" + where + ") ";
+		}
+		
 		if (group != null && !group.isEmpty())
 			query += " GROUP BY "+group;
 		if (order != null && !order.isEmpty())
