@@ -185,10 +185,11 @@ public class MySqlAdapter extends Adapter {
 	                if(params[i].charAt(0) == '?'){
 	                	where += "? ";
 	                	if(params[i].indexOf(".") != -1){
-	                		if(primaryObj.table.equals(params[i].split("\\.")[0].substring(1))){
-	                			param.add(FieldUtils.getValue(primaryObj, params[i].split(".")[1]));
+	                		String []arr = params[i].split("\\.");
+	                		if(primaryObj.table.equals(arr[0].substring(1))){
+	                			param.add(FieldUtils.getValue(primaryObj, arr[1]));
 	                		} else{
-	                			param.add(FieldUtils.getValue(foreignObj, params[i].split(".")[1]));
+	                			param.add(FieldUtils.getValue(foreignObj, arr[1]));
 	                		}
 	                	}
 	                }
