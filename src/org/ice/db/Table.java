@@ -53,4 +53,47 @@ public class Table {
 	public int update(String fields, String where) throws Exception {
 		return adapter.update(this, fields, where);
 	}
+	
+	public boolean insert(String fields) throws Exception {
+		return adapter.insert(this, fields);
+	}
+	
+	public int delete() throws Exception {
+		return adapter.delete(this, null);
+	}
+	
+	public int delete(String where) throws Exception {
+		return adapter.delete(this, where);
+	}
+
+	/**
+	 * Select fields by joining 2 tables with constraint: N - 1
+	 * @return default: list of object of returnClass. Should add extra field of "choices" into returnClass if needed.
+	 * @param foreignObj: object of Class with table of 1 (has the foreign key or reference key).
+	 * @param where: extra where except the Join-where (primary key = reference key).
+	 * @param primaryChoice: what you want to select from primary table. Just give the name of field, WITHOUT name of table, WITH "as" for alias if needed.
+	 * @param foreignChoice: like primaryChoice.
+	 * @param order: pass the name of field to be ordered, WITH name of table if needed, then "ASC or DESC". Or just NULL for this.
+	 * @param group: pass the name of field to be grouped, WITH name of table if needed.
+	 * @param returnClass: class of object you want to return.
+	 * */
+	public ArrayList join(Table foreignObj, String foreignKey, String where, String primaryChoice,
+			String foreignChoice, String order, String group, int pageIndex, int pageSize, Class<? extends Table> returnClass) throws Exception {
+		return adapter.selectJoin(this, foreignObj, foreignKey, where, primaryChoice, foreignChoice, order, group, pageIndex, pageSize, returnClass);
+	}
+	
+	public ArrayList primaryJoin(Table foreignObj, String foreignKey, String where, String primaryChoice,
+			String foreignChoice, String order, String group, int pageIndex, int pageSize) throws Exception {
+		return adapter.selectJoin(this, foreignObj, foreignKey, where, primaryChoice, foreignChoice, order, group, pageIndex, pageSize, this.getClass());
+	}
+	
+	public ArrayList foreignJoin(Table primaryObj, String foreignKey, String where, String primaryChoice,
+			String foreignChoice, String order, String group, int pageIndex, int pageSize) throws Exception {
+		return adapter.selectJoin(primaryObj, this, foreignKey, where, primaryChoice, foreignChoice, order, group, pageIndex, pageSize, this.getClass());
+	}
+	
+	public ArrayList join(Table primaryObj, String foreignKey, String primaryChoice,
+			String foreignChoice, int pageIndex, int pageSize) throws Exception {
+		return adapter.selectJoin(primaryObj, this, foreignKey, null, primaryChoice, foreignChoice, primaryObj.key+" DESC", null, pageIndex, pageSize, this.getClass());
+	}
 }

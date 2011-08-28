@@ -3,7 +3,10 @@ package module;
 import java.util.ArrayList;
 import java.util.Date;
 
+import model.Article;
 import model.User;
+import net.arnx.jsonic.JSON;
+import net.arnx.jsonic.JSONException;
 
 import org.ice.exception.AccessDeniedException;
 import org.ice.module.HttpModule;
@@ -85,6 +88,11 @@ public class TutorialModule extends HttpModule {
 		setTemplate("/index.htm");
 		view.setParam("title", "hello");
 		view.setParam("username", "griever");
+	}
+	
+	public void joinTask() throws Exception	{
+		Article article = new Article();
+		echo(JSON.encode(article.fetchLatest()));
 	}
 	
 	/**
