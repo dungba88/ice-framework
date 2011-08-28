@@ -67,7 +67,53 @@ public class MySqlAdapter extends Adapter {
 		
 		return list;
 	}
-
+	public boolean insert(Table obj, String fields) throws Exception{
+        String f = "(";
+        String v = "(";
+        String[] option = fields.split(",");
+        for(int i = 0; i < option.length; i++){
+            option[i] = option[i].trim();
+            f += "`" + option[i] + "`";
+            v += "?";
+            if(i < (option.length - 1)){
+                f += ",";
+                v += ",";
+            }
+            else{
+                f += ")";
+                v += ")";
+            }
+        }
+        return this.executeInsert("INSERT INTO `" + obj.table + "`" + f + " VALUES" + v, obj);
+    }
+	public int delete(Table obj, String where) throws Exception{
+        ArrayList<Object> param = new ArrayList<Object>();
+        if(where != null && !where.equals("")){
+            if(where.indexOf("?") != -1){
+                String[] params = where.split(" ");
+                where = "WHERE ";
+                for(int i = 0; i < params.length; i++){
+                    if(params[i].charAt(0) == '?'){
+                    	where += "? ";
+                        try{
+                            param.add(this.getClass().getField(params[i].substring(1)).get(this));
+                        }
+                        catch(Exception ex){}
+                    }
+                    else{
+                    	where += params[i] + " ";
+                    }
+                }
+            }
+            else{
+            	where = "WHERE " + where;
+            }
+        }
+        else{
+        	where = "";
+        }
+        return this.executeUpdate("DELETE FROM `" + obj.table + "` " + where, obj);
+    }
 	@Override
 	public String getConnectionString(String host, String port, String dbName) {
 		return "jdbc:mysql://"+host+":"+port+"/"+dbName;
