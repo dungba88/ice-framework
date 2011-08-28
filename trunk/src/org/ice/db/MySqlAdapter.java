@@ -148,67 +148,57 @@ public class MySqlAdapter extends Adapter {
 		ArrayList list = new ArrayList();
 		
 		if (primaryChoice == null || primaryChoice.isEmpty()) {
-			primaryChoice = primaryObj + ".*";
+			primaryChoice = primaryObj.table + ".*";
 		}
 		else{
 			String[] option = primaryChoice.split(",");
-			primaryChoice = "(";
+			primaryChoice = "";
 	        for(int i = 0; i < option.length; i++){
 	            option[i] = option[i].trim();
-	            primaryChoice += "`" + primaryObj + "."+ option[i] + "`";
+	            primaryChoice += primaryObj.table + "."+ option[i];
 	            if(i < (option.length - 1)){
 	            	primaryChoice += ",";
 	            }
-	            else{
-	            	primaryChoice += ")";
-	            }
 	        }
-	        
-	        
 		}
 		if (foreignChoice == null || foreignChoice.isEmpty()) {
-			foreignChoice = foreignObj + ".*";
+			foreignChoice = foreignObj.table + ".*";
 		} else{
 			String[] option = foreignChoice.split(",");
-			foreignChoice = "(";
+			foreignChoice = "";
 	        for(int i = 0; i < option.length; i++){
 	            option[i] = option[i].trim();
-	            foreignChoice += "`" + foreignObj + "."+ option[i] + "`";
+	            foreignChoice += foreignObj.table + "."+ option[i];
 	            if(i < (option.length - 1)){
 	            	foreignChoice += ",";
-	            }
-	            else{
-	            	foreignChoice += ")";
 	            }
 	        }
 		}
 		String query = "SELECT "+primaryChoice + "," + foreignChoice+" FROM `"+ primaryObj.table+"`, `" + foreignObj.table + "` ";
 		ArrayList<Object> param = new ArrayList<Object>();
-		if(where.indexOf("?") != -1){
-            String[] params = where.split(" ");
-            where = "WHERE ";
-            for(int i = 0; i < params.length; i++){
-                if(params[i].charAt(0) == '?'){
-                	where += "? ";
-                	if(params[i].indexOf(".") != -1){
-                		if(primaryObj.table.equals(params[i].split(".")[0])){
-                			param.add(FieldUtils.getValue(primaryObj, params[i].split(".")[1]));
-                		}
-                		else{
-                			param.add(FieldUtils.getValue(foreignObj, params[i].split(".")[1]));
-                		}
-                	}
-                }
-                else{
-                	where += params[i] + " ";
-                }
-            }
-        }
-        else{
-        	where = "WHERE " + where;
-        }
-		if (where != null && !where.isEmpty())
+		if (where != null && !where.isEmpty())	{
+			if(where.indexOf("?") != -1){
+	            String[] params = where.split(" ");
+	            where = "";
+	            for(int i = 0; i < params.length; i++){
+	                if(params[i].charAt(0) == '?'){
+	                	where += "? ";
+	                	if(params[i].indexOf(".") != -1){
+	                		if(primaryObj.table.equals(params[i].split(".")[0])){
+	                			param.add(FieldUtils.getValue(primaryObj, params[i].split(".")[1]));
+	                		}
+	                		else{
+	                			param.add(FieldUtils.getValue(foreignObj, params[i].split(".")[1]));
+	                		}
+	                	}
+	                }
+	                else{
+	                	where += params[i] + " ";
+	                }
+	            }
+	        }
 			query += " WHERE (" + where + ") AND " + primaryObj.table + "." + primaryObj.key + " = " + foreignObj.table + "." + foreignKey;
+		}	
 		if (group != null && !group.isEmpty())
 			query += " GROUP BY "+group;
 		if (order != null && !order.isEmpty())
@@ -216,11 +206,6 @@ public class MySqlAdapter extends Adapter {
 		if (pageIndex >= 0 && pageSize > 0)
 			query += " LIMIT "+pageIndex*pageSize+","+pageSize;
 		
-		PreparedStatement statement = connection.prepareStatement(query);
-		for(int i=0;i<param.size();i++)	{
-			statement.setObject(i+1, param.get(i));
-		}
-		ResultSet rs = statement.executeQuery();
 		if (Config.debugMode){
 			StringBuilder builder = new StringBuilder(query);
 			
@@ -235,6 +220,12 @@ public class MySqlAdapter extends Adapter {
 			}
 			Logger.getLogger().log(builder.toString(), Logger.LEVEL_DEBUG);
 		}
+		
+		PreparedStatement statement = connection.prepareStatement(query);
+		for(int i=0;i<param.size();i++)	{
+			statement.setObject(i+1, param.get(i));
+		}
+		ResultSet rs = statement.executeQuery();
 		rs.beforeFirst();
 		if(returnClass == null) returnClass = primaryObj.getClass();
 		while(rs.next())	{

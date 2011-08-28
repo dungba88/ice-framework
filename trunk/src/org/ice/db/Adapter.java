@@ -85,7 +85,7 @@ public abstract class Adapter {
 		int count = rsmd.getColumnCount();
 		for(int i=1; i<=count; i++)	{
 			try {
-				String columnName = rsmd.getColumnName(i);
+				String columnName = rsmd.getColumnLabel(i);
 				FieldUtils.setValue(obj, columnName, rs.getObject(columnName));
 			} catch (Exception ex) {
 			}
