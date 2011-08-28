@@ -147,7 +147,7 @@ public class MySqlAdapter extends Adapter {
 			int pageSize, Class<? extends Table> returnClass) throws Exception {
 		ArrayList list = new ArrayList();
 		
-		if (primaryChoice == null || primaryChoice.isEmpty()) {
+		if (primaryChoice == null) {
 			primaryChoice = primaryObj.table + ".*";
 		}
 		else{
@@ -161,7 +161,7 @@ public class MySqlAdapter extends Adapter {
 	            }
 	        }
 		}
-		if (foreignChoice == null || foreignChoice.isEmpty()) {
+		if (foreignChoice == null) {
 			foreignChoice = foreignObj.table + ".*";
 		} else{
 			String[] option = foreignChoice.split(",");
