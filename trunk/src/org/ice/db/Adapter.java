@@ -5,6 +5,7 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.ResultSetMetaData;
 import java.sql.SQLException;
+import java.sql.Statement;
 import java.util.ArrayList;
 
 import org.ice.Config;
@@ -52,7 +53,7 @@ public abstract class Adapter {
 		if (Config.debugMode)
 			debugSql(parsed, data);
 		
-		PreparedStatement statement = connection.prepareStatement(parsed.query);
+		PreparedStatement statement = connection.prepareStatement(parsed.query, Statement.RETURN_GENERATED_KEYS);
 		for(int i=0;i<parsed.params.size();i++)	{
 			statement.setObject(i+1, FieldUtils.getValue(data, parsed.params.get(i)));
 		}
