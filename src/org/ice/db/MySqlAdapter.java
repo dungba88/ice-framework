@@ -100,7 +100,7 @@ public class MySqlAdapter extends Adapter {
 		if (where == null || where.isEmpty())	{
 			where = obj.key + " = ?"+obj.key;
 		}
-        return this.executeUpdate("DELETE FROM `" + obj.table + "` " + where, obj);
+        return this.executeUpdate("DELETE FROM `" + obj.table + "` WHERE " + where, obj);
     }
 	
 	@Override
