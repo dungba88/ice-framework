@@ -131,7 +131,7 @@ public class MySqlAdapter extends Adapter {
 	
 	/**
 	 * Select fields by joining 2 tables with constraint: N - 1
-	 * @return list of object of PRIMARY CLASS. Should add extra field of "foreign choices" into primary class if needed.
+	 * @return default: list of object of returnClass. Should add extra field of "choices" into returnClass if needed.
 	 * @param primaryObj: object of Class with table of N (has the primary key).
 	 * @param foreignObj: object of Class with table of 1 (has the foreign key or reference key).
 	 * @param where: extra where except the Join-where (primary key = reference key).
@@ -139,11 +139,12 @@ public class MySqlAdapter extends Adapter {
 	 * @param foreignChoice: like primaryChoice.
 	 * @param order: pass the name of field to be ordered, WITH name of table if needed, then "ASC or DESC". Or just NULL for this.
 	 * @param group: pass the name of field to be grouped, WITH name of table if needed.
+	 * @param returnClass: class of object you want to return.
 	 * */
 	@Override
 	public ArrayList selectJoin(Table primaryObj, Table foreignObj, String foreignKey, String where,
 			String primaryChoice, String foreignChoice, String order, String group, int pageIndex,
-			int pageSize) throws Exception {
+			int pageSize, Class<? extends Table> returnClass) throws Exception {
 		ArrayList list = new ArrayList();
 		
 		if (primaryChoice == null || primaryChoice.isEmpty()) {
@@ -235,9 +236,9 @@ public class MySqlAdapter extends Adapter {
 			Logger.getLogger().log(builder.toString(), Logger.LEVEL_DEBUG);
 		}
 		rs.beforeFirst();
-		Class<?> c = primaryObj.getClass();
+		if(returnClass == null) returnClass = primaryObj.getClass();
 		while(rs.next())	{
-			Object newObj = c.newInstance();
+			Object newObj = returnClass.newInstance();
 			extendObject(rs, newObj);
 			list.add(newObj);
 		}
