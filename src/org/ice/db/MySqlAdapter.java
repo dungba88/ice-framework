@@ -82,17 +82,17 @@ public class MySqlAdapter extends Adapter {
         for(int i = 0; i < option.length; i++){
             option[i] = option[i].trim();
             f += "`" + option[i] + "`";
-            v += "?";
+            v += "?" + option[i];
             if(i < (option.length - 1)){
                 f += ",";
                 v += ",";
             }
             else{
                 f += ")";
-                v += ")";
+                v += " )";
             }
         }
-        return this.executeInsert("INSERT INTO `" + obj.table + "`" + f + " VALUES" + v, obj);
+        return this.executeInsert("INSERT INTO `" + obj.table + "`" + f + " VALUES " + v, obj);
     }
 	
 	@Override
