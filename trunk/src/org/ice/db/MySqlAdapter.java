@@ -21,6 +21,7 @@ public class MySqlAdapter extends Adapter {
 		ResultSet rs = this.executeSelect(query, obj);
 		if (rs.first())	{
 			extendObject(rs, obj);
+			rs.close();
 			return true;
 		}
 		return false;
@@ -69,9 +70,11 @@ public class MySqlAdapter extends Adapter {
 			extendObject(rs, newObj);
 			list.add(newObj);
 		}
-		
+		rs.close();
 		return list;
 	}
+	
+	@Override
 	public boolean insert(Table obj, String fields) throws Exception{
         String f = "(";
         String v = "(";
@@ -91,34 +94,15 @@ public class MySqlAdapter extends Adapter {
         }
         return this.executeInsert("INSERT INTO `" + obj.table + "`" + f + " VALUES" + v, obj);
     }
-	public int delete(Table obj, String where) throws Exception{
-        ArrayList<Object> param = new ArrayList<Object>();
-        if(where != null && !where.equals("")){
-            if(where.indexOf("?") != -1){
-                String[] params = where.split(" ");
-                where = "WHERE ";
-                for(int i = 0; i < params.length; i++){
-                    if(params[i].charAt(0) == '?'){
-                    	where += "? ";
-                        try{
-                            param.add(this.getClass().getField(params[i].substring(1)).get(this));
-                        }
-                        catch(Exception ex){}
-                    }
-                    else{
-                    	where += params[i] + " ";
-                    }
-                }
-            }
-            else{
-            	where = "WHERE " + where;
-            }
-        }
-        else{
-        	where = "";
-        }
+	
+	@Override
+	public int delete(Table obj, String where) throws Exception	{
+		if (where == null || where.isEmpty())	{
+			where = obj.key + " = ?"+obj.key;
+		}
         return this.executeUpdate("DELETE FROM `" + obj.table + "` " + where, obj);
     }
+	
 	@Override
 	public String getConnectionString(String host, String port, String dbName) {
 		return "jdbc:mysql://"+host+":"+port+"/"+dbName;

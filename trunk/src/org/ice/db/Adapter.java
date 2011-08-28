@@ -102,6 +102,10 @@ public abstract class Adapter {
 	
 	public abstract int update(Table obj, String fields, String where) throws Exception;
 	
+	public abstract boolean insert(Table obj, String fields) throws Exception;
+	
+	public abstract int delete(Table obj, String where) throws Exception;
+	
 	public abstract ArrayList selectJoin(Table primaryObj, Table foreignObj, String foreignKey, String where, String primaryChoice,
 			String foreignChoice, String order, String group, int pageIndex, int pageSize) throws Exception;
 	
