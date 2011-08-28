@@ -47,6 +47,23 @@ public abstract class Adapter {
 		return statement.executeUpdate();
 	}
 	
+	public boolean executeInsert(String query, Table data) throws SQLException {
+		ParsedQuery parsed = parseQuery(query);
+		if (Config.debugMode)
+			debugSql(parsed, data);
+		
+		PreparedStatement statement = connection.prepareStatement(parsed.query);
+		for(int i=0;i<parsed.params.size();i++)	{
+			statement.setObject(i+1, FieldUtils.getValue(data, parsed.params.get(i)));
+		}
+		statement.executeUpdate();
+		ResultSet rs = statement.getGeneratedKeys();
+		while(rs.next()){
+			FieldUtils.setValue(data, data.key, rs.getObject(1));
+		}
+		return true;
+	}
+	
 	private void debugSql(ParsedQuery parsed, Object data) {
 		StringBuilder builder = new StringBuilder(parsed.query);
 		
