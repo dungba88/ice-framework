@@ -13,7 +13,7 @@ import org.ice.utils.FieldUtils;
 
 public abstract class Adapter {
 	
-	private Connection connection;
+	protected Connection connection;
 
 	public Connection getConnection() {
 		return connection;
@@ -101,6 +101,9 @@ public abstract class Adapter {
 			String order, String group, int pageIndex, int pageSize) throws Exception;
 	
 	public abstract int update(Table obj, String fields, String where) throws Exception;
+	
+	public abstract ArrayList selectJoin(Table primaryObj, Table foreignObj, String foreignKey, String where, String primaryChoice,
+			String foreignChoice, String order, String group, int pageIndex, int pageSize) throws Exception;
 	
 	public abstract String getConnectionString(String host, String port, String dbName);
 	
