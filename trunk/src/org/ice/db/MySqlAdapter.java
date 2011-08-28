@@ -77,7 +77,7 @@ public class MySqlAdapter extends Adapter {
 	@Override
 	public boolean insert(Table obj, String fields) throws Exception{
         String f = "(";
-        String v = "(";
+        String v = "( ";
         String[] option = fields.split(",");
         for(int i = 0; i < option.length; i++){
             option[i] = option[i].trim();
