@@ -85,7 +85,7 @@ public class MySqlAdapter extends Adapter {
             v += "?" + option[i];
             if(i < (option.length - 1)){
                 f += ",";
-                v += " ,";
+                v += " , ";
             }
             else{
                 f += ")";
