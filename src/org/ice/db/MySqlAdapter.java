@@ -85,14 +85,14 @@ public class MySqlAdapter extends Adapter {
             v += "?" + option[i];
             if(i < (option.length - 1)){
                 f += ",";
-                v += ",";
+                v += " ,";
             }
             else{
                 f += ")";
                 v += " )";
             }
         }
-        return this.executeInsert("INSERT INTO `" + obj.table + "`" + f + " VALUES " + v, obj);
+        return this.executeInsert("INSERT INTO `" + obj.table + "` " + f + " VALUES " + v, obj);
     }
 	
 	@Override
