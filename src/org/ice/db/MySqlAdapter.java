@@ -1,7 +1,12 @@
 package org.ice.db;
 
+import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.util.ArrayList;
+
+import org.ice.Config;
+import org.ice.logger.Logger;
+import org.ice.utils.FieldUtils;
 
 public class MySqlAdapter extends Adapter {
 
@@ -137,5 +142,122 @@ public class MySqlAdapter extends Adapter {
 		}
 		
 		return new ParsedQuery(parsedQuery, params);
+	}
+
+	
+	/**
+	 * Select fields by joining 2 tables with constraint: N - 1
+	 * @return list of object of PRIMARY CLASS. Should add extra field of "foreign choices" into primary class if needed.
+	 * @param primaryObj: object of Class with table of N (has the primary key).
+	 * @param foreignObj: object of Class with table of 1 (has the foreign key or reference key).
+	 * @param where: extra where except the Join-where (primary key = reference key).
+	 * @param primaryChoice: what you want to select from primary table. Just give the name of field, WITHOUT name of table, WITH "as" for alias if needed.
+	 * @param foreignChoice: like primaryChoice.
+	 * @param order: pass the name of field to be ordered, WITH name of table if needed, then "ASC or DESC". Or just NULL for this.
+	 * @param group: pass the name of field to be grouped, WITH name of table if needed.
+	 * */
+	@Override
+	public ArrayList selectJoin(Table primaryObj, Table foreignObj, String foreignKey, String where,
+			String primaryChoice, String foreignChoice, String order, String group, int pageIndex,
+			int pageSize) throws Exception {
+		ArrayList list = new ArrayList();
+		
+		if (primaryChoice == null || primaryChoice.isEmpty()) {
+			primaryChoice = primaryObj + ".*";
+		}
+		else{
+			String[] option = primaryChoice.split(",");
+			primaryChoice = "(";
+	        for(int i = 0; i < option.length; i++){
+	            option[i] = option[i].trim();
+	            primaryChoice += "`" + primaryObj + "."+ option[i] + "`";
+	            if(i < (option.length - 1)){
+	            	primaryChoice += ",";
+	            }
+	            else{
+	            	primaryChoice += ")";
+	            }
+	        }
+	        
+	        
+		}
+		if (foreignChoice == null || foreignChoice.isEmpty()) {
+			foreignChoice = foreignObj + ".*";
+		} else{
+			String[] option = foreignChoice.split(",");
+			foreignChoice = "(";
+	        for(int i = 0; i < option.length; i++){
+	            option[i] = option[i].trim();
+	            foreignChoice += "`" + foreignObj + "."+ option[i] + "`";
+	            if(i < (option.length - 1)){
+	            	foreignChoice += ",";
+	            }
+	            else{
+	            	foreignChoice += ")";
+	            }
+	        }
+		}
+		String query = "SELECT "+primaryChoice + "," + foreignChoice+" FROM `"+ primaryObj.table+"`, `" + foreignObj.table + "` ";
+		ArrayList<Object> param = new ArrayList<Object>();
+		if(where.indexOf("?") != -1){
+            String[] params = where.split(" ");
+            where = "WHERE ";
+            for(int i = 0; i < params.length; i++){
+                if(params[i].charAt(0) == '?'){
+                	where += "? ";
+                	if(params[i].indexOf(".") != -1){
+                		if(primaryObj.table.equals(params[i].split(".")[0])){
+                			param.add(FieldUtils.getValue(primaryObj, params[i].split(".")[1]));
+                		}
+                		else{
+                			param.add(FieldUtils.getValue(foreignObj, params[i].split(".")[1]));
+                		}
+                	}
+                }
+                else{
+                	where += params[i] + " ";
+                }
+            }
+        }
+        else{
+        	where = "WHERE " + where;
+        }
+		if (where != null && !where.isEmpty())
+			query += " WHERE (" + where + ") AND " + primaryObj.table + "." + primaryObj.key + " = " + foreignObj.table + "." + foreignKey;
+		if (group != null && !group.isEmpty())
+			query += " GROUP BY "+group;
+		if (order != null && !order.isEmpty())
+			query += " ORDER BY "+order;
+		if (pageIndex >= 0 && pageSize > 0)
+			query += " LIMIT "+pageIndex*pageSize+","+pageSize;
+		
+		PreparedStatement statement = connection.prepareStatement(query);
+		for(int i=0;i<param.size();i++)	{
+			statement.setObject(i+1, param.get(i));
+		}
+		ResultSet rs = statement.executeQuery();
+		if (Config.debugMode){
+			StringBuilder builder = new StringBuilder(query);
+			
+			if (!param.isEmpty())	{
+				builder.append(" (");
+				for(Object p: param)	{
+					builder.append("'"+p+"',");
+				}
+				if (builder.charAt(builder.length()-1) == ',')	{
+					builder.setCharAt(builder.length()-1, ')');
+				}
+			}
+			Logger.getLogger().log(builder.toString(), Logger.LEVEL_DEBUG);
+		}
+		rs.beforeFirst();
+		Class<?> c = primaryObj.getClass();
+		while(rs.next())	{
+			Object newObj = c.newInstance();
+			extendObject(rs, newObj);
+			list.add(newObj);
+		}
+		rs.close();
+		return list;
 	}
 }
