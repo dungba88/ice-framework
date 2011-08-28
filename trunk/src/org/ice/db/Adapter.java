@@ -107,7 +107,7 @@ public abstract class Adapter {
 	public abstract int delete(Table obj, String where) throws Exception;
 	
 	public abstract ArrayList selectJoin(Table primaryObj, Table foreignObj, String foreignKey, String where, String primaryChoice,
-			String foreignChoice, String order, String group, int pageIndex, int pageSize) throws Exception;
+			String foreignChoice, String order, String group, int pageIndex, int pageSize, Class<? extends Table> returnClass) throws Exception;
 	
 	public abstract String getConnectionString(String host, String port, String dbName);
 	
