@@ -4,6 +4,7 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.util.ArrayList;
 
+import org.eclipse.jdt.internal.compiler.ast.WhileStatement;
 import org.ice.Config;
 import org.ice.logger.Logger;
 import org.ice.utils.FieldUtils;
@@ -33,7 +34,9 @@ public class MySqlAdapter extends Adapter {
 		StringBuilder builder = new StringBuilder("UPDATE `"+obj.table+"` SET ");
 		for(int i=0;i<fieldArr.length;i++)	{
 			String f = fieldArr[i];
-			builder.append(f+" = ?"+f);
+			if (!f.contains(" "))
+				f += " = ?"+f;
+			builder.append(f);
 			if (i<fieldArr.length-1)	{
 				builder.append(" , ");
 			}
@@ -174,7 +177,8 @@ public class MySqlAdapter extends Adapter {
 	            }
 	        }
 		}
-		String query = "SELECT "+primaryChoice + "," + foreignChoice+" FROM `"+ primaryObj.table+"`, `" + foreignObj.table + "` ";
+		if(!primaryChoice.isEmpty() && !foreignChoice.isEmpty()) foreignChoice = "," + foreignChoice;
+		String query = "SELECT "+primaryChoice + foreignChoice+" FROM `"+ primaryObj.table+"`, `" + foreignObj.table + "` ";
 		query += "WHERE " + primaryObj.table + "." + primaryObj.key + " = " + foreignObj.table + "." + foreignKey;
 		ArrayList<Object> param = new ArrayList<Object>();
 		if (where != null && !where.isEmpty())	{
