@@ -177,9 +177,14 @@ public class MySqlAdapter extends Adapter {
 	            }
 	        }
 		}
+		
 		if(!primaryChoice.isEmpty() && !foreignChoice.isEmpty()) foreignChoice = "," + foreignChoice;
 		String query = "SELECT "+primaryChoice + foreignChoice+" FROM `"+ primaryObj.table+"`, `" + foreignObj.table + "` ";
-		query += "WHERE " + primaryObj.table + "." + primaryObj.key + " = " + foreignObj.table + "." + foreignKey;
+		if (foreignKey == null || foreignKey.isEmpty())
+			query += "WHERE 1";
+		else
+			query += "WHERE " + primaryObj.table + "." + primaryObj.key + " = " + foreignObj.table + "." + foreignKey;
+		
 		ArrayList<Object> param = new ArrayList<Object>();
 		if (where != null && !where.isEmpty())	{
 			if(where.indexOf("?") != -1){
