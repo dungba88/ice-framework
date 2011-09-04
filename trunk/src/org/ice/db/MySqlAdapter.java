@@ -211,7 +211,7 @@ public class MySqlAdapter extends Adapter {
 			if (usingAND)
 				query += " AND (" + where + ") ";
 			else
-				query += where;
+				query += " "+where;
 		}
 		
 		if (group != null && !group.isEmpty())
