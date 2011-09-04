@@ -162,4 +162,8 @@ public class HttpRequest  {
 	public HttpServletRequest getUnderlyingRequest()	{
 		return request;
 	}
+
+	public String getIP() {
+		return request.getRemoteAddr();
+	}
 }
