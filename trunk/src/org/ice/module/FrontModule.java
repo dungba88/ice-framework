@@ -82,7 +82,7 @@ public class FrontModule {
 			module.init();
 			String taskFunction = formatTaskName(task);
 			module.dispatch(taskFunction);
-			httpResponse.appendBody(module.getResponse());
+			httpResponse.appendBody(module.getStreamResponse());
 			module.destroy();
 			module = null;
 			return null;

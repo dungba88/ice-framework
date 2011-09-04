@@ -126,7 +126,7 @@ public abstract class HttpModule implements IModule {
 	}
 	
 	@Override
-	public String getResponse() {
+	public String getStreamResponse() {
 		return content;
 	}
 
@@ -134,6 +134,11 @@ public abstract class HttpModule implements IModule {
 	public void setResponse(HttpResponse response) {
 		this.response = response;
 		this.content = response.getBody();
+	}
+	
+	@Override
+	public HttpResponse getResponse() {
+		return this.response;
 	}
 	
 	@Override

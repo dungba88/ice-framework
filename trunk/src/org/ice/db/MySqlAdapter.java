@@ -4,7 +4,6 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.util.ArrayList;
 
-import org.eclipse.jdt.internal.compiler.ast.WhileStatement;
 import org.ice.Config;
 import org.ice.logger.Logger;
 import org.ice.utils.FieldUtils;
@@ -33,7 +32,7 @@ public class MySqlAdapter extends Adapter {
 		String[] fieldArr = fields.split(",");
 		StringBuilder builder = new StringBuilder("UPDATE `"+obj.table+"` SET ");
 		for(int i=0;i<fieldArr.length;i++)	{
-			String f = fieldArr[i];
+			String f = fieldArr[i].trim();
 			if (!f.contains(" "))
 				f += " = ?"+f;
 			builder.append(f);
