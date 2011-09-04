@@ -68,6 +68,10 @@ public abstract class HttpModule implements IModule {
 		return this.getBaseUrl()+Config.resourceUrl;
 	}
 	
+	public String getRequestIP() {
+		return request.getIP();
+	}
+	
 	public void echo(String s)	{
 		content += s;
 	}
