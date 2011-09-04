@@ -186,6 +186,8 @@ public class MySqlAdapter extends Adapter {
 		
 		ArrayList<Object> param = new ArrayList<Object>();
 		if (where != null && !where.isEmpty())	{
+			where = where.trim();
+			boolean usingAND = !where.startsWith("OR");
 			if(where.indexOf("?") != -1){
 	            String[] params = where.split(" ");
 	            where = "";
@@ -206,7 +208,10 @@ public class MySqlAdapter extends Adapter {
 	                }
 	            }
 	        }
-			query += " AND (" + where + ") ";
+			if (usingAND)
+				query += " AND (" + where + ") ";
+			else
+				query += where;
 		}
 		
 		if (group != null && !group.isEmpty())
