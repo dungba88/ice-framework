@@ -8,8 +8,8 @@ import org.ice.Config;
 public class IceListener implements ServletContextListener {
 
 	@Override
-	public void contextDestroyed(ServletContextEvent arg0) {
-		
+	public void contextDestroyed(ServletContextEvent sce) {
+		Config.unload(sce.getServletContext());
 	}
 
 	@Override

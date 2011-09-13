@@ -81,7 +81,7 @@ public abstract class HttpModule implements IModule {
 	}
 
 	@Override
-	public void preDispatch() {
+	public void preDispatch() throws Exception {
 		
 	}
 
@@ -109,14 +109,14 @@ public abstract class HttpModule implements IModule {
 		this.postDispatch ();
 		
 		if (isUsingTemplate())	{
-			setContentType("text/html");
+			setContentType("text/html;charset=UTF-8");
 			view.setTemplate(Config.resourceUrl+template);
 			view.render();
 		}
 	}
 
 	@Override
-	public void postDispatch() {
+	public void postDispatch() throws Exception {
 		
 	}
 	

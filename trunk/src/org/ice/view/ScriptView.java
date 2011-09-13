@@ -32,6 +32,7 @@ public class ScriptView extends AbstractView {
 			String text = "";
 			while((text = br.readLine())!=null)	{
 				builder.append(text);
+				builder.append("\n");
 			}
 			text = builder.toString();
 			Set<String> keys = params.keySet();
