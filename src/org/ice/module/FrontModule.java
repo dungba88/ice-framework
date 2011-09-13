@@ -8,6 +8,7 @@ import org.ice.exception.IceException;
 import org.ice.http.HttpRequest;
 import org.ice.http.HttpRequestParser;
 import org.ice.http.HttpResponse;
+import org.ice.logger.Logger;
 import org.ice.module.router.DefaultRouter;
 import org.ice.module.router.IRouter;
 import org.ice.utils.StringUtils;
@@ -20,8 +21,6 @@ import org.ice.utils.StringUtils;
  */
 public class FrontModule {
 
-	protected boolean dispatched;
-	protected HttpRequest request;
 	protected HttpRequestParser requestParser;
 	protected IRouter router;
 	
@@ -36,14 +35,18 @@ public class FrontModule {
 	 * @param response
 	 */
 	public void dispatch(HttpServletRequest request, HttpServletResponse response)	{
-		this.request = requestParser.parseRequest(new HttpRequest(request));
+		try {
+			request.setCharacterEncoding("UTF-8");
+		} catch(Exception ex) {
+			Logger.getLogger().log("Cannot set character encoding to UTF-8", Logger.LEVEL_WARNING);
+		}
+		HttpRequest httpRequest = requestParser.parseRequest(new HttpRequest(request));
 		HttpResponse httpResponse = new HttpResponse(response);
 		
-		dispatched = true;
 		Exception exception = null;
 		try {
-			IModule module = router.route(this.request);
-			exception = dispatchModule(module, httpResponse, this.request.getTaskName());
+			IModule module = router.route(httpRequest);
+			exception = dispatchModule(module, httpRequest, httpResponse, httpRequest.getTaskName());
 		} catch (IceException ex)	{
 			httpResponse.setException(ex);
 			httpResponse.setStatus(ex.status);
@@ -56,7 +59,7 @@ public class FrontModule {
 				IErrorHandler handler = (IErrorHandler) c.newInstance();
 				handler.setException(exception);
 				httpResponse.clearContent();
-				dispatchModule(handler, httpResponse, "error");
+				dispatchModule(handler, httpRequest, httpResponse, "error");
 			} catch (Exception ex)	{
 				httpResponse.setStatus(500);
 				httpResponse.setException(ex);
@@ -74,9 +77,9 @@ public class FrontModule {
 	 * @param task
 	 * @return
 	 */
-	private Exception dispatchModule(IModule module, HttpResponse httpResponse, String task) {
+	private Exception dispatchModule(IModule module, HttpRequest httpRequest, HttpResponse httpResponse, String task) {
 		try {
-			module.setRequest(this.request);
+			module.setRequest(httpRequest);
 			module.setResponse(httpResponse);
 			
 			module.init();

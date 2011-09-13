@@ -1,5 +1,9 @@
 package org.ice;
 
+import java.sql.Driver;
+import java.sql.DriverManager;
+import java.util.Enumeration;
+
 import javax.servlet.ServletContext;
 
 import org.ice.db.AdapterFactory;
@@ -54,6 +58,26 @@ public class Config {
 			AdapterFactory.setupAdapter(adapter, host, port, username, password, db);
 		} catch (Exception ex)	{
 			Logger.getLogger().log(ex.toString(), Logger.LEVEL_FATAL);
+		}
+	}
+
+	public static void unload(ServletContext servletContext2) {
+		try {
+			AdapterFactory.getAdapter().getConnection().close();
+			
+			// This manually deregisters JDBC driver, which prevents Tomcat 7 from complaining about memory leaks wrto this class
+	        Enumeration<Driver> drivers = DriverManager.getDrivers();
+	        while (drivers.hasMoreElements()) {
+	            Driver driver = drivers.nextElement();
+	            try {
+	                DriverManager.deregisterDriver(driver);
+	            } catch (Exception ex) {
+	            	Logger.getLogger().log(ex.toString(), Logger.LEVEL_WARNING);
+	            }
+
+	        }
+		} catch (Exception ex)	{
+			Logger.getLogger().log(ex.toString(), Logger.LEVEL_WARNING);
 		}
 	}
 }
