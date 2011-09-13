@@ -110,27 +110,6 @@ public class MySqlAdapter extends Adapter {
 		return "jdbc:mysql://"+host+":"+port+"/"+dbName+"?characterEncoding=UTF8";
 	}
 	
-	@Override
-	protected ParsedQuery parseQuery(String query) {
-		String parsedQuery = "";
-		ArrayList<String> params = new ArrayList<String>();
-		
-		String[] frag = query.split(" ");
-		for(String f: frag)	{
-			f = f.trim();
-			if (f.isEmpty())
-				continue;
-			if (f.charAt(0) == '?')	{
-				params.add(f.substring(1));
-				f = "?";
-			}
-			parsedQuery += f + " ";
-		}
-		
-		return new ParsedQuery(parsedQuery, params);
-	}
-
-	
 	/**
 	 * Select fields by joining 2 tables with constraint: N - 1
 	 * @return default: list of object of returnClass. Should add extra field of "choices" into returnClass if needed.
