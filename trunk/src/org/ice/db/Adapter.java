@@ -112,7 +112,24 @@ public abstract class Adapter {
 	
 	public abstract String getConnectionString(String host, String port, String dbName);
 	
-	protected abstract ParsedQuery parseQuery(String query);
+	protected ParsedQuery parseQuery(String query)	{
+		String parsedQuery = "";
+		ArrayList<String> params = new ArrayList<String>();
+		
+		String[] frag = query.split(" ");
+		for(String f: frag)	{
+			f = f.trim();
+			if (f.isEmpty())
+				continue;
+			if (f.charAt(0) == '?')	{
+				params.add(f.substring(1));
+				f = "?";
+			}
+			parsedQuery += f + " ";
+		}
+		
+		return new ParsedQuery(parsedQuery, params);
+	}
 	
 	class ParsedQuery {
 		public String query;
