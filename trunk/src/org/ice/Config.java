@@ -8,8 +8,8 @@ import javax.servlet.ServletContext;
 
 import org.ice.db.AdapterFactory;
 import org.ice.logger.Logger;
-import org.ice.mail.Mail;
 import org.ice.module.IErrorHandler;
+import org.ice.service.Mail;
 
 public class Config {
 	
@@ -64,7 +64,7 @@ public class Config {
 		
 		boolean useEmail = false;
 		String useEmailCfg = sc.getInitParameter("ice.email.enable");
-		if (useEmailCfg == null || useEmailCfg.isEmpty() || useEmailCfg.equalsIgnoreCase("true"))	{
+		if (useEmailCfg != null && useEmailCfg.equalsIgnoreCase("true"))	{
 			useEmail = true;
 		}
 		
