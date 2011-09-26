@@ -1,4 +1,4 @@
-package org.ice.mail;
+package org.ice.service;
 
 import java.util.Date;
 import java.util.Properties;
