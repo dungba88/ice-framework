@@ -8,6 +8,7 @@ import javax.servlet.ServletContext;
 
 import org.ice.db.AdapterFactory;
 import org.ice.logger.Logger;
+import org.ice.mail.Mail;
 import org.ice.module.IErrorHandler;
 
 public class Config {
@@ -17,6 +18,7 @@ public class Config {
 	public static String version = "1.0";
 	public static String resourceUrl;
 	public static ServletContext servletContext;
+	public static Mail mail;
 	
 	public static void load(ServletContext sc)	{
 		servletContext = sc;
@@ -58,6 +60,21 @@ public class Config {
 			AdapterFactory.setupAdapter(adapter, host, port, username, password, db);
 		} catch (Exception ex)	{
 			Logger.getLogger().log(ex.toString(), Logger.LEVEL_FATAL);
+		}
+		
+		boolean useEmail = false;
+		String useEmailCfg = sc.getInitParameter("ice.email.enable");
+		if (useEmailCfg == null || useEmailCfg.isEmpty() || useEmailCfg.equalsIgnoreCase("true"))	{
+			useEmail = true;
+		}
+		
+		if (useEmail)	{
+			String emailServer = sc.getInitParameter("ice.email.server");
+			String emailPort = sc.getInitParameter("ice.email.port");
+			String emailUsername = sc.getInitParameter("ice.email.username");
+			String emailPassword = sc.getInitParameter("ice.email.password");
+			mail = new Mail();
+			mail.setup(emailServer, emailPort, emailUsername, emailPassword);
 		}
 	}
 
