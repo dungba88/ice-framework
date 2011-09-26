@@ -82,7 +82,6 @@ public class Config {
 		try {
 			AdapterFactory.getAdapter().getConnection().close();
 			
-			// This manually deregisters JDBC driver, which prevents Tomcat 7 from complaining about memory leaks wrto this class
 	        Enumeration<Driver> drivers = DriverManager.getDrivers();
 	        while (drivers.hasMoreElements()) {
 	            Driver driver = drivers.nextElement();
