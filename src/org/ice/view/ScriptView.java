@@ -6,25 +6,14 @@ import java.io.InputStreamReader;
 import java.util.Set;
 
 import org.ice.Config;
-import org.ice.http.HttpRequest;
-import org.ice.http.HttpResponse;
 
 public class ScriptView extends AbstractView {
 	
-	public ScriptView()	{
-		super();
-	}
-	
-	public ScriptView(HttpRequest request, HttpResponse response)	{
-		super(request, response);
-	}
-
 	@Override
-	public void render() {
+	public String render() {
 		InputStream is = Config.servletContext.getResourceAsStream(template);
 		if (is == null)	{
-			response.appendBody("Template not found: "+template);
-			return;
+			return "Template not found: "+template;
 		}
 		try {
 			StringBuilder builder = new StringBuilder();
@@ -40,9 +29,9 @@ public class ScriptView extends AbstractView {
 				Object value = params.get(key);
 				text = text.replaceAll("\\{"+key+"\\}", value.toString());
 			}
-			response.appendBody(text);
+			return text;
 		} catch (Exception ex)	{
-			response.appendBody("Failed to read template: "+ex.toString());
+			return "Failed to read template: "+ex.toString();
 		}
 	}
 }

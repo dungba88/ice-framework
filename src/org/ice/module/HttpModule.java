@@ -87,11 +87,6 @@ public abstract class HttpModule implements IModule {
 
 	@Override
 	public void dispatch(String task) throws Exception {
-		if (view != null)	{
-			view.setRequest(request);
-			view.setResponse(response);
-		}
-		
 		this.preDispatch ();
 
 		try {
@@ -111,7 +106,7 @@ public abstract class HttpModule implements IModule {
 		if (isUsingTemplate())	{
 			setContentType("text/html;charset=UTF-8");
 			view.setTemplate(Config.resourceUrl+template);
-			view.render();
+			response.appendBody(view.render());
 		}
 	}
 
