@@ -16,11 +16,11 @@ public class Mail {
 	private Authenticator pa;
 	private String username, password;
 	
-	public void setup(String smtpServer, String port, String _username, String _password)	{
+	public void setup(String smtpServer, String port, String useSSL, String _username, String _password)	{
 		Properties props = System.getProperties();
         props.put("mail.smtp.host", smtpServer);
         props.put("mail.smtp.port", port);
-        props.put("mail.smtp.starttls.enable", "true");
+        props.put("mail.smtp.starttls.enable", useSSL);
         this.username = _username;
         this.password = _password;
         if (username != null && password != null) { 

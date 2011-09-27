@@ -73,8 +73,12 @@ public class Config {
 			String emailPort = sc.getInitParameter("ice.email.port");
 			String emailUsername = sc.getInitParameter("ice.email.username");
 			String emailPassword = sc.getInitParameter("ice.email.password");
+			String useSSL = sc.getInitParameter("ice.email.usessl");
+			if (useSSL == null || useSSL.isEmpty())	{
+				useSSL = "false";
+			}
 			mail = new Mail();
-			mail.setup(emailServer, emailPort, emailUsername, emailPassword);
+			mail.setup(emailServer, emailPort, useSSL, emailUsername, emailPassword);
 		}
 	}
 
