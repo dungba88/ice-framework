@@ -3,9 +3,6 @@ package org.ice.view;
 import java.util.HashMap;
 import java.util.Map;
 
-import org.ice.http.HttpRequest;
-import org.ice.http.HttpResponse;
-
 public abstract class AbstractView {
 
 	protected String template;
