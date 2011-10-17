@@ -8,6 +8,7 @@ import org.ice.exception.IceException;
 import org.ice.exception.NotFoundException;
 import org.ice.http.HttpRequest;
 import org.ice.http.HttpResponse;
+import org.ice.utils.UploadFile;
 import org.ice.view.AbstractView;
 import org.ice.view.ScriptView;
 
@@ -144,5 +145,9 @@ public abstract class HttpModule implements IModule {
 	@Override
 	public HttpRequest getRequest() {
 		return request;
+	}
+	
+	public UploadFile getUploadFile(String name) throws Exception	{
+		return new UploadFile(request.getUploadFile(name));
 	}
 }
