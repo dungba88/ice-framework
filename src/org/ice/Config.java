@@ -16,6 +16,7 @@ public class Config {
 	public static boolean debugMode;
 	public static IErrorHandler errorHandler;
 	public static String version = "1.0";
+	public static String basePath;
 	public static String resourceUrl;
 	public static ServletContext servletContext;
 	public static Mail mail;
@@ -48,6 +49,7 @@ public class Config {
 		resourceUrl = sc.getInitParameter("ice.path.resource");
 		if (resourceUrl == null)
 			resourceUrl = "resource";
+		basePath = sc.getRealPath("/");
 		
 		//Database
 		String host = sc.getInitParameter("ice.db.host");

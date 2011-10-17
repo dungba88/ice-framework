@@ -1,17 +1,22 @@
 package org.ice.utils;
 
 import java.io.File;
+import java.util.ArrayList;
 
 import org.apache.tomcat.util.http.fileupload.FileItem;
 import org.ice.Config;
+import org.ice.validate.file.IFileValidator;
 
 public class UploadFile {
 
 	private FileItem fileItem;
-	private boolean overrideAllowed;
+	private boolean overrideAllowed = false;
 	private String path;
+	private String name;
+	private ArrayList<IFileValidator> validators;
 	
 	public UploadFile(FileItem fileItem) {
+		this.validators = new ArrayList<IFileValidator>();
 		this.fileItem = fileItem;
 	}
 	
@@ -20,15 +25,20 @@ public class UploadFile {
 	}
 	
 	public void preparePath(String base, String name) {
+		this.name = name;
 		this.path = base + "/" + name;
 	}
 	
-	public void upload() throws Exception {
-		this.upload(this.path);
+	public void addValidator(IFileValidator validator)	{
+		validators.add(validator);
 	}
 	
-	public void upload(String path) throws Exception {
-		this.path = path;
+	public void upload() throws Exception {
+		for(IFileValidator validator: validators)	{
+			if (!validator.validate(this))	{
+				throw new Exception(validator.getClass().getName());
+			}
+		}
 		File uploadedFile = getFile();
 		if (uploadedFile.exists() && !isOverrideAllowed())
 			throw new Exception("File existed");
@@ -43,11 +53,15 @@ public class UploadFile {
 		return this.overrideAllowed;
 	}
 	
-	public File getFile() {
-		return new File(Config.resourceUrl + "/" + path);
+	public File getFile() throws Exception {
+		return new File(Config.basePath + Config.resourceUrl + path);
 	}
 	
-	public String getPath() {
+	public String getFullPath() {
 		return path;
+	}
+	
+	public String getName() {
+		return name;
 	}
 }
