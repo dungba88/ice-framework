@@ -145,6 +145,7 @@ public class HttpRequest  {
 	}
 	
 	public FileItem getUploadFile(String file) throws Exception {
+		//TODO: Cache previous list
 		ServletFileUpload fileUpload = new ServletFileUpload(new DiskFileItemFactory());
 		List<FileItem> list = fileUpload.parseRequest(request);
 		for(FileItem fileItem: list) {
