@@ -82,16 +82,21 @@ public abstract class HttpModule implements IModule {
 	}
 
 	@Override
-	public void preDispatch() throws Exception {
+	public void preDispatch(Method method) throws Exception {
 		
 	}
 
 	@Override
 	public void dispatch(String task) throws Exception {
-		this.preDispatch ();
+		Method method = null;
+		try {
+			method = this.getClass().getMethod(task+"Task", new Class<?>[0]);
+		} catch (Exception ex)	{
+			throw new NotFoundException("Task ["+request.getTaskName()+"] not found for module ["+request.getModuleName()+"]");
+		}
+		this.preDispatch (method);
 
 		try {
-			Method method = this.getClass().getMethod(task+"Task", new Class<?>[0]);
 			method.invoke(this, new Object[0]);
 		} catch(InvocationTargetException ex) {
 			Throwable target = ex.getTargetException();
@@ -102,7 +107,7 @@ public abstract class HttpModule implements IModule {
 			throw new NotFoundException("Task ["+request.getTaskName()+"] not found for module ["+request.getModuleName()+"]");
 		}
 		
-		this.postDispatch ();
+		this.postDispatch (method);
 		
 		if (isUsingTemplate())	{
 			setContentType("text/html;charset=UTF-8");
@@ -112,7 +117,7 @@ public abstract class HttpModule implements IModule {
 	}
 
 	@Override
-	public void postDispatch() throws Exception {
+	public void postDispatch(Method method) throws Exception {
 		
 	}
 	
