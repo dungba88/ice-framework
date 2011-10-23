@@ -33,7 +33,7 @@ public class Mail {
         }
 	}
 	
-	public void send(String from, String to, String subject, String body) throws Exception {
+	public void send(String from, String to, String subject, String body, String replyTo) throws Exception {
 		Properties props = System.getProperties();
 		Session session = Session.getInstance(props, pa);
         MimeMessage msg = new MimeMessage(session);
@@ -44,6 +44,8 @@ public class Mail {
         msg.setContent(body, "text/html; charset=utf-8");
         msg.setHeader("X-Mailer", "Asking Email Service");
         msg.setHeader("Content-Transfer-Encoding", "quoted-printable");
+        if (replyTo != null && !replyTo.isEmpty())
+        	msg.setHeader("Reply-To", replyTo);
         msg.setSentDate(new Date());
         msg.saveChanges();
         Transport.send(msg);
