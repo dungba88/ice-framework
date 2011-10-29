@@ -6,6 +6,7 @@ import java.io.InputStreamReader;
 import java.util.Set;
 
 import org.ice.Config;
+import org.ice.logger.Logger;
 
 public class ScriptView extends AbstractView {
 	
@@ -27,7 +28,11 @@ public class ScriptView extends AbstractView {
 			Set<String> keys = params.keySet();
 			for(String key: keys)	{
 				Object value = params.get(key);
-				text = text.replaceAll("\\{"+key+"\\}", value.toString());
+				try {
+					text = text.replaceAll("\\{"+key+"\\}", value.toString());
+				} catch (Exception ex)	{
+					Logger.getLogger().log("Error while processing template: "+ex.toString()+" - Current key: "+key, Logger.LEVEL_WARNING);
+				}
 			}
 			return text;
 		} catch (Exception ex)	{

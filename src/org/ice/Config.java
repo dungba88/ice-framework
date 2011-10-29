@@ -9,20 +9,26 @@ import javax.servlet.ServletContext;
 import org.ice.db.AdapterFactory;
 import org.ice.logger.Logger;
 import org.ice.module.IErrorHandler;
+import org.ice.registry.RegistryFactory;
 import org.ice.service.Mail;
+import org.ice.utils.FieldUtils;
 
 public class Config {
 	
 	public static boolean debugMode;
-	public static IErrorHandler errorHandler;
+	public static boolean ready = false;
 	public static String version = "1.0";
-	public static String basePath;
-	public static String resourceUrl;
 	public static ServletContext servletContext;
-	public static Mail mail;
 	
 	public static void load(ServletContext sc)	{
 		servletContext = sc;
+		
+		//The foremost configuration: Registry
+		try {
+			RegistryFactory.setupRegistry(sc.getInitParameter("ice.app.registry"));
+		} catch (Exception ex) {
+			return;
+		}
 		
 		//Application environment
 		debugMode = false;
@@ -30,26 +36,26 @@ public class Config {
 		if (appEnv != null && appEnv.equals("development"))	{
 			debugMode = true;
 		}
+		RegistryFactory.getRegistry().set("config.debugMode", debugMode);
+		
 		String handler = sc.getInitParameter("ice.app.errorhandler");
 		if (handler != null)	{
 			try {
-				Class<?> c = Class.forName(handler);
-				Object obj = c.newInstance();
-				if (obj instanceof IErrorHandler)	{
-					errorHandler = (IErrorHandler) obj;
-				} else {
-					Logger.getLogger().log("Invalid error handler: "+handler, Logger.LEVEL_WARNING);
-				}
+				IErrorHandler errorHandler = (IErrorHandler) FieldUtils.loadClass(handler);
+				RegistryFactory.getRegistry().set("config.errorHandler", errorHandler);
+			} catch (ClassCastException ex) {
+				Logger.getLogger().log("Invalid error handler: "+handler, Logger.LEVEL_WARNING);
 			} catch (Exception ex)	{
 				Logger.getLogger().log("Error handler not found: "+handler, Logger.LEVEL_WARNING);
 			}
 		}
 		
 		//path
-		resourceUrl = sc.getInitParameter("ice.path.resource");
+		String resourceUrl = sc.getInitParameter("ice.path.resource");
 		if (resourceUrl == null)
 			resourceUrl = "resource";
-		basePath = sc.getRealPath("/");
+		RegistryFactory.getRegistry().set("config.resourceUrl", resourceUrl);
+		RegistryFactory.getRegistry().set("config.basePath", sc.getRealPath("/"));
 		
 		//Database
 		String host = sc.getInitParameter("ice.db.host");
@@ -64,6 +70,7 @@ public class Config {
 			Logger.getLogger().log(ex.toString(), Logger.LEVEL_FATAL);
 		}
 		
+		//email
 		boolean useEmail = false;
 		String useEmailCfg = sc.getInitParameter("ice.email.enable");
 		if (useEmailCfg != null && useEmailCfg.equalsIgnoreCase("true"))	{
@@ -79,9 +86,11 @@ public class Config {
 			if (useSSL == null || useSSL.isEmpty())	{
 				useSSL = "false";
 			}
-			mail = new Mail();
+			Mail mail = new Mail();
 			mail.setup(emailServer, emailPort, useSSL, emailUsername, emailPassword);
+			RegistryFactory.getRegistry().set("config.mail", mail);
 		}
+		ready = true;
 	}
 
 	public static void unload(ServletContext servletContext2) {
@@ -101,5 +110,13 @@ public class Config {
 		} catch (Exception ex)	{
 			Logger.getLogger().log(ex.toString(), Logger.LEVEL_WARNING);
 		}
+	}
+	
+	public static Object get(String key) {
+		return RegistryFactory.getRegistry().get("config."+key);
+	}
+	
+	public static void set(String key, Object value) {
+		RegistryFactory.getRegistry().set("config."+key, value);
 	}
 }

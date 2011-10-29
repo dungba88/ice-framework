@@ -5,6 +5,7 @@ import java.util.ArrayList;
 
 import org.apache.tomcat.util.http.fileupload.FileItem;
 import org.ice.Config;
+import org.ice.registry.RegistryFactory;
 import org.ice.validate.file.IFileValidator;
 
 public class UploadFile {
@@ -54,7 +55,7 @@ public class UploadFile {
 	}
 	
 	public File getFile() throws Exception {
-		return new File(Config.basePath + Config.resourceUrl + path);
+		return new File(Config.get("basePath").toString() + Config.get("resourceUrl").toString() + path);
 	}
 	
 	public String getFullPath() {

@@ -66,7 +66,7 @@ public abstract class HttpModule implements IModule {
 	}
 	
 	public String getResourceUrl()	{
-		return this.getBaseUrl()+Config.resourceUrl;
+		return this.getBaseUrl()+Config.get("resourceUrl");
 	}
 	
 	public String getRequestIP() {
@@ -111,7 +111,7 @@ public abstract class HttpModule implements IModule {
 		
 		if (isUsingTemplate())	{
 			setContentType("text/html;charset=UTF-8");
-			view.setTemplate(Config.resourceUrl+template);
+			view.setTemplate(Config.get("resourceUrl")+template);
 			response.appendBody(view.render());
 		}
 	}

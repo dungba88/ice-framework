@@ -50,7 +50,7 @@ public abstract class Adapter {
 	
 	public boolean executeInsert(String query, Table data) throws SQLException {
 		ParsedQuery parsed = parseQuery(query);
-		if (Config.debugMode)
+		if ((Boolean)Config.get("debugMode"))
 			debugSql(parsed, data);
 		
 		PreparedStatement statement = connection.prepareStatement(parsed.query, Statement.RETURN_GENERATED_KEYS);

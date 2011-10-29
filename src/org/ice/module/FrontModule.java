@@ -1,10 +1,13 @@
 package org.ice.module;
 
+import java.util.ArrayList;
+
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import org.ice.Config;
 import org.ice.exception.IceException;
+import org.ice.exception.NotFoundException;
 import org.ice.http.HttpRequest;
 import org.ice.http.HttpRequestParser;
 import org.ice.http.HttpResponse;
@@ -22,11 +25,16 @@ import org.ice.utils.StringUtils;
 public class FrontModule {
 
 	protected HttpRequestParser requestParser;
-	protected IRouter router;
+	protected ArrayList<IRouter> routers;
 	
+	@SuppressWarnings("unchecked")
 	public FrontModule()	{
 		requestParser = new HttpRequestParser();
-		router = new DefaultRouter();
+		routers = (ArrayList<IRouter>) Config.get("routers");
+		if (routers == null || routers.isEmpty()) {
+			routers = new ArrayList<IRouter>();
+			routers.add(new DefaultRouter());
+		}
 	}
 	
 	/**
@@ -45,16 +53,25 @@ public class FrontModule {
 		
 		Exception exception = null;
 		try {
-			IModule module = router.route(httpRequest);
-			exception = dispatchModule(module, httpRequest, httpResponse, httpRequest.getTaskName());
+			boolean found = false;
+			for(IRouter router: routers)	{
+				IModule module = router.route(httpRequest);
+				if (module != null)	{
+					found = true;
+					exception = dispatchModule(module, httpRequest, httpResponse, httpRequest.getTaskName());
+					break;
+				}
+			}
+			if (!found)
+				throw new NotFoundException("No routers match for request: "+request.getRequestURL().toString());
 		} catch (IceException ex)	{
 			httpResponse.setException(ex);
 			httpResponse.setStatus(ex.status);
 			exception = ex;
 		}
 		
-		if (Config.errorHandler != null && exception != null)	{
-			Class<? extends IErrorHandler> c = Config.errorHandler.getClass();
+		if (Config.get("errorHandler") != null && exception != null)	{
+			Class<? extends IErrorHandler> c = (Class<? extends IErrorHandler>) Config.get("errorHandler").getClass();
 			try {
 				IErrorHandler handler = (IErrorHandler) c.newInstance();
 				handler.setException(exception);
