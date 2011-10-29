@@ -20,4 +20,9 @@ public class FieldUtils {
 		} catch (Exception ex)	{
 		}
 	}
+	
+	public static Object loadClass(String className) throws ClassNotFoundException, InstantiationException, IllegalAccessException {
+		Class<?> c = Class.forName(className);
+		return c.newInstance();
+	}
 }

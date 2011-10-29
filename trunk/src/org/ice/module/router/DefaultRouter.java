@@ -1,7 +1,6 @@
 package org.ice.module.router;
 
 import org.ice.exception.IceException;
-import org.ice.exception.NotFoundException;
 import org.ice.http.HttpRequest;
 import org.ice.module.IModule;
 import org.ice.utils.StringUtils;
@@ -17,8 +16,7 @@ public class DefaultRouter implements IRouter {
 			if (obj instanceof IModule)
 				return (IModule) obj;
 		} catch (Exception ex)	{
-			
 		}
-		throw new NotFoundException("Module not found: "+moduleName);
+		return null;
 	}
 }
