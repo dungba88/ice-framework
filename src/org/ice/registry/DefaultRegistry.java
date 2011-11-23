@@ -1,11 +1,11 @@
 package org.ice.registry;
 
-import java.util.HashMap;
 import java.util.Map;
+import java.util.concurrent.ConcurrentHashMap;
 
 public class DefaultRegistry implements IRegistry {
 	
-	private Map<String, Object> map = new HashMap<String, Object>();
+	private Map<String, Object> map = new ConcurrentHashMap<String, Object>();
 
 	@Override
 	public void set(String key, Object value) {

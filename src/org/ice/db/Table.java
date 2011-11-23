@@ -34,6 +34,10 @@ public class Table {
 		return adapter.load(this);
 	}
 	
+	public ArrayList query(String query) throws Exception {
+		return adapter.query(this, query);
+	}
+	
 	public ArrayList select(String where) throws Exception	{
 		return adapter.select(this, where, null, null, null, -1, -1);
 	}

@@ -8,7 +8,7 @@ import java.util.Set;
 import org.ice.Config;
 import org.ice.logger.Logger;
 
-public class ScriptView extends AbstractView {
+public class ScriptView extends TemplateView {
 	
 	@Override
 	public String render() {

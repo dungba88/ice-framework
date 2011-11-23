@@ -2,7 +2,7 @@ package org.ice.validate.file;
 
 import org.ice.utils.UploadFile;
 
-public class FileExtValidator implements IFileValidator {
+public class FileExtValidator implements FileValidator {
 	
 	private String ext;
 	
