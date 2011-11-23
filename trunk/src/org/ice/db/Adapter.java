@@ -98,6 +98,8 @@ public abstract class Adapter {
 
 	public abstract boolean load(Table obj) throws Exception;
 	
+	public abstract ArrayList query(Table obj, String query) throws Exception;
+	
 	public abstract ArrayList select(Table obj, String where, String choice, 
 			String order, String group, int pageIndex, int pageSize) throws Exception;
 	

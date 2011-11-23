@@ -28,6 +28,21 @@ public class MySqlAdapter extends Adapter {
 	}
 	
 	@Override
+	public ArrayList query(Table obj, String query) throws Exception {
+		ResultSet rs = this.executeSelect(query, obj);
+		rs.beforeFirst();
+		Class<?> c = obj.getClass();
+		ArrayList list = new ArrayList();
+		while(rs.next())	{
+			Object newObj = c.newInstance();
+			extendObject(rs, newObj);
+			list.add(newObj);
+		}
+		rs.close();
+		return list;
+	}
+	
+	@Override
 	public int update(Table obj, String fields, String where) throws Exception {
 		String[] fieldArr = fields.split(",");
 		StringBuilder builder = new StringBuilder("UPDATE `"+obj.table+"` SET ");
@@ -135,8 +150,7 @@ public class MySqlAdapter extends Adapter {
 			String[] option = primaryChoice.split(",");
 			primaryChoice = "";
 	        for(int i = 0; i < option.length; i++){
-	            option[i] = option[i].trim();
-	            primaryChoice += primaryObj.table + "."+ option[i];
+	            primaryChoice += option[i].trim();
 	            if(i < (option.length - 1)){
 	            	primaryChoice += ",";
 	            }
@@ -148,8 +162,7 @@ public class MySqlAdapter extends Adapter {
 			String[] option = foreignChoice.split(",");
 			foreignChoice = "";
 	        for(int i = 0; i < option.length; i++){
-	            option[i] = option[i].trim();
-	            foreignChoice += foreignObj.table + "."+ option[i];
+	            foreignChoice += option[i].trim();
 	            if(i < (option.length - 1)){
 	            	foreignChoice += ",";
 	            }

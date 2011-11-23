@@ -6,7 +6,7 @@ import java.util.ArrayList;
 import org.apache.tomcat.util.http.fileupload.FileItem;
 import org.ice.Config;
 import org.ice.registry.RegistryFactory;
-import org.ice.validate.file.IFileValidator;
+import org.ice.validate.file.FileValidator;
 
 public class UploadFile {
 
@@ -14,10 +14,10 @@ public class UploadFile {
 	private boolean overrideAllowed = false;
 	private String path;
 	private String name;
-	private ArrayList<IFileValidator> validators;
+	private ArrayList<FileValidator> validators;
 	
 	public UploadFile(FileItem fileItem) {
-		this.validators = new ArrayList<IFileValidator>();
+		this.validators = new ArrayList<FileValidator>();
 		this.fileItem = fileItem;
 	}
 	
@@ -30,12 +30,12 @@ public class UploadFile {
 		this.path = base + "/" + name;
 	}
 	
-	public void addValidator(IFileValidator validator)	{
+	public void addValidator(FileValidator validator)	{
 		validators.add(validator);
 	}
 	
 	public void upload() throws Exception {
-		for(IFileValidator validator: validators)	{
+		for(FileValidator validator: validators)	{
 			if (!validator.validate(this))	{
 				throw new Exception(validator.getClass().getName());
 			}

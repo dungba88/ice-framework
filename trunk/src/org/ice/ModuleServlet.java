@@ -20,7 +20,7 @@ public class ModuleServlet extends HttpServlet {
 	
 	public void init() throws UnavailableException	{
 		if (!Config.ready)	{
-			throw new UnavailableException("This application failed to configure successfully and cannot start. Please read the log for more detail");
+			throw new UnavailableException("The application has failed to setup properly and cannot start. Please check the log for more details.");
 		}
 		frontModule = new FrontModule();
 	}

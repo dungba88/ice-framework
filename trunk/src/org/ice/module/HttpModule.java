@@ -9,13 +9,13 @@ import org.ice.exception.NotFoundException;
 import org.ice.http.HttpRequest;
 import org.ice.http.HttpResponse;
 import org.ice.utils.UploadFile;
-import org.ice.view.AbstractView;
 import org.ice.view.ScriptView;
+import org.ice.view.TemplateView;
 
 public abstract class HttpModule implements IModule {
 
 	protected String content;
-	protected AbstractView view;
+	protected TemplateView view;
 	private HttpRequest request;
 	private HttpResponse response;
 	private String template;
@@ -154,5 +154,9 @@ public abstract class HttpModule implements IModule {
 	
 	public UploadFile getUploadFile(String name) throws Exception	{
 		return new UploadFile(request.getUploadFile(name));
+	}
+	
+	public TemplateView getView() {
+		return view;
 	}
 }

@@ -3,17 +3,12 @@ package org.ice.view;
 import java.util.HashMap;
 import java.util.Map;
 
-public abstract class AbstractView {
+public abstract class AbstractView implements View {
 
-	protected String template;
 	protected Map<String, Object> params;
 	
 	public AbstractView()	{
 		params = new HashMap<String, Object>();
-	}
-	
-	public void setTemplate(String template)	{
-		this.template = template;
 	}
 	
 	public void setParam(String name, Object value)	{
