@@ -46,7 +46,7 @@ public class XMLConfigParser implements ConfigParser {
 				if (oldClass == null)
 					oldClass = "";
 				oldClass += attributes.getValue("class")+",";
-				this.output.set(attributes.getValue("setup-classes"), oldClass);
+				this.output.set("setup-classes", oldClass);
 			}
 		}
 	}
