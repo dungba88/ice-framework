@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ice>
+	<config>
+		<param name="ice.app.env" value="development" />
+		<param name="ice.app.errorhandler" value="org.ice.module.ErrorHandler" />
+		<param name="ice.app.registry" value="org.ice.registry.DefaultRegistry" />
+
+		<!-- database -->
+		<param name="ice.db.host" value="localhost" />
+		<param name="ice.db.port" value="3306" />
+		<param name="ice.db.name" value="bkprofile-ice" />
+		<param name="ice.db.username" value="root" />
+		<param name="ice.db.password" value="" />
+		<param name="ice.db.adapter" value="org.ice.db.MySqlAdapter" />
+		
+		<param name="ice.path.resource" value="/resource" />
+	</config>
+	
+	<setup>
+		<setup-class class="org.ice.config.setup.SystemConfigSetup" />
+		<setup-class class="org.ice.config.setup.DatabaseConfigSetup" />
+		<setup-class class="org.ice.config.setup.EmailConfigSetup" />
+	</setup>
+</ice>
