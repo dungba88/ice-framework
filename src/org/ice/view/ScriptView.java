@@ -3,18 +3,23 @@ package org.ice.view;
 import java.io.BufferedReader;
 import java.io.InputStream;
 import java.io.InputStreamReader;
-import java.util.Set;
+import java.util.Enumeration;
+
+import javax.servlet.ServletRequest;
 
 import org.ice.Config;
+import org.ice.http.HttpRequest;
+import org.ice.http.HttpResponse;
 import org.ice.logger.Logger;
 
 public class ScriptView extends TemplateView {
 	
 	@Override
-	public String render() {
+	public void render(HttpRequest request, HttpResponse response) {
 		InputStream is = Config.servletContext.getResourceAsStream(template);
 		if (is == null)	{
-			return "Template not found: "+template;
+			response.appendBody("Template not found: "+template);
+			return;
 		}
 		try {
 			StringBuilder builder = new StringBuilder();
@@ -24,19 +29,20 @@ public class ScriptView extends TemplateView {
 				builder.append(text);
 				builder.append("\n");
 			}
+			Enumeration<String> names = request.getAttributeNames();
 			text = builder.toString();
-			Set<String> keys = params.keySet();
-			for(String key: keys)	{
-				Object value = params.get(key);
+			while (names.hasMoreElements())	{
+				String key = names.nextElement();
+				Object value = request.getAttribute(key);
 				try {
 					text = text.replaceAll("\\{"+key+"\\}", value.toString());
 				} catch (Exception ex)	{
 					Logger.getLogger().log("Error while processing template: "+ex.toString()+" - Current key: "+key, Logger.LEVEL_WARNING);
 				}
 			}
-			return text;
+			response.appendBody(text);
 		} catch (Exception ex)	{
-			return "Failed to read template: "+ex.toString();
+			response.appendBody("Failed to read template: "+ex.toString());
 		}
 	}
 }

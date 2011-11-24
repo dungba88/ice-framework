@@ -1,10 +1,9 @@
 package org.ice.view;
 
+import org.ice.http.HttpRequest;
+import org.ice.http.HttpResponse;
+
 public interface View {
 
-	public void setParam(String name, Object value);
-	
-	public Object getParam(String name);
-	
-	public abstract String render();
+	public abstract void render(HttpRequest request, HttpResponse response);
 }

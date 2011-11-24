@@ -6,23 +6,22 @@ import java.util.List;
 import javax.servlet.RequestDispatcher;
 import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletRequestWrapper;
 import javax.servlet.http.HttpSession;
 
 import org.apache.tomcat.util.http.fileupload.FileItem;
 import org.apache.tomcat.util.http.fileupload.disk.DiskFileItemFactory;
 import org.apache.tomcat.util.http.fileupload.servlet.ServletFileUpload;
 
-public class HttpRequest  {
+public class HttpRequest extends HttpServletRequestWrapper  {
 
 	protected String[] params;
-	protected HttpServletRequest request;
 	protected String moduleName;
 	protected String taskName;
 	private String baseUrl;
 	
 	public HttpRequest(HttpServletRequest request) {
-		super();
-		this.request = request;
+		super(request);
 		int serverPort = request.getServerPort();
 		if (serverPort == 80 || serverPort == 443)	{
 			baseUrl = request.getScheme() + "://" + request.getServerName() + request.getContextPath();
@@ -32,25 +31,25 @@ public class HttpRequest  {
 	}
 
 	public void setSession(String name, Object value)	{
-		HttpSession session = request.getSession(true);
+		HttpSession session = super.getSession(true);
 		session.setAttribute(name, value);
 	}
 	
 	public Object getSession(String name)	{
-		HttpSession session = request.getSession(false);
+		HttpSession session = super.getSession(false);
 		if (session != null)
 			return session.getAttribute(name);
 		return null;
 	}
 	
 	public void destroySession()	{
-		HttpSession session = request.getSession(false);
+		HttpSession session = super.getSession(false);
 		if (session != null)
 			session.invalidate();
 	}
 	
 	public void clearSession(String name)	{
-		HttpSession session = request.getSession(false);
+		HttpSession session = super.getSession(false);
 		if (session != null)
 			session.removeAttribute(name);
 	}
@@ -76,7 +75,7 @@ public class HttpRequest  {
 	}
 	
 	public String getParam(String key, String defaultValue)	{
-		String value = request.getParameter(key);
+		String value = getRequest().getParameter(key);
 		if (value != null)
 			return value;
 		return defaultValue;
@@ -87,24 +86,24 @@ public class HttpRequest  {
 	}
 	
 	public Enumeration<String> getParams()	{
-		return request.getParameterNames();
+		return getRequest().getParameterNames();
 	}
 	
-	/**
-	 * Get the request HTTP method
-	 */
-	public String getMethod()	{
-		return request.getMethod();
-	}
+//	/**
+//	 * Get the request HTTP method
+//	 */
+//	public String getMethod()	{
+//		return super.getMethod();
+//	}
 	
-	/**
-	 * Get the specified request header
-	 * @param String header the header name
-	 * @return String the header value or false if we can't retrieve it
-	 */
-	public String getHeader(String header)	{
-		return request.getHeader(header);
-	}
+//	/**
+//	 * Get the specified request header
+//	 * @param String header the header name
+//	 * @return String the header value or false if we can't retrieve it
+//	 */
+//	public String getHeader(String header)	{
+//		return super.getHeader(header);
+//	}
 	
 	/**
 	 * Test if this is a AJAX request
@@ -121,9 +120,9 @@ public class HttpRequest  {
 		return baseUrl;
 	}
 	
-	public StringBuffer getRequestUrl()	{
-		return request.getRequestURL();
-	}
+//	public StringBuffer getRequestUrl()	{
+//		return super.getRequestURL();
+//	}
 	
 	public void setParams(String[] params)	{
 		this.params = params;
@@ -136,18 +135,18 @@ public class HttpRequest  {
 		return params[index];
 	}
 	
-	public Cookie[] getCookies()	{
-		return request.getCookies();
-	}
+//	public Cookie[] getCookies()	{
+//		return super.getCookies();
+//	}
 	
 	public boolean isMultipart() {
-		return ServletFileUpload.isMultipartContent(request);
+		return ServletFileUpload.isMultipartContent((HttpServletRequest) getRequest());
 	}
 	
 	public FileItem getUploadFile(String file) throws Exception {
 		//TODO: Cache previous list
 		ServletFileUpload fileUpload = new ServletFileUpload(new DiskFileItemFactory());
-		List<FileItem> list = fileUpload.parseRequest(request);
+		List<FileItem> list = fileUpload.parseRequest((HttpServletRequest) getRequest());
 		for(FileItem fileItem: list) {
 			if (fileItem.getFieldName().equals(file)) {
 				return fileItem;
@@ -156,15 +155,15 @@ public class HttpRequest  {
 		return null;
 	}
 
-	public RequestDispatcher getRequestDispatcher(String template) {
-		return request.getRequestDispatcher(template);
-	}
+//	public RequestDispatcher getRequestDispatcher(String template) {
+//		return getRequest().getRequestDispatcher(template);
+//	}
 	
-	public HttpServletRequest getUnderlyingRequest()	{
-		return request;
-	}
+//	public HttpServletRequest getUnderlyingRequest()	{
+//		return (HttpServletRequest) getRequest();
+//	}
 
 	public String getIP() {
-		return request.getRemoteAddr();
+		return super.getRemoteAddr();
 	}
 }

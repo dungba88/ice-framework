@@ -112,7 +112,7 @@ public abstract class HttpModule implements IModule {
 		if (isUsingTemplate())	{
 			setContentType("text/html;charset=UTF-8");
 			view.setTemplate(Config.get("resourceUrl")+template);
-			response.appendBody(view.render());
+			view.render(request, response);
 		}
 	}
 
@@ -154,6 +154,10 @@ public abstract class HttpModule implements IModule {
 	
 	public UploadFile getUploadFile(String name) throws Exception	{
 		return new UploadFile(request.getUploadFile(name));
+	}
+	
+	public void setView(TemplateView view) {
+		this.view = view;
 	}
 	
 	public TemplateView getView() {

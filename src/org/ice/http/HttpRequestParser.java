@@ -11,7 +11,7 @@ public class HttpRequestParser  {
 		String mod = null;
 		String task = null;
 		String baseUrl = request.getBaseUrl();
-		StringBuffer requestUrl = request.getRequestUrl();
+		StringBuffer requestUrl = request.getRequestURL();
 		if (requestUrl.length() > baseUrl.length())	{
 			requestUrl.delete(0, baseUrl.length());
 			String extra = StringUtils.strip(requestUrl.toString(), "/");
