@@ -3,8 +3,6 @@ package org.ice.http;
 import java.util.Enumeration;
 import java.util.List;
 
-import javax.servlet.RequestDispatcher;
-import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletRequestWrapper;
 import javax.servlet.http.HttpSession;
