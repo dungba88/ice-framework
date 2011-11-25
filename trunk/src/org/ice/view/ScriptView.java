@@ -5,8 +5,6 @@ import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.util.Enumeration;
 
-import javax.servlet.ServletRequest;
-
 import org.ice.Config;
 import org.ice.http.HttpRequest;
 import org.ice.http.HttpResponse;
