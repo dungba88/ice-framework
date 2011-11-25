@@ -6,7 +6,7 @@ import org.ice.http.HttpRequest;
 import org.ice.http.HttpResponse;
 import org.ice.logger.Logger;
 
-public class JspView extends TemplateView {
+public class JstlView extends TemplateView {
 
 	@Override
 	public void render(HttpRequest request, HttpResponse response) {
