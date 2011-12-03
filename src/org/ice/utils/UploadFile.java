@@ -5,7 +5,6 @@ import java.util.ArrayList;
 
 import org.apache.tomcat.util.http.fileupload.FileItem;
 import org.ice.Config;
-import org.ice.registry.RegistryFactory;
 import org.ice.validate.file.FileValidator;
 
 public class UploadFile {

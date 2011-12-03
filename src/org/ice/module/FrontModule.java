@@ -42,6 +42,7 @@ public class FrontModule {
 	 * @param request
 	 * @param response
 	 */
+	@SuppressWarnings("unchecked")
 	public void dispatch(HttpServletRequest request, HttpServletResponse response)	{
 		try {
 			request.setCharacterEncoding("UTF-8");
