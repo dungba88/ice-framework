@@ -1,5 +1,7 @@
 package org.ice.db;
 
+import java.sql.ResultSet;
+import java.sql.SQLException;
 import java.util.ArrayList;
 
 public class Table {
@@ -68,6 +70,18 @@ public class Table {
 	
 	public int delete(String where) throws Exception {
 		return adapter.delete(this, where);
+	}
+	
+	public ResultSet selectQuery(String query) throws Exception {
+		return adapter.executeSelect(query, this);
+	}
+	
+	public int updateQuery(String query) throws Exception {
+		return adapter.executeUpdate(query, this);
+	}
+	
+	public boolean insertQuery(String query) throws Exception {
+		return adapter.executeInsert(query, this);
 	}
 
 	/**

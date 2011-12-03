@@ -122,7 +122,12 @@ public class MySqlAdapter extends Adapter {
 	
 	@Override
 	public String getConnectionString(String host, String port, String dbName) {
-		return "jdbc:mysql://"+host+":"+port+"/"+dbName+"?characterEncoding=UTF8";
+		String connectionString = null;
+		if (port == null || port.isEmpty())
+			connectionString = "jdbc:mysql://"+host+"/"+dbName+"?characterEncoding=UTF8";
+		else
+			connectionString = "jdbc:mysql://"+host+":"+port+"/"+dbName+"?characterEncoding=UTF8";
+		return connectionString;
 	}
 	
 	/**
