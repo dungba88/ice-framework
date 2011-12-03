@@ -14,9 +14,11 @@ public class AdapterFactory {
 		return adapter;
 	}
 
-	public static Adapter setupAdapter(String name, String host, String port, String username, String password, String dbName) throws IceException	{
-		if (adapter != null)
-			return adapter;
+	public static Adapter setupAdapter(String name, String host, String port, String username, String password, String dbName) throws Exception	{
+		if (adapter != null) {
+			adapter.close();
+			adapter = null;
+		}
 		try {
 			adapter = (Adapter) FieldUtils.loadClass(name);
 			try {
@@ -29,9 +31,9 @@ public class AdapterFactory {
 			adapter.setConnection(connection);
 			return adapter;
 		} catch (ClassCastException ex) {
-			throw new IceException("Invalid adapter ["+name+"]");
+			throw new Exception("Invalid adapter ["+name+"]");
 		} catch (Exception ex)	{
-			throw new IceException(ex.toString());
+			throw ex;
 		}
 	}
 }

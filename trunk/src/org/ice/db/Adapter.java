@@ -23,7 +23,7 @@ public abstract class Adapter {
 	public void setConnection(Connection connection) {
 		this.connection = connection;
 	}
-
+	
 	public ResultSet executeSelect(String query, Object data) throws SQLException	{
 		ParsedQuery parsed = parseQuery(query);
 		if (Config.debugMode)
@@ -140,6 +140,16 @@ public abstract class Adapter {
 		public ParsedQuery(String query, ArrayList<String> params)	{
 			this.query = query;
 			this.params = params;
+		}
+	}
+
+	public void close() {
+		try {
+			if (connection != null && !connection.isClosed()) {
+				connection.close();
+			}
+		} catch (Exception ex) {
+			Logger.getLogger().log("Cannot close connection: "+ex.toString(), Logger.LEVEL_WARNING);
 		}
 	}
 }
