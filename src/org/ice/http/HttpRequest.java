@@ -17,6 +17,7 @@ public class HttpRequest extends HttpServletRequestWrapper  {
 	protected String moduleName;
 	protected String taskName;
 	private String baseUrl;
+	private String servletUrl;
 	
 	public HttpRequest(HttpServletRequest request) {
 		super(request);
@@ -26,6 +27,7 @@ public class HttpRequest extends HttpServletRequestWrapper  {
 		} else {
 			baseUrl = request.getScheme() + "://" + request.getServerName() + ":" + serverPort + request.getContextPath();
 		}
+		servletUrl = baseUrl + request.getServletPath();
 	}
 
 	public void setSession(String name, Object value)	{
@@ -108,6 +110,10 @@ public class HttpRequest extends HttpServletRequestWrapper  {
 	 */
 	public boolean isAjaxRequest()	{
         return (this.getHeader("X_REQUESTED_WITH").equals("XMLHttpRequest"));
+	}
+	
+	public String getServletUrl() {
+		return servletUrl;
 	}
 	
 	/**

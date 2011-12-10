@@ -20,6 +20,10 @@ public class Table {
 		adapter = AdapterFactory.getAdapter();
 	}
 	
+	public Exception getLastError() {
+		return adapter.getLastError();
+	}
+	
 	public Object view(String fields)	{
 		return new Viewer(this, fields).serialize();
 	}
@@ -76,11 +80,15 @@ public class Table {
 		return adapter.executeSelect(query, this);
 	}
 	
-	public int updateQuery(String query) throws Exception {
+	public int updateQuery(String query, boolean raw) throws Exception {
+		if (raw)
+			return adapter.doExecuteUpdate(adapter.getConnection().prepareStatement(query));
 		return adapter.executeUpdate(query, this);
 	}
 	
-	public boolean insertQuery(String query) throws Exception {
+	public boolean insertQuery(String query, boolean raw) throws Exception {
+		if (raw)
+			return adapter.doExecuteInsert(adapter.getConnection().prepareStatement(query), this);
 		return adapter.executeInsert(query, this);
 	}
 
@@ -113,5 +121,17 @@ public class Table {
 	public ArrayList join(Table primaryObj, String foreignKey, String primaryChoice,
 			String foreignChoice, int pageIndex, int pageSize) throws Exception {
 		return adapter.selectJoin(primaryObj, this, foreignKey, null, primaryChoice, foreignChoice, primaryObj.key+" DESC", null, pageIndex, pageSize, this.getClass());
+	}
+	
+	public void startBatch() throws Exception {
+		adapter.startBatch();
+	}
+	
+	public void addBatch(String sql) throws Exception {
+		adapter.addBatch(sql);
+	}
+	
+	public void batchUpdate() throws Exception {
+		adapter.batchUpdate();
 	}
 }

@@ -10,10 +10,10 @@ public class HttpRequestParser  {
 		//find rewritten parameters
 		String mod = null;
 		String task = null;
-		String baseUrl = request.getBaseUrl();
+		String servletUrl = request.getServletUrl();
 		StringBuffer requestUrl = request.getRequestURL();
-		if (requestUrl.length() > baseUrl.length())	{
-			requestUrl.delete(0, baseUrl.length());
+		if (requestUrl.length() > servletUrl.length())	{
+			requestUrl.delete(0, servletUrl.length());
 			String extra = StringUtils.strip(requestUrl.toString(), "/");
 			String[] params = extra.split("\\/");
 			String[] p = null;
