@@ -1,3 +1,17 @@
+/*
+ * This program is free software: you can redistribute it and/or modify
+ * it under the terms of the GNU General Public License as published by
+ * the Free Software Foundation, either version 3 of the License, or
+ * (at your option) any later version.
+ *
+ * This program is distributed in the hope that it will be useful,
+ * but WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ * GNU General Public License for more details.
+ *
+ * You should have received a copy of the GNU General Public License
+ * along with this program.  If not, see <http://www.gnu.org/licenses/>
+ */
 package org.ice;
 
 import java.sql.Driver;
@@ -6,8 +20,8 @@ import java.util.Enumeration;
 
 import javax.servlet.ServletContext;
 
-import org.ice.config.ConfigData;
-import org.ice.config.ConfigParser;
+import org.ice.config.IConfigData;
+import org.ice.config.IConfigParser;
 import org.ice.config.ConfigParserFactory;
 import org.ice.config.ConfigSetup;
 import org.ice.db.AdapterFactory;
@@ -25,15 +39,15 @@ public class Config {
 	
 	public static void load(ServletContext sc)	{
 		servletContext = sc;
-		ConfigData data = null;
+		IConfigData data = null;
 		
 		try {
 			String outputClass = sc.getInitParameter("ice.config.output");
 			Object obj = FieldUtils.loadClass(outputClass);
 			
-			ConfigParser parser = ConfigParserFactory.getParser(sc.getInitParameter("ice.config.parser"));
-			if (obj instanceof ConfigData) {
-				data = (ConfigData) obj;
+			IConfigParser parser = ConfigParserFactory.getParser(sc.getInitParameter("ice.config.parser"));
+			if (obj instanceof IConfigData) {
+				data = (IConfigData) obj;
 			}
 			parser.parse(sc, sc.getInitParameter("ice.config.source"), data);
 		} catch(Exception ex) {

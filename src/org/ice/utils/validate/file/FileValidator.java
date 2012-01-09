@@ -12,13 +12,11 @@
  * You should have received a copy of the GNU General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>
  */
-package org.ice.view;
+package org.ice.utils.validate.file;
 
-public abstract class TemplateView implements IView {
+import org.ice.utils.UploadFile;
 
-	protected String template;
+public interface FileValidator {
 
-	public void setTemplate(String template)	{
-		this.template = template;
-	}
+	public boolean validate(UploadFile file);
 }
