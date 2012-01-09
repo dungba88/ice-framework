@@ -22,7 +22,6 @@ import org.ice.exception.IceException;
 import org.ice.exception.NotFoundException;
 import org.ice.http.HttpRequest;
 import org.ice.http.HttpResponse;
-import org.ice.utils.UploadFile;
 import org.ice.view.ScriptView;
 import org.ice.view.TemplateView;
 
