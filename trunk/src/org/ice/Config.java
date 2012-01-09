@@ -35,7 +35,6 @@ public class Config {
 	public static boolean ready = false;
 	public static String version = "1.0";
 	public static ServletContext servletContext;
-	public static volatile long online = 0;
 	
 	public static void load(ServletContext sc)	{
 		servletContext = sc;
