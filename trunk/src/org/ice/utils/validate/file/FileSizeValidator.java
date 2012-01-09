@@ -12,13 +12,28 @@
  * You should have received a copy of the GNU General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>
  */
-package org.ice.view;
+package org.ice.utils.validate.file;
 
-public abstract class TemplateView implements IView {
+import org.ice.utils.UploadFile;
 
-	protected String template;
-
-	public void setTemplate(String template)	{
-		this.template = template;
+public class FileSizeValidator implements FileValidator {
+	
+	private long min;
+	private long max;
+	
+	public FileSizeValidator(long min, long max)	{
+		this.min = min;
+		this.max = max;
 	}
+
+	public boolean validate(UploadFile file) {
+		long size = file.getFileItem().getSize();
+		if (min != -1 && size < min) {
+			return false;
+		}
+		if (max != -1 && size > max)
+			return false;
+		return true;
+	}
+
 }

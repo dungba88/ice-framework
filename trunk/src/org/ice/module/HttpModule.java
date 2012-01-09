@@ -1,3 +1,17 @@
+/*
+ * This program is free software: you can redistribute it and/or modify
+ * it under the terms of the GNU General Public License as published by
+ * the Free Software Foundation, either version 3 of the License, or
+ * (at your option) any later version.
+ *
+ * This program is distributed in the hope that it will be useful,
+ * but WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ * GNU General Public License for more details.
+ *
+ * You should have received a copy of the GNU General Public License
+ * along with this program.  If not, see <http://www.gnu.org/licenses/>
+ */
 package org.ice.module;
 
 import java.lang.reflect.InvocationTargetException;
@@ -45,20 +59,24 @@ public abstract class HttpModule implements IModule {
 		return (template != null);
 	}
 	
-	public void setHeader(String headerName, String value) {
-		response.setHeader(headerName, value);
-	}
+//	public void setHeader(String headerName, String value) {
+//		response.setHeader(headerName, value);
+//	}
 	
-	public String getHeader(String headerName) {
-		return response.getHeader(headerName);
-	}
+//	public String getHeader(String headerName) {
+//		return response.getHeader(headerName);
+//	}
 
-	public void setContentType(String contentType)	{
-		response.setContentType(contentType);
-	}
+//	public void setContentType(String contentType)	{
+//		response.setContentType(contentType);
+//	}
 	
-	public void redirect(String url)	{
-		response.redirect(url);
+	public void sendRedirect(String url)	{
+		try {
+			response.sendRedirect(url);
+		} catch (Exception ex) {
+			ex.printStackTrace();
+		}
 	}
 	
 	public String getBaseUrl()	{
@@ -69,24 +87,21 @@ public abstract class HttpModule implements IModule {
 		return this.getBaseUrl()+Config.get("resourceUrl");
 	}
 	
-	public String getRequestIP() {
-		return request.getIP();
-	}
+//	public String getRequestIP() {
+//		return request.getIP();
+//	}
 	
 	public void echo(String s)	{
 		content += s;
 	}
 	
-	@Override
 	public void init() {
 	}
 
-	@Override
 	public void preDispatch(Method method) throws Exception {
 		
 	}
 
-	@Override
 	public void dispatch(String task) throws Exception {
 		Method method = null;
 		try {
@@ -110,51 +125,44 @@ public abstract class HttpModule implements IModule {
 		this.postDispatch (method);
 		
 		if (isUsingTemplate())	{
-			setContentType("text/html;charset=UTF-8");
+			getResponse().setContentType("text/html;charset=UTF-8");
 			view.setTemplate(Config.get("resourceUrl")+template);
 			view.render(request, response);
 		}
 	}
 
-	@Override
 	public void postDispatch(Method method) throws Exception {
 		
 	}
 	
-	@Override
 	public void destroy() {
 		
 	}
 	
-	@Override
 	public String getStreamResponse() {
 		return content;
 	}
 
-	@Override
 	public void setResponse(HttpResponse response) {
 		this.response = response;
 		this.content = response.getBody();
 	}
 	
-	@Override
 	public HttpResponse getResponse() {
 		return this.response;
 	}
 	
-	@Override
 	public void setRequest(HttpRequest request) {
 		this.request = request;
 	}
 
-	@Override
 	public HttpRequest getRequest() {
 		return request;
 	}
 	
-	public UploadFile getUploadFile(String name) throws Exception	{
-		return new UploadFile(request.getUploadFile(name));
-	}
+//	public UploadFile getUploadFile(String name) throws Exception	{
+//		return new UploadFile(request.getUploadFile(name));
+//	}
 	
 	public void setView(TemplateView view) {
 		this.view = view;

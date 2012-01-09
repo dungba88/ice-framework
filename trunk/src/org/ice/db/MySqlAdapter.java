@@ -1,3 +1,17 @@
+/*
+ * This program is free software: you can redistribute it and/or modify
+ * it under the terms of the GNU General Public License as published by
+ * the Free Software Foundation, either version 3 of the License, or
+ * (at your option) any later version.
+ *
+ * This program is distributed in the hope that it will be useful,
+ * but WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ * GNU General Public License for more details.
+ *
+ * You should have received a copy of the GNU General Public License
+ * along with this program.  If not, see <http://www.gnu.org/licenses/>
+ */
 package org.ice.db;
 
 import java.sql.PreparedStatement;
@@ -8,14 +22,12 @@ import org.ice.Config;
 import org.ice.logger.Logger;
 import org.ice.utils.FieldUtils;
 
-public class MySqlAdapter extends Adapter {
+public class MySqlAdapter extends AbstractAdapter {
 
-	@Override
 	public String getDriverName() {
 		return "com.mysql.jdbc.Driver";
 	}
 
-	@Override
 	public boolean load(Table obj) throws Exception {
 		String query = "SELECT * FROM `"+obj.table+"` WHERE `"+obj.key+"` = ?"+obj.key;
 		ResultSet rs = this.executeSelect(query, obj);
@@ -27,7 +39,6 @@ public class MySqlAdapter extends Adapter {
 		return false;
 	}
 	
-	@Override
 	public ArrayList query(Table obj, String query) throws Exception {
 		ResultSet rs = this.executeSelect(query, obj);
 		rs.beforeFirst();
@@ -42,7 +53,6 @@ public class MySqlAdapter extends Adapter {
 		return list;
 	}
 	
-	@Override
 	public int update(Table obj, String fields, String where) throws Exception {
 		String[] fieldArr = fields.split(",");
 		StringBuilder builder = new StringBuilder("UPDATE `"+obj.table+"` SET ");
@@ -91,7 +101,6 @@ public class MySqlAdapter extends Adapter {
 		return list;
 	}
 	
-	@Override
 	public boolean insert(Table obj, String fields) throws Exception{
         String f = "(";
         String v = "( ";
@@ -112,7 +121,6 @@ public class MySqlAdapter extends Adapter {
         return this.executeInsert("INSERT INTO `" + obj.table + "` " + f + " VALUES " + v, obj);
     }
 	
-	@Override
 	public int delete(Table obj, String where) throws Exception	{
 		if (where == null || where.isEmpty())	{
 			where = obj.key + " = ?"+obj.key;
@@ -120,7 +128,6 @@ public class MySqlAdapter extends Adapter {
         return this.executeUpdate("DELETE FROM `" + obj.table + "` WHERE " + where, obj);
     }
 	
-	@Override
 	public String getConnectionString(String host, String port, String dbName) {
 		String connectionString = null;
 		if (port == null || port.isEmpty())
@@ -142,7 +149,6 @@ public class MySqlAdapter extends Adapter {
 	 * @param group: pass the name of field to be grouped, WITH name of table if needed.
 	 * @param returnClass: class of object you want to return.
 	 * */
-	@Override
 	public ArrayList selectJoin(Table primaryObj, Table foreignObj, String foreignKey, String where,
 			String primaryChoice, String foreignChoice, String order, String group, int pageIndex,
 			int pageSize, Class<? extends Table> returnClass) throws Exception {

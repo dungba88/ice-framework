@@ -12,13 +12,27 @@
  * You should have received a copy of the GNU General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>
  */
-package org.ice.view;
+package org.ice.utils.validate.file;
 
-public abstract class TemplateView implements IView {
+import org.ice.utils.UploadFile;
 
-	protected String template;
-
-	public void setTemplate(String template)	{
-		this.template = template;
+public class FileExtValidator implements FileValidator {
+	
+	private String ext;
+	
+	public FileExtValidator(String ext)	{
+		this.ext = ext;
 	}
+
+	public boolean validate(UploadFile file) {
+		String[] exts = ext.split(",");
+		String name = file.getFileItem().getName().toLowerCase();
+		for(String s: exts)	{
+			if (name.endsWith("."+s.trim().toLowerCase()))	{
+				return true;
+			}
+		}
+		return false;
+	}
+
 }

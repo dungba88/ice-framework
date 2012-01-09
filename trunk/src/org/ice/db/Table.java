@@ -1,3 +1,17 @@
+/*
+ * This program is free software: you can redistribute it and/or modify
+ * it under the terms of the GNU General Public License as published by
+ * the Free Software Foundation, either version 3 of the License, or
+ * (at your option) any later version.
+ *
+ * This program is distributed in the hope that it will be useful,
+ * but WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ * GNU General Public License for more details.
+ *
+ * You should have received a copy of the GNU General Public License
+ * along with this program.  If not, see <http://www.gnu.org/licenses/>
+ */
 package org.ice.db;
 
 import java.sql.ResultSet;
@@ -10,7 +24,7 @@ public class Table {
 	
 	protected String key;
 	
-	protected Adapter adapter;
+	protected IAdapter adapter;
 	
 	public Table()	{
 		setupAdapter();
@@ -77,19 +91,28 @@ public class Table {
 	}
 	
 	public ResultSet selectQuery(String query) throws Exception {
-		return adapter.executeSelect(query, this);
+		if (adapter instanceof AbstractAdapter) {
+			return ((AbstractAdapter) adapter).executeSelect(query, this);
+		}
+		throw new UnsupportedOperationException();
 	}
 	
 	public int updateQuery(String query, boolean raw) throws Exception {
-		if (raw)
-			return adapter.doExecuteUpdate(adapter.getConnection().prepareStatement(query));
-		return adapter.executeUpdate(query, this);
+		if (adapter instanceof AbstractAdapter) {
+			if (raw)
+				return ((AbstractAdapter) adapter).doExecuteUpdate(adapter.getConnection().prepareStatement(query));
+			return ((AbstractAdapter) adapter).executeUpdate(query, this);
+		}
+		throw new UnsupportedOperationException();
 	}
 	
 	public boolean insertQuery(String query, boolean raw) throws Exception {
-		if (raw)
-			return adapter.doExecuteInsert(adapter.getConnection().prepareStatement(query), this);
-		return adapter.executeInsert(query, this);
+		if (adapter instanceof AbstractAdapter) {
+			if (raw)
+				return ((AbstractAdapter) adapter).doExecuteInsert(adapter.getConnection().prepareStatement(query), this);
+			return ((AbstractAdapter) adapter).executeInsert(query, this);
+		}
+		throw new UnsupportedOperationException();
 	}
 
 	/**

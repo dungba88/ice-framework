@@ -1,21 +1,44 @@
+/*
+ * This program is free software: you can redistribute it and/or modify
+ * it under the terms of the GNU General Public License as published by
+ * the Free Software Foundation, either version 3 of the License, or
+ * (at your option) any later version.
+ *
+ * This program is distributed in the hope that it will be useful,
+ * but WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ * GNU General Public License for more details.
+ *
+ * You should have received a copy of the GNU General Public License
+ * along with this program.  If not, see <http://www.gnu.org/licenses/>
+ */
 package org.ice.config.parser;
 
 import java.io.StringReader;
 
 import javax.servlet.ServletContext;
 
-import org.ice.config.ConfigData;
-import org.ice.config.ConfigParser;
+import org.ice.config.IConfigData;
+import org.ice.config.IConfigParser;
 import org.xml.sax.Attributes;
 import org.xml.sax.InputSource;
 import org.xml.sax.XMLReader;
 import org.xml.sax.helpers.DefaultHandler;
 import org.xml.sax.helpers.XMLReaderFactory;
 
-public class XMLConfigParser implements ConfigParser {
+/**
+ * Default implementation of <code>IConfigParser</code>
+ * which takes an XML file or string as the source.
+ * For the source to be treated as file, use must prepend
+ * <code>file://</code> to the filename
+ * The XML file/string must also conform to the standard Ice's
+ * XML-based configuration
+ * 
+ * @author dungba
+ */
+public class XMLConfigParser implements IConfigParser {
 
-	@Override
-	public void parse(ServletContext sc, Object source, ConfigData output) throws Exception {
+	public void parse(ServletContext sc, Object source, IConfigData output) throws Exception {
 		String s = source.toString();
 		InputSource is = null;
 		if (s.startsWith("file://")) {
@@ -31,9 +54,9 @@ public class XMLConfigParser implements ConfigParser {
 	}
 	
 	class ConfigContentHandler extends DefaultHandler {
-		private ConfigData output;
+		private IConfigData output;
 		
-		public ConfigContentHandler(ConfigData output) {
+		public ConfigContentHandler(IConfigData output) {
 			super();
 			this.output = output;
 		}
