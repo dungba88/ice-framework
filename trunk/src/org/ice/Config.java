@@ -17,6 +17,7 @@ package org.ice;
 import java.sql.Driver;
 import java.sql.DriverManager;
 import java.util.Enumeration;
+import java.util.logging.Level;
 
 import javax.servlet.ServletContext;
 
@@ -25,9 +26,9 @@ import org.ice.config.IConfigParser;
 import org.ice.config.ConfigParserFactory;
 import org.ice.config.ConfigSetup;
 import org.ice.db.AdapterFactory;
-import org.ice.logger.Logger;
 import org.ice.registry.RegistryFactory;
 import org.ice.utils.FieldUtils;
+import org.ice.utils.LogUtils;
 
 public class Config {
 	
@@ -85,12 +86,11 @@ public class Config {
 	            try {
 	                DriverManager.deregisterDriver(driver);
 	            } catch (Exception ex) {
-	            	Logger.getLogger().log(ex.toString(), Logger.LEVEL_WARNING);
+	            	LogUtils.log(Level.WARNING, ex.toString());
 	            }
-
 	        }
 		} catch (Exception ex)	{
-			Logger.getLogger().log(ex.toString(), Logger.LEVEL_WARNING);
+			LogUtils.log(Level.WARNING, ex.toString());
 		}
 	}
 	

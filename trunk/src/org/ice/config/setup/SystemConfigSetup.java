@@ -14,13 +14,15 @@
  */
 package org.ice.config.setup;
 
+import java.util.logging.Level;
+
 import org.ice.Config;
 import org.ice.config.IConfigData;
 import org.ice.config.ConfigSetup;
-import org.ice.logger.Logger;
 import org.ice.module.IErrorHandler;
 import org.ice.registry.RegistryFactory;
 import org.ice.utils.FieldUtils;
+import org.ice.utils.LogUtils;
 
 /**
  * Subclass of <code>ConfigSetup</code>, used for setting up 
@@ -59,11 +61,9 @@ public class SystemConfigSetup implements ConfigSetup {
 				RegistryFactory.getRegistry().set("config.errorHandler",
 						errorHandler);
 			} catch (ClassCastException ex) {
-				Logger.getLogger().log("Invalid error handler: " + handler,
-						Logger.LEVEL_WARNING);
+				LogUtils.log(Level.WARNING, "Invalid error handler: " + handler);
 			} catch (Exception ex) {
-				Logger.getLogger().log("Error handler not found: " + handler,
-						Logger.LEVEL_WARNING);
+				LogUtils.log(Level.WARNING, "Error handler not found: " + handler);
 			}
 		}
 

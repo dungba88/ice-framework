@@ -17,10 +17,11 @@ package org.ice.db.adapters;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.util.ArrayList;
+import java.util.logging.Level;
 
 import org.ice.Config;
-import org.ice.logger.Logger;
 import org.ice.utils.FieldUtils;
+import org.ice.utils.LogUtils;
 
 public class MySqlAdapter extends AbstractAdapter {
 
@@ -236,7 +237,7 @@ public class MySqlAdapter extends AbstractAdapter {
 					builder.setCharAt(builder.length()-1, ')');
 				}
 			}
-			Logger.getLogger().log(builder.toString(), Logger.LEVEL_DEBUG);
+			LogUtils.log(Level.INFO, builder.toString());
 		}
 		
 		PreparedStatement statement = connection.prepareStatement(query);

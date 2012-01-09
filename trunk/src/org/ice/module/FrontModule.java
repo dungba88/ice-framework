@@ -15,6 +15,7 @@
 package org.ice.module;
 
 import java.util.ArrayList;
+import java.util.logging.Level;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -25,9 +26,9 @@ import org.ice.exception.NotFoundException;
 import org.ice.http.HttpRequest;
 import org.ice.http.HttpRequestParser;
 import org.ice.http.HttpResponse;
-import org.ice.logger.Logger;
 import org.ice.module.router.DefaultRouter;
 import org.ice.module.router.IRouter;
+import org.ice.utils.LogUtils;
 import org.ice.utils.StringUtils;
 
 /**
@@ -61,7 +62,7 @@ public class FrontModule {
 		try {
 			request.setCharacterEncoding("UTF-8");
 		} catch(Exception ex) {
-			Logger.getLogger().log("Cannot set character encoding to UTF-8", Logger.LEVEL_WARNING);
+			LogUtils.log(Level.WARNING, "Cannot set character encoding to UTF-8");
 		}
 		HttpRequest httpRequest = requestParser.parseRequest(new HttpRequest(request));
 		HttpResponse httpResponse = new HttpResponse(response);

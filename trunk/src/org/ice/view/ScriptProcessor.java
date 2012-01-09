@@ -21,7 +21,6 @@ import java.util.Map;
 import java.util.Set;
 
 import org.ice.Config;
-import org.ice.logger.Logger;
 
 public class ScriptProcessor {
 
@@ -45,7 +44,7 @@ public class ScriptProcessor {
 				try {
 					text = text.replaceAll("\\{"+key+"\\}", value.toString());
 				} catch (Exception ex)	{
-					Logger.getLogger().log("Error while processing template: "+ex.toString()+" - Current key: "+key, Logger.LEVEL_WARNING);
+//					Logger.getLogger().log("Error while processing template: "+ex.toString()+" - Current key: "+key, Logger.LEVEL_WARNING);
 				}
 			}
 			return text;
