@@ -18,7 +18,6 @@ import javax.servlet.RequestDispatcher;
 
 import org.ice.http.HttpRequest;
 import org.ice.http.HttpResponse;
-import org.ice.logger.Logger;
 
 public class JstlView extends TemplateView {
 
@@ -31,7 +30,7 @@ public class JstlView extends TemplateView {
 		try {
 			rd.include(request, response);
 		} catch (Exception ex) {
-			Logger.getLogger().log("Error while processing template: "+ex.toString(), Logger.LEVEL_WARNING);
+//			Logger.getLogger().log("Error while processing template: "+ex.toString(), Logger.LEVEL_WARNING);
 			response.appendBody("Failed to read template: "+ex.toString());
 		}
 	}

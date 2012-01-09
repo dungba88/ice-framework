@@ -14,10 +14,12 @@
  */
 package org.ice.config.setup;
 
+import java.util.logging.Level;
+
 import org.ice.config.IConfigData;
 import org.ice.config.ConfigSetup;
 import org.ice.db.AdapterFactory;
-import org.ice.logger.Logger;
+import org.ice.utils.LogUtils;
 
 /**
  * Subclass of <code>ConfigSetup</code>, used for setting up 
@@ -52,7 +54,7 @@ public class DatabaseConfigSetup implements ConfigSetup {
 			AdapterFactory.setupAdapter(adapter, host, port, username,
 					password, db);
 		} catch (Exception ex) {
-			Logger.getLogger().log(ex.toString(), Logger.LEVEL_FATAL);
+			LogUtils.log(Level.SEVERE, ex);
 		}
 	}
 

@@ -21,10 +21,11 @@ import java.sql.ResultSetMetaData;
 import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.ArrayList;
+import java.util.logging.Level;
 
 import org.ice.Config;
-import org.ice.logger.Logger;
 import org.ice.utils.FieldUtils;
+import org.ice.utils.LogUtils;
 
 public abstract class AbstractAdapter implements IAdapter {
 
@@ -92,8 +93,8 @@ public abstract class AbstractAdapter implements IAdapter {
 			if (!isAutoCommit()) {
 				lastError = ex;
 				connection.rollback();
-				Logger.getLogger().log("Transaction is being rollback. Error: "
-						+ ex.toString(), Logger.LEVEL_ERROR);
+				LogUtils.log(Level.SEVERE, "Transaction is being rollback. Error: "
+						+ ex.toString());
 			}
 		} finally {
 			if (statement != null)
@@ -131,8 +132,8 @@ public abstract class AbstractAdapter implements IAdapter {
 			if (!isAutoCommit()) {
 				lastError = ex;
 				connection.rollback();
-				Logger.getLogger().log("Transaction is being rollback. Error: "
-						+ ex.toString(), Logger.LEVEL_ERROR);
+				LogUtils.log(Level.SEVERE, "Transaction is being rollback. Error: "
+						+ ex.toString());
 			} else {
 				throw ex;
 			}
@@ -158,7 +159,7 @@ public abstract class AbstractAdapter implements IAdapter {
 				builder.setCharAt(builder.length() - 1, ')');
 			}
 		}
-		Logger.getLogger().log(builder.toString(), Logger.LEVEL_DEBUG);
+		LogUtils.log(Level.INFO, builder.toString());
 	}
 
 	protected Object extendObject(ResultSet rs, Object obj) throws SQLException {
@@ -209,8 +210,7 @@ public abstract class AbstractAdapter implements IAdapter {
 				connection.close();
 			}
 		} catch (Exception ex) {
-			Logger.getLogger().log("Cannot close connection: " + ex.toString(),
-					Logger.LEVEL_WARNING);
+			LogUtils.log(Level.WARNING, "Cannot close connection: " + ex.toString());
 		}
 	}
 
