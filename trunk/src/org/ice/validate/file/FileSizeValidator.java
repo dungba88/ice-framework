@@ -12,7 +12,6 @@ public class FileSizeValidator implements FileValidator {
 		this.max = max;
 	}
 
-	@Override
 	public boolean validate(UploadFile file) {
 		long size = file.getFileItem().getSize();
 		if (min != -1 && size < min) {
