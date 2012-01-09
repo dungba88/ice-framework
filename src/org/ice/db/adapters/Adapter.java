@@ -1,4 +1,4 @@
-package org.ice.db;
+package org.ice.db.adapters;
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;

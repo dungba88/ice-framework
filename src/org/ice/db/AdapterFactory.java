@@ -17,6 +17,8 @@ package org.ice.db;
 import java.sql.Connection;
 import java.sql.DriverManager;
 
+import org.ice.db.adapters.AbstractAdapter;
+import org.ice.db.adapters.IAdapter;
 import org.ice.exception.IceException;
 import org.ice.utils.FieldUtils;
 

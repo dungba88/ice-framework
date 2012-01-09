@@ -12,11 +12,13 @@
  * You should have received a copy of the GNU General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>
  */
-package org.ice.db;
+package org.ice.db.adapters;
 
 import java.sql.ResultSet;
-import java.sql.SQLException;
 import java.util.ArrayList;
+
+import org.ice.db.AdapterFactory;
+import org.ice.db.Viewer;
 
 public class Table {
 
