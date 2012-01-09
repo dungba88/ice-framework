@@ -17,7 +17,7 @@ package org.ice.config.setup;
 import org.ice.config.IConfigData;
 import org.ice.config.ConfigSetup;
 import org.ice.registry.RegistryFactory;
-import org.ice.service.Mail;
+import org.ice.utils.Mail;
 
 /**
  * Subclass of <code>ConfigSetup</code>, used for setting up 
