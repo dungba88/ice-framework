@@ -10,7 +10,6 @@ public class FileExtValidator implements FileValidator {
 		this.ext = ext;
 	}
 
-	@Override
 	public boolean validate(UploadFile file) {
 		String[] exts = ext.split(",");
 		String name = file.getFileItem().getName().toLowerCase();
