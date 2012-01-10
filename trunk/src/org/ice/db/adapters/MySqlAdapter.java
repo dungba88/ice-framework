@@ -32,7 +32,8 @@ import org.ice.utils.LogUtils;
  * driver is <code>com.mysql.jdbc.Driver</code> as provided
  * by Oracle's JDBC driver for MySQL (Connector/J)
  * 
- * @author kimdung.bkit
+ * @author Kimdung Bui
+ * @author dungba
  */
 public class MySqlAdapter extends AbstractAdapter {
 
