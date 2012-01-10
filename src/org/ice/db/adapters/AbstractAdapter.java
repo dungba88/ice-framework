@@ -90,6 +90,14 @@ public abstract class AbstractAdapter implements IAdapter {
 		return statement.executeQuery();
 	}
 
+	/**
+	 * Executes an UPDATE statement in Ice Query Syntax and returns 
+	 * the row count for the statement
+	 * @param query the UPDATE statement
+	 * @param data the data associated with the statement
+	 * @return the row count for the statement
+	 * @throws SQLException
+	 */
 	protected int executeUpdate(String query, Object data) throws SQLException {
 		ParsedQuery parsed = parseQuery(query);
 		if (Config.debugMode)
@@ -125,6 +133,14 @@ public abstract class AbstractAdapter implements IAdapter {
 		return rs;
 	}
 
+	/**
+	 * Executes an INSERT statement in Ice Query Syntax and returns 
+	 * the row count for the statement
+	 * @param query the INSERT statement
+	 * @param data the data associated with the statement
+	 * @return the row count for the statement
+	 * @throws SQLException
+	 */
 	protected int executeInsert(String query, Table data) throws SQLException {
 		ParsedQuery parsed = parseQuery(query);
 		if ((Boolean) Config.get("debugMode"))
@@ -169,6 +185,11 @@ public abstract class AbstractAdapter implements IAdapter {
 		return result;
 	}
 
+	/**
+	 * Debugs a query
+	 * @param parsed the query to be printed
+	 * @param data the data associated with the query
+	 */
 	private void debugSql(ParsedQuery parsed, Object data) {
 		StringBuilder builder = new StringBuilder(parsed.query);
 
@@ -185,6 +206,13 @@ public abstract class AbstractAdapter implements IAdapter {
 		LogUtils.log(Level.INFO, builder.toString());
 	}
 
+	/**
+	 * Extends an object using given <code>ResultSet</code>
+	 * @param rs the result set, containing data used for extending object
+	 * @param obj the object to be extended
+	 * @return the extended object
+	 * @throws SQLException
+	 */
 	protected Object extendObject(ResultSet rs, Object obj) throws SQLException {
 		ResultSetMetaData rsmd = rs.getMetaData();
 		int count = rsmd.getColumnCount();
@@ -198,6 +226,11 @@ public abstract class AbstractAdapter implements IAdapter {
 		return obj;
 	}
 
+	/**
+	 * Parses a query to extract parameters
+	 * @param query the query to be parsed
+	 * @return the parsed query
+	 */
 	protected ParsedQuery parseQuery(String query) {
 		String parsedQuery = "";
 		ArrayList<String> params = new ArrayList<String>();

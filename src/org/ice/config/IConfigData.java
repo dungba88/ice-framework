@@ -24,7 +24,7 @@ package org.ice.config;
 public interface IConfigData {
 
 	/**
-	 * Retrieve a configuration property, with a default 
+	 * Retrieves a configuration property, with a default 
 	 * value
 	 * @param name the property's name
 	 * @param defaultValue the default value
@@ -33,7 +33,7 @@ public interface IConfigData {
 	public String get(String name, String defaultValue);
 
 	/**
-	 * Retrieve a configuration property, without a default
+	 * Retrieves a configuration property, without a default
 	 * value
 	 * @param name
 	 * @return
@@ -41,7 +41,7 @@ public interface IConfigData {
 	public String get(String name);
 
 	/**
-	 * Store a configuration property, with a specified
+	 * Stores a configuration property, with a specified
 	 * name and value
 	 * @param name the property's name
 	 * @param value the property's value

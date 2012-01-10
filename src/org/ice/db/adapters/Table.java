@@ -32,26 +32,54 @@ public class Table {
 		setupAdapter();
 	}
 	
+	/**
+	 * Setups adapter used for database interaction
+	 */
 	protected void setupAdapter()	{
 		adapter = AdapterFactory.getAdapter();
 	}
 	
+	/**
+	 * Gets the primary key
+	 * @return the PK of current table
+	 */
 	public String key() {
 		return key;
 	}
 	
+	/**
+	 * Gets the table name
+	 * @return the table name
+	 */
 	public String table() {
 		return table;
 	}
 	
+	/**
+	 * Gets the last thrown error
+	 * @return the last thrown error
+	 * @see IAdapter#getLastError()
+	 */
 	public Exception getLastError() {
 		return adapter.getLastError();
 	}
 	
+	/**
+	 * Masks the current object, only to disclosure
+	 * a specified set of fields
+	 * @param fields the fields to be visible
+	 * @return the masked object
+	 */
 	public Object view(String fields)	{
 		return new Viewer(this, fields).serialize();
 	}
 	
+	/**
+	 * Masks a list of objects, only to disclosure
+	 * a specified set of fields
+	 * @param fields the fields to be visible
+	 * @return the list containing masked objects
+	 */
 	public ArrayList<Object> view(ArrayList<? extends Table> list, String fields)	{
 		ArrayList<Object> result = new ArrayList<Object>();
 		for(Object obj: list)	{
@@ -60,22 +88,69 @@ public class Table {
 		return result;
 	}
 	
+	/**
+	 * Load a row from database, using primary key
+	 * @return false if the primary key cannot be found
+	 * @throws Exception
+	 */
 	public boolean load() throws Exception	{
 		return adapter.load(this);
 	}
 	
+	/**
+	 * Performs a query in Ice Query Syntax, using current
+	 * object for data bindings
+	 * @param query the query
+	 * @return a list of objects with the same type of current
+	 * 			object
+	 * @throws Exception
+	 */
 	public ArrayList query(String query) throws Exception {
 		return adapter.query(this, query);
 	}
 	
+	/**
+	 * Performs a SELECT query in Ice Query Syntax, using current
+	 * object for data bindings. This method is equivalent
+	 * to <code>select(where, null, null, null, -1, -1)</code>
+	 * @param where the WHERE clause
+	 * @return a list of objects with the same type of current
+	 * 			object
+	 * @throws Exception
+	 */
 	public ArrayList select(String where) throws Exception	{
-		return adapter.select(this, where, null, null, null, -1, -1);
+		return select(where, null, null, null, -1, -1);
 	}
 	
+	/**
+	 * Performs a SELECT query in Ice Query Syntax, using current
+	 * object for data bindings. This method is equivalent
+	 * to <code>select(where, choice, order, group, -1, -1)</code>
+	 * @param where the WHERE clause
+	 * @param choice fields to be included in the query
+	 * @param order the ORDER BY clause
+	 * @param group the GROUP BY clause
+	 * @return a list of objects with the same type of current
+	 * 			object
+	 * @throws Exception
+	 */
 	public ArrayList select(String where, String choice, String order, String group) throws Exception	{
-		return adapter.select(this, where, choice, order, group, -1, -1);
+		return select(where, choice, order, group, -1, -1);
 	}
 	
+	/**
+	 * Performs a SELECT query in Ice Query Syntax, using current
+	 * object for data bindings.
+	 * @param where the WHERE clause
+	 * @param choice fields to be included in the query
+	 * @param order the ORDER BY clause
+	 * @param group the GROUP BY clause
+	 * @param pageIndex the offset in LIMIT clause divided by <code>pageSize</code>
+	 * @param pageSize the number of rows returned
+	 * @return a list of objects with the same type of current
+	 * 			object
+	 * @throws Exception
+	 */
 	public ArrayList select(String where, String choice, String order, String group, int pageIndex, int pageSize) throws Exception	{
 		return adapter.select(this, where, choice, order, group, pageIndex, pageSize);
 	}

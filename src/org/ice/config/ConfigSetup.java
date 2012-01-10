@@ -27,7 +27,7 @@ package org.ice.config;
 public interface ConfigSetup {
 
 	/**
-	 * Setup environment based on configuration meta-data
+	 * Setups environment based on configuration meta-data
 	 * Implementation can use information retrieved from
 	 * <code>data</code> to configure other resources
 	 * E.g: database setup, email setup, etc.

@@ -16,14 +16,14 @@ import org.ice.db.adapters.Table;
 public interface IStatementSelect {
 	
 	/**
-	 * Append SELECT part to the query
+	 * Appends SELECT part to the query
 	 * @param fields the fields to be included
 	 * @return the statement itself
 	 */
 	public IStatementSelect select(String fields);
 	
 	/**
-	 * Append FROM part to the query
+	 * Appends FROM part to the query
 	 * @param tables list of <code>Table</code> objects that
 	 * participates in the query
 	 * @return the statement itself
@@ -31,42 +31,42 @@ public interface IStatementSelect {
 	public IStatementSelect from(Table...tables);
 
 	/**
-	 * Append WHERE part to the query
+	 * Appends WHERE part to the query
 	 * @param where the WHERE clause
 	 * @return the statement itself
 	 */
-	public IStatementSelect where(String where);
+	public IStatementSelect where(String...wheres);
 	
 	/**
-	 * Append LIMIT part to the query
+	 * Appends LIMIT part to the query
 	 * @param limit the LIMIT clause
 	 * @return the statement itself
 	 */
 	public IStatementSelect limit(String limit);
 	
 	/**
-	 * Append ORDER BY part to the query
+	 * Appends ORDER BY part to the query
 	 * @param order the ORDER BY clause
 	 * @return the statement itself
 	 */
 	public IStatementSelect orderBy(String order);
 
 	/**
-	 * Append GROUP BY part to the query
+	 * Appends GROUP BY part to the query
 	 * @param group the GROUP BY clause
 	 * @return the statement itself
 	 */
 	public IStatementSelect groupBy(String group);
 	
 	/**
-	 * Append HAVING part to the query
+	 * Appends HAVING part to the query
 	 * @param having the HAVING clause
 	 * @return the statement itself
 	 */
 	public IStatementSelect having(String having);
 	
 	/**
-	 * Append UNION part to the query
+	 * Appends UNION part to the query
 	 * @param select another SELECT statement to be unioned
 	 * @return the statement itself
 	 */

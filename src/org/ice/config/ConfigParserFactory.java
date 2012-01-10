@@ -25,7 +25,7 @@ package org.ice.config;
 public class ConfigParserFactory {
 
 	/**
-	 * Retrieve the parser object based on its class name.
+	 * Retrieves the parser object based on its class name.
 	 * Note that the produced object is not <code>singleton</code>
 	 * @param parserClassName the class name of the parser
 	 * @return the parser object
