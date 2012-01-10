@@ -36,6 +36,14 @@ public class Table {
 		adapter = AdapterFactory.getAdapter();
 	}
 	
+	public String key() {
+		return key;
+	}
+	
+	public String table() {
+		return table;
+	}
+	
 	public Exception getLastError() {
 		return adapter.getLastError();
 	}
