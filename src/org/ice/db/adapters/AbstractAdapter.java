@@ -103,7 +103,7 @@ public abstract class AbstractAdapter implements IAdapter {
 		return rs;
 	}
 
-	protected boolean executeInsert(String query, Table data) throws SQLException {
+	protected int executeInsert(String query, Table data) throws SQLException {
 		ParsedQuery parsed = parseQuery(query);
 		if ((Boolean) Config.get("debugMode"))
 			debugSql(parsed, data);
@@ -117,11 +117,12 @@ public abstract class AbstractAdapter implements IAdapter {
 		return this.doExecuteInsert(statement, data);
 	}
 
-	protected boolean doExecuteInsert(PreparedStatement statement, Table data) throws SQLException {
+	protected int doExecuteInsert(PreparedStatement statement, Table data) throws SQLException {
 		ResultSet rs = null;
+		int result = -1;
 		try {
 			lastError = null;
-			statement.executeUpdate();
+			result = statement.executeUpdate();
 			if (!isAutoCommit())
 				connection.commit();
 			rs = statement.getGeneratedKeys();
@@ -143,7 +144,7 @@ public abstract class AbstractAdapter implements IAdapter {
 			if (rs != null)
 				rs.close();
 		}
-		return true;
+		return result;
 	}
 
 	private void debugSql(ParsedQuery parsed, Object data) {
@@ -221,6 +222,10 @@ public abstract class AbstractAdapter implements IAdapter {
 	
 	public void addBatch(String sql) throws SQLException {
 		batchStmt.addBatch(sql);
+	}
+	
+	public void clearBatch() throws SQLException {
+		batchStmt.clearBatch();
 	}
 	
 	public void batchUpdate() throws SQLException {
