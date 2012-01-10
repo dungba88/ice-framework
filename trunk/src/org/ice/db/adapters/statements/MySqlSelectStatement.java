@@ -26,7 +26,7 @@ public class MySqlSelectStatement implements IStatementSelect {
 	}
 
 	public IStatementSelect from(Table... tables) {
-		String from = "";
+		from = "";
 		for(Table table: tables) {
 			from += "`"+table.table()+"`,";
 		}
@@ -37,7 +37,13 @@ public class MySqlSelectStatement implements IStatementSelect {
 		return this;
 	}
 
-	public IStatementSelect where(String where) {
+	public IStatementSelect where(String...wheres) {
+		where = "";
+		for(int i=0;i<wheres.length;i++) {
+			if (i < wheres.length-2) {
+				where += "( "+wheres[i]+" ) AND ";
+			}
+		}
 		where = "WHERE "+where;
 		return this;
 	}

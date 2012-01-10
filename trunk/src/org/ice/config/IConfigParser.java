@@ -28,7 +28,7 @@ import javax.servlet.ServletContext;
 public interface IConfigParser {
 
 	/**
-	 * Parse a source object and store the result in the output
+	 * Parses a source object and store the result in the output
 	 * @param sc used for accessing the servlet's context 
 	 * @param source the source object
 	 * @param output the output used for storing parsed information
