@@ -20,6 +20,8 @@ import java.util.ArrayList;
 import java.util.logging.Level;
 
 import org.ice.Config;
+import org.ice.db.adapters.statements.IStatementSelect;
+import org.ice.db.adapters.statements.MySqlSelectStatement;
 import org.ice.utils.FieldUtils;
 import org.ice.utils.LogUtils;
 
@@ -254,5 +256,9 @@ public class MySqlAdapter extends AbstractAdapter {
 		}
 		rs.close();
 		return list;
+	}
+
+	public IStatementSelect getSelectStatement() {
+		return new MySqlSelectStatement();
 	}
 }

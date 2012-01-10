@@ -19,6 +19,7 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 
 import org.ice.config.setup.DatabaseConfigSetup;
+import org.ice.db.adapters.statements.IStatementSelect;
 
 
 /**
@@ -214,4 +215,10 @@ public interface IAdapter {
 	 */
 	public void batchUpdate() throws SQLException;
 
+	/**
+	 * Get a <code>IAdapterSelect</code> object used for
+	 * constructing complex SELECT statements
+	 * @return the <code>IAdapterSelect</code> object
+	 */
+	public IStatementSelect getSelectStatement();
 }
