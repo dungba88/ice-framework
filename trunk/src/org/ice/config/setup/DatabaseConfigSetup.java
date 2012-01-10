@@ -19,6 +19,7 @@ import java.util.logging.Level;
 import org.ice.config.IConfigData;
 import org.ice.config.ConfigSetup;
 import org.ice.db.AdapterFactory;
+import org.ice.db.adapters.IAdapter;
 import org.ice.utils.LogUtils;
 
 /**
@@ -35,10 +36,17 @@ import org.ice.utils.LogUtils;
  * username, must have appropriate access
  * - <code>ice.db.password</code>: The password of the
  * user, leave blank if the user does not have a password
+ * - <code>ice.db.adapter</code>: The adapter used for accessing 
+ * the JDBC layer. The adapter is dependent from the driver
+ * - <code>ice.db.driver</code>: The JDBC driver used. If
+ * leave blank, Ice framework will use the default value 
+ * specified by the adapter by calling the <code>getDriverName</code>
+ * method
  * 
  * @author dungba
  * @see ConfigSetup
  * @see AdapterFactory
+ * @see IAdapter#getDriverName()
  */
 public class DatabaseConfigSetup implements ConfigSetup {
 
@@ -50,8 +58,9 @@ public class DatabaseConfigSetup implements ConfigSetup {
 		String username = data.get("ice.db.username");
 		String password = data.get("ice.db.password");
 		String adapter = data.get("ice.db.adapter");
+		String driver = data.get("ice.db.driver");
 		try {
-			AdapterFactory.setupAdapter(adapter, host, port, username,
+			AdapterFactory.setupAdapter(adapter, driver, host, port, username,
 					password, db);
 		} catch (Exception ex) {
 			LogUtils.log(Level.SEVERE, ex);

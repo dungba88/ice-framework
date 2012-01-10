@@ -102,7 +102,7 @@ public class MySqlAdapter extends AbstractAdapter {
 		return list;
 	}
 	
-	public boolean insert(Table obj, String fields) throws Exception{
+	public int insert(Table obj, String fields) throws Exception{
         String f = "(";
         String v = "( ";
         String[] option = fields.split(",");

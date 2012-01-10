@@ -18,6 +18,8 @@ import java.sql.Connection;
 import java.sql.SQLException;
 import java.util.ArrayList;
 
+import org.ice.config.setup.DatabaseConfigSetup;
+
 
 /**
  * An interface for all database adapters. It is a <i>high
@@ -31,53 +33,185 @@ import java.util.ArrayList;
  * If at any point, developers want to access the underlying
  * database's connection (e.g: to make use of a specific feature
  * that is included in their databases' vendors only), they
- * can use the <code>getConnection</code> method
+ * can use the <code>getConnection</code> method.
+ * Currently, the adapter is <code>singleton</code>
  * 
  * @author dungba
  */
 public interface IAdapter {
 	
+	/**
+	 * Get the last thrown error/exception
+	 * @return The last error/exception thrown in
+	 * the adapter's code
+	 */
 	public Exception getLastError();
 
+	/**
+	 * Get the current connection to the database.
+	 * The connection is bound to the adapter, so that
+	 * it will also be <code>singleton</code>
+	 * @return the current connection.
+	 */
 	public Connection getConnection();
 
+	/**
+	 * Change the connection. This method should be
+	 * invoked by the framework only.
+	 * @param connection the new connection to the database
+	 */
 	public void setConnection(Connection connection);
 
+	/**
+	 * Change the auto-commit mode, which in turn enables 
+	 * or disables the automatic roll-back.
+	 * If set to <code>false</code>, whenever a transaction
+	 * causes an exception, it will be automatically rolled
+	 * back 
+	 * @param autoCommit
+	 */
 	public void setAutoCommit(boolean autoCommit);
 
+	/**
+	 * Get the current auto-commit flag
+	 * @return the current auto-commit flag
+	 * @see IAdapter#setAutoCommit(boolean)
+	 */
 	public boolean isAutoCommit();
 
-	public  String getDriverName();
+	/**
+	 * Get the default driver's class name, e.g: <code>com.mysql.jdbc.Driver</code>
+	 * This value will be used if none specified by the application
+	 * @return the database default driver's class name
+	 * @see DatabaseConfigSetup
+	 */
+	public String getDriverName();
+	
+	/**
+	 * Construct the database connection string, which is typically
+	 * driver-specific, using provided information. 
+	 * E.g: <code>jdbc:mysql://localhost/mydb?characterEncoding=UTF8</code>
+	 * @param host the database server's host. Required
+	 * @param port the database server's port. Optional
+	 * @param dbName the database name
+	 * @return the connection string, which is then used
+	 * for establishing connection to the database
+	 */
+	public String getConnectionString(String host, String port,
+			String dbName);
 
-	public  boolean load(Table obj) throws Exception;
+	/**
+	 * Load a row from the database using primary key
+	 * and map the result to the desired object.
+	 * @param obj the object to be loaded
+	 * @return false if there is no row containing the
+	 * specified primary key
+	 * @throws Exception if any SQLException is thrown
+	 */
+	public boolean load(Table obj) throws Exception;
 
-	public  ArrayList query(Table obj, String query) throws Exception;
+	/**
+	 * Perform a query to database using Ice Query Syntax
+	 * against a <code>Table</code> object
+	 * @param obj the object used for evaluating the query
+	 * @param query the query in Ice Query Syntax
+	 * @return an <code>ArrayList</code> of objects with
+	 * the same type of <code>obj</code>
+	 * @throws Exception if any SQLException is thrown
+	 */
+	public ArrayList query(Table obj, String query) throws Exception;
 
-	public  ArrayList select(Table obj, String where, String choice,
+	/**
+	 * Perform a SELECT query to database using Ice Query
+	 * Syntax
+	 * @param obj the object used for evaluating the query
+	 * @param where the WHERE clause
+	 * @param choice fields to be included in final result
+	 * @param order the ORDER BY clause
+	 * @param group the GROUP BY clause
+	 * @param pageIndex the offset in the LIMIT clause divided
+	 * by <code>pageSize</code>
+	 * @param pageSize the number of returned rows
+	 * @return an <code>ArrayList</code> of objects with
+	 * the same type of <code>obj</code>
+	 * @throws Exception if any SQLException is thrown
+	 */
+	public ArrayList select(Table obj, String where, String choice,
 			String order, String group, int pageIndex, int pageSize)
 			throws Exception;
 
-	public  int update(Table obj, String fields, String where)
+	/**
+	 * Perform an UPDATE query to database using Ice Query
+	 * Syntax
+	 * @param obj the object used for evaluating the query
+	 * @param fields the fields to be updated
+	 * @param where the WHERE clause
+	 * @return the row count for the UPDATE statement or -1
+	 * in case of failure
+	 * @throws Exception if any SQLException is thrown
+	 */
+	public int update(Table obj, String fields, String where)
 			throws Exception;
 
-	public  boolean insert(Table obj, String fields) throws Exception;
+	/**
+	 * Perform an INSERT query to database using Ice Query
+	 * Syntax
+	 * @param obj the object used for evaluating the query
+	 * @param fields the fields to be included in the query
+	 * @return the row count for the INSERT statement or -1
+	 * in case of failure
+	 * @throws Exception if any SQLException is thrown
+	 */
+	public int insert(Table obj, String fields) throws Exception;
 
-	public  int delete(Table obj, String where) throws Exception;
+	/**
+	 * Perform a DELETE query to database using Ice Query
+	 * Syntax
+	 * @param obj the object used for evaluating the query
+	 * @param where the WHERE statement
+	 * @return the row count for the DELETE statement or -1
+	 * in case of failure
+	 * @throws Exception if any SQLException is thrown
+	 */
+	public int delete(Table obj, String where) throws Exception;
 
-	public  ArrayList selectJoin(Table primaryObj, Table foreignObj,
+	public ArrayList selectJoin(Table primaryObj, Table foreignObj,
 			String foreignKey, String where, String primaryChoice,
 			String foreignChoice, String order, String group, int pageIndex,
 			int pageSize, Class<? extends Table> returnClass) throws Exception;
 
-	public  String getConnectionString(String host, String port,
-			String dbName);
-
+	/**
+	 * Close the current connection to the database
+	 * To retrieve a connection again, you must use
+	 * <code>AdapterFactory.setupAdapter()</code>
+	 */
 	public void close();
 
+	/**
+	 * Start a batch process, used for efficiently performing
+	 * multiple queries
+	 * @throws SQLException
+	 */
 	public void startBatch() throws SQLException;
 	
+	/**
+	 * Add a raw query to the current batch. The query
+	 * will not be pre-processed by Ice
+	 * @param sql the raw query to be added
+	 * @throws SQLException
+	 */
 	public void addBatch(String sql) throws SQLException;
 	
+	/**
+	 * Clear the current batch
+	 * @throws SQLException
+	 */
+	public void clearBatch() throws SQLException;
+	
+	/**
+	 * Execute the batch
+	 * @throws SQLException
+	 */
 	public void batchUpdate() throws SQLException;
 
 }

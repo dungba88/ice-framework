@@ -80,7 +80,7 @@ public class Table {
 		return adapter.update(this, fields, where);
 	}
 	
-	public boolean insert(String fields) throws Exception {
+	public int insert(String fields) throws Exception {
 		return adapter.insert(this, fields);
 	}
 	
@@ -108,7 +108,7 @@ public class Table {
 		throw new UnsupportedOperationException();
 	}
 	
-	public boolean insertQuery(String query, boolean raw) throws Exception {
+	public int insertQuery(String query, boolean raw) throws Exception {
 		if (adapter instanceof AbstractAdapter) {
 			if (raw)
 				return ((AbstractAdapter) adapter).doExecuteInsert(adapter.getConnection().prepareStatement(query), this);
