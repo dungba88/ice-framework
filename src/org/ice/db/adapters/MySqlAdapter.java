@@ -25,6 +25,15 @@ import org.ice.db.adapters.statements.MySqlSelectStatement;
 import org.ice.utils.FieldUtils;
 import org.ice.utils.LogUtils;
 
+/**
+ * Default MySQL adapter shipped with Ice framework.
+ * It provides the required functionalities and a
+ * <code>IStatementSelect</code> implementation. The default
+ * driver is <code>com.mysql.jdbc.Driver</code> as provided
+ * by Oracle's JDBC driver for MySQL (Connector/J)
+ * 
+ * @author kimdung.bkit
+ */
 public class MySqlAdapter extends AbstractAdapter {
 
 	public String getDriverName() {
