@@ -2,6 +2,12 @@ package org.ice.db.adapters.statements;
 
 import org.ice.db.adapters.Table;
 
+/**
+ * Default MySQL SELECT statement builder, shipped along with
+ * the default MySQL adapter
+ * 
+ * @author dungba
+ */
 public class MySqlSelectStatement implements IStatementSelect {
 
 	private String query;
